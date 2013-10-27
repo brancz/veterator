@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
     :confirmable, :lockable, :timeoutable,
     :authentication_keys => [:login]
 
+  has_many :sensors
+
   validates :username,
     :uniqueness => {
       :case_sensitive => true

@@ -6,12 +6,29 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-temperature = Type.create({name: 'Temperature'})
+case Rails.env
+  when 'development'
 
-celsius = Unit.new({name: 'Celsius', symbol: '°C'})
-celsius.type = temperature
-celsius.save
+    user = User.new({username: 'test', email: 'test@example.com', password: 'test', password_confirmation: 'test'})
+    user.confirmation_sent_at = Time.now
+    user.skip_confirmation!
+    user.save!(:validate => false)
 
-fahrenheit = Unit.new({name: 'Fahrenheit', symbol: '°F'})
-fahrenheit.type = temperature
-fahrenheit.save
+    temperature = Type.create({name: 'Temperature'})
+
+    celsius = Unit.new({name: 'Celsius', symbol: '°C'})
+    celsius.type = temperature
+    celsius.save
+
+    fahrenheit = Unit.new({name: 'Fahrenheit', symbol: '°F'})
+    fahrenheit.type = temperature
+    fahrenheit.save
+
+    server = Sensor.new({name: 'Server'})
+    server.unit = celsius
+    server.user = user
+    server.save
+
+  when 'production'
+
+end

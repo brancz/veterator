@@ -1,5 +1,7 @@
 OShome::Application.routes.draw do
-  resources :sensors
+  resources :sensors do
+    resources :records
+  end
 
   resources :units
 
