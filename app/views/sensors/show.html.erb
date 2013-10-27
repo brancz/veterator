@@ -7,7 +7,7 @@
 
 <p>
   <strong>Unit:</strong>
-  <%= Unit.find(@sensor.unit_id).name %>
+  <%= @sensor.unit.name %>
 </p>
 
 <%= link_to 'Edit', edit_sensor_path(@sensor) %> |

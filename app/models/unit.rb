@@ -1,5 +1,5 @@
 class Unit < ActiveRecord::Base
-  has_many :users
+  belongs_to :type
 
   validates :name,
     presence: true,

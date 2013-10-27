@@ -5,3 +5,13 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+temperature = Type.create({name: 'Temperature'})
+
+celsius = Unit.new({name: 'Celsius', symbol: '°C'})
+celsius.type = temperature
+celsius.save
+
+fahrenheit = Unit.new({name: 'Fahrenheit', symbol: '°F'})
+fahrenheit.type = temperature
+fahrenheit.save
