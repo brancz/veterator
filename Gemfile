@@ -46,3 +46,6 @@ end
 
 # Devise for authentication
 gem 'devise'
+
+# CanCan for permission management
+gem 'cancan'
