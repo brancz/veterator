@@ -12,7 +12,7 @@
 
 <p>
   <strong>Type:</strong>
-  <%= @unit.type.name %>
+  <%= link_to @unit.type.name, @unit.type %>
 </p>
 
 <%= link_to 'Edit', edit_unit_path(@unit) %> |
