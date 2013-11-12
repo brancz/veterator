@@ -15,6 +15,13 @@ class User < ActiveRecord::Base
 
   attr_accessor :login
 
+	def generate_new_token!
+		new_token = SecureRandom.hex
+		self.token = Digest::SHA1::hexdigest(new_token)
+		self.token_valid_until = 2.weeks.from_now
+		new_token
+	end
+
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup
     if login = conditions.delete(:login)
@@ -22,6 +29,6 @@ class User < ActiveRecord::Base
     else
       where(conditions).first
     end
-  end 
+  end
 
 end

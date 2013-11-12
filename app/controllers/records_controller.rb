@@ -5,7 +5,8 @@ class RecordsController < ApplicationController
   # GET /records
   # GET /records.json
   def index
-    @records = Record.all
+    @sensor = Sensor.find(params[:sensor_id])
+    @records = Record.where(sensor: @sensor)
   end
 
   # GET /records/1
