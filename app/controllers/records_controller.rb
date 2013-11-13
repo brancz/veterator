@@ -5,8 +5,15 @@ class RecordsController < ApplicationController
   # GET /records
   # GET /records.json
   def index
-    @sensor = Sensor.find(params[:sensor_id])
-    @records = Record.where(sensor: @sensor)
+		@sensor = Sensor.find(params[:sensor_id])
+		puts params
+		if !params[:from].blank? && !params[:to].blank?
+			@from = DateTime.strptime(params[:from].to_s, '%s')
+			@to = DateTime.strptime(params[:to].to_s, '%s')
+			@records = Record.where(sensor: @sensor, created_at: @from..@to)
+		else
+			@records = Record.where(sensor: @sensor)
+		end
   end
 
   # GET /records/1
@@ -75,6 +82,6 @@ class RecordsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def record_params
-      params.require(:record).permit(:value)
+      params.require(:record).permit(:value, :from, :to)
     end
 end
