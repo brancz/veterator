@@ -6,11 +6,17 @@ class RecordsController < ApplicationController
   # GET /records.json
   def index
 		@sensor = Sensor.find(params[:sensor_id])
+		@from = Time.now.to_i
+		@to = Time.now.to_i
 		puts params
 		if !params[:from].blank? && !params[:to].blank?
-			@from = DateTime.strptime(params[:from].to_s, '%s')
-			@to = DateTime.strptime(params[:to].to_s, '%s')
+			@from = Time.at params[:from].to_i
+			@to = Time.at params[:to].to_i
+			puts @from
+			puts @to
 			@records = Record.where(sensor: @sensor, created_at: @from..@to)
+			@from = @from.to_i
+			@to = @to.to_i
 		else
 			@records = Record.where(sensor: @sensor)
 		end
