@@ -49,3 +49,7 @@ gem 'devise'
 
 # CanCan for permission management
 gem 'cancan'
+
+# Foundation Zurb
+gem "compass-rails", "~> 2.0.alpha.0"
+gem 'zurb-foundation'
