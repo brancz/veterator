@@ -1,8 +1,8 @@
 <h1>Listing records</h1>
 
 <%= form_tag sensor_records_path(@sensor), :id => 'date_form', :method => :get do %>
-	<%= datetime_field_tag 'from', @from.to_s %>
-	<%= datetime_field_tag 'to', @to.to_s %>
+	From<%= datetime_field_tag 'from', @from.to_s %>
+	To<%= datetime_field_tag 'to', @to.to_s %>
 	<%= submit_tag 'Filter', id: 'date_submit' %>
 <% end %>
 
@@ -11,6 +11,7 @@
 	<tr>
 		<th>Value</th>
 		<th>Sensor</th>
+		<th>Time</th>
 		<th></th>
 		<th></th>
 		<th></th>
@@ -22,6 +23,7 @@
       <tr>
         <td><%= record.value %></td>
         <td><%= record.sensor.name %></td>
+				<td><%= record.created_at %></td>
         <td><%= link_to 'Show', sensor_record_path(record.sensor, record) %></td>
         <td><%= link_to 'Edit', edit_sensor_record_path(record.sensor, record) %></td>
         <td><%= link_to 'Destroy', sensor_record_path(record.sensor, record), method: :delete, data: { confirm: 'Are you sure?' } %></td>
