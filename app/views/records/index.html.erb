@@ -1,8 +1,8 @@
 <h1>Listing records</h1>
 
 <%= form_tag sensor_records_path(@sensor), :id => 'date_form', :method => :get do %>
-	From<%= datetime_field_tag 'from', @from.to_s %>
-	To<%= datetime_field_tag 'to', @to.to_s %>
+	From<%= select_datetime @from, prefix: :from %>
+	To<%= select_datetime @to, prefix: :to %>
 	<%= submit_tag 'Filter', id: 'date_submit' %>
 <% end %>
 

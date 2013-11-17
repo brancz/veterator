@@ -1,25 +1,22 @@
 class RecordsController < ApplicationController
   before_action :set_record, only: [:show, :edit, :update, :destroy]
+	before_action :set_sensor, only: [:index, :new, :create, :update, :destroy]
   before_filter :authenticate_user!
 
   # GET /records
   # GET /records.json
   def index
-		@sensor = Sensor.find(params[:sensor_id])
-		@from = Time.now.to_i
-		@to = Time.now.to_i
-		puts params
 		if !params[:from].blank? && !params[:to].blank?
-			@from = Time.at params[:from].to_i
-			@to = Time.at params[:to].to_i
-			puts @from
-			puts @to
+			@from = time_from_params from_params
+			@to = time_from_params to_params
 			@records = Record.where(sensor: @sensor, created_at: @from..@to)
-			@from = @from.to_i
-			@to = @to.to_i
 		else
 			@records = Record.where(sensor: @sensor)
 		end
+		@from ||= Time.now
+		@to ||= Time.now
+		puts @from
+		puts @to
   end
 
   # GET /records/1
@@ -29,7 +26,6 @@ class RecordsController < ApplicationController
 
   # GET /records/new
   def new
-    @sensor = Sensor.find(params[:sensor_id])
     @record = Record.new
   end
 
@@ -40,7 +36,6 @@ class RecordsController < ApplicationController
   # POST /records
   # POST /records.json
   def create
-    @sensor = Sensor.find(params[:sensor_id])
     @record = Record.new(record_params)
     @record.sensor = @sensor
 
@@ -83,11 +78,26 @@ class RecordsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_record
       @record = Record.find(params[:id])
-      @sensor = Sensor.find(params[:sensor_id])
     end
+
+		def set_sensor
+      @sensor = Sensor.find(params[:sensor_id])
+		end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def record_params
-      params.require(:record).permit(:value, :from, :to)
+      params.require(:record).permit(:value)
     end
+
+		def from_params
+			params.require(:from).permit(:year, :month, :day, :hour, :minute)
+		end
+
+		def to_params
+			params.require(:to).permit(:year, :month, :day, :hour, :minute)
+		end
+
+		def time_from_params(params)
+			Time.new(params[:year], params[:month], params[:day], params[:hour], params[:minute], 0)
+		end
 end
