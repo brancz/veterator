@@ -13,6 +13,9 @@
 //= require jquery
 //= require jquery_ujs
 //= require foundation
+//= require angular
+//= require_tree ./angular
+//= require d3
 //= require turbolinks
 //= require_tree .
 
