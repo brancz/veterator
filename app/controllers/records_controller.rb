@@ -1,6 +1,6 @@
 class RecordsController < ApplicationController
   before_action :set_record, only: [:show, :edit, :update, :destroy]
-	before_action :set_sensor, only: [:index, :new, :create, :update, :destroy]
+	before_action :set_sensor, only: [:index, :edit, :new, :create, :update, :destroy]
   before_filter :authenticate_user!
 
   # GET /records
