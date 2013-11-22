@@ -29,6 +29,15 @@ case Rails.env
     server.user = user
     server.save
 
+		t = Time.now
+		Record.create({value: 1.0, sensor: server, created_at: t + 1.minute})
+		Record.create({value: 1.5, sensor: server, created_at: t + 2.minute})
+		Record.create({value: 2.0, sensor: server, created_at: t + 3.minute})
+		Record.create({value: 1.8, sensor: server, created_at: t + 4.minute})
+		Record.create({value: 1.3, sensor: server, created_at: t + 5.minute})
+		Record.create({value: 1.4, sensor: server, created_at: t + 6.minute})
+		Record.create({value: 1.9, sensor: server, created_at: t + 7.minute})
+
   when 'production'
 
 end
