@@ -52,10 +52,14 @@ gem 'cancan'
 
 # Foundation Zurb
 gem 'compass-rails', '~> 2.0.alpha.0'
-gem 'zurb-foundation'
+gem 'foundation-rails'
 
 # AngularJS
 gem 'angularjs-rails'
 
 # d3js
 gem 'd3js-rails'
+
+# HAML
+gem 'haml-rails'
+gem 'erb2haml'

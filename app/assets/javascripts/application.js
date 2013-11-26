@@ -18,5 +18,4 @@
 //= require d3
 //= require turbolinks
 //= require_tree .
-
-$(document).foundation();
+$(function(){ $(document).foundation(); });

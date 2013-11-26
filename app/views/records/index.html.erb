@@ -1,6 +1,6 @@
 <h1>Listing records</h1>
 
-<div id="graph" class="aGraph" style="position:absolute;top:0px;left:0; float:left;"></div>
+<div id="graph" class="aGraph"></div>
 
 <script>
 
@@ -37,7 +37,7 @@ var area2 = d3.svg.area()
     .y0(height2)
     .y1(function(d) { return y2(d.value); });
 
-var svg = d3.select("body").append("svg")
+var svg = d3.select("div#graph").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom);
 
