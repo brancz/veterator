@@ -105,8 +105,8 @@ function brushed() {
 </script>
 
 <%= form_tag sensor_records_path(@sensor), :id => 'date_form', :method => :get do %>
-	From<%= select_datetime @from, prefix: :from %>
-	To<%= select_datetime @to, prefix: :to %>
+	From<%= select_date @from, prefix: :from %>
+	To<%= select_date @to, prefix: :to %>
 	<%= submit_tag 'Filter', id: 'date_submit' %>
 <% end %>
 

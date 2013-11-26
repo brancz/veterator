@@ -90,14 +90,14 @@ class RecordsController < ApplicationController
     end
 
 		def from_params
-			params.require(:from).permit(:year, :month, :day, :hour, :minute)
+			params.require(:from).permit(:year, :month, :day)
 		end
 
 		def to_params
-			params.require(:to).permit(:year, :month, :day, :hour, :minute)
+			params.require(:to).permit(:year, :month, :day)
 		end
 
 		def time_from_params(params)
-			Time.new(params[:year], params[:month], params[:day], params[:hour], params[:minute], 0)
+			Time.new(params[:year], params[:month], params[:day], 0)
 		end
 end
