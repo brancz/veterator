@@ -6,18 +6,14 @@
     %th Valid until
     %th User
     %th
-    %th
-    %th
 
   - @authentication_tokens.each do |authentication_token|
     %tr
       %td= authentication_token.token
       %td= authentication_token.valid_until
-      %td= authentication_token.user_id
-      %td= link_to 'Show', authentication_token
-      %td= link_to 'Edit', edit_authentication_token_path(authentication_token)
+      %td= authentication_token.user.username
       %td= link_to 'Destroy', authentication_token, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 %br
 
-= link_to 'New Authentication token', new_authentication_token_path
+= link_to 'New Authentication token', authentication_tokens_path, method: :post
