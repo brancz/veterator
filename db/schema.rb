@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131027155608) do
+ActiveRecord::Schema.define(version: 20131127110130) do
+
+  create_table "authentication_tokens", force: true do |t|
+    t.string   "token"
+    t.datetime "valid_until"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "authentication_tokens", ["token"], name: "index_authentication_tokens_on_token"
 
   create_table "records", force: true do |t|
     t.decimal  "value"

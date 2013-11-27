@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
     :authentication_keys => [:login]
 
   has_many :sensors
+  has_many :authentication_tokens
 
   validates :username,
     :uniqueness => {
