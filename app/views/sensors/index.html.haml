@@ -1,0 +1,19 @@
+%h1 Listing sensors
+%table
+  %thead
+    %tr
+      %th Name
+      %th Unit
+      %th
+      %th
+      %th
+  %tbody
+    - @sensors.each do |sensor|
+      %tr
+        %td= link_to sensor.name, sensor
+        %td= sensor.unit.name
+        %td= link_to 'Show Records for this sensor', sensor_records_path(sensor)
+        %td= link_to 'Edit', edit_sensor_path(sensor)
+        %td= link_to 'Destroy', sensor, method: :delete, data: { confirm: 'Are you sure?' }
+%br/
+= link_to 'New Sensor', new_sensor_path
