@@ -1,5 +1,5 @@
 OShome::Application.routes.draw do
-  resources :authentication_tokens
+  resources :authentication_tokens, path: 'users/authentication_tokens'
 
   resources :sensors do
     resources :records
