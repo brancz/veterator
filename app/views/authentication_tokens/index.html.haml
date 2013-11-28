@@ -1,4 +1,6 @@
-%h1 Listing authentication_tokens
+%div.clearfix.panel
+  %h1.left Your Access Tokens
+  = link_to ' New Token', authentication_tokens_path, method: :post, class: 'fi-page-add button right'
 
 %table
   %tr
@@ -12,8 +14,6 @@
       %td= authentication_token.token
       %td= authentication_token.valid_until
       %td= authentication_token.user.username
-      %td= link_to 'Destroy', authentication_token, :method => :delete, :data => { :confirm => 'Are you sure?' }
+      %td= link_to ' Delete', authentication_token, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: 'fi-page-delete'
 
 %br
-
-= link_to 'New Authentication token', authentication_tokens_path, method: :post
