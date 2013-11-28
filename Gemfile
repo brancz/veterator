@@ -63,3 +63,5 @@ gem 'd3js-rails'
 # HAML
 gem 'haml-rails'
 gem 'erb2haml'
+
+gem 'railroady', group: [:development]
