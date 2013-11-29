@@ -1,20 +1,25 @@
 %div.clearfix.panel
-  %h1.left Your Sensors
-  = link_to ' New Sensor', new_sensor_path, class: 'button fi-page-add right'
-%table
-  %thead
-    %tr
-      %th Name
-      %th Unit
-      %th
-      %th
-      %th
-  %tbody
-    - @sensors.each do |sensor|
-      %tr
-        %td= link_to sensor.name, sensor
-        %td= sensor.unit.name
-        %td= link_to '', sensor_records_path(sensor), class: 'fi-graph-trend'
-        %td= link_to ' Edit', edit_sensor_path(sensor), class: 'fi-page-edit'
-        %td= link_to ' Delete', sensor, method: :delete, data: { confirm: 'Are you sure?' }, class: 'fi-page-delete'
+  %div.row
+    %div.large-9.columns
+      %h1 Your Sensors
+    %div.large-3.columns
+      = link_to ' New Sensor', new_sensor_path, class: 'button fi-page-add'
+%div.row
+  %div.large-12.columns
+    %table
+      %thead
+        %tr
+          %th Name
+          %th Unit
+          %th
+          %th
+          %th
+      %tbody
+        - @sensors.each do |sensor|
+          %tr
+            %td= link_to sensor.name, sensor
+            %td= sensor.unit.name
+            %td= link_to '', sensor_records_path(sensor), class: 'fi-graph-trend'
+            %td= link_to ' Edit', edit_sensor_path(sensor), class: 'fi-page-edit'
+            %td= link_to ' Delete', sensor, method: :delete, data: { confirm: 'Are you sure?' }, class: 'fi-page-delete'
 %br/
