@@ -30,5 +30,5 @@
               = link_to 'Logout', destroy_user_session_path, :method => :delete
             - else
               = link_to 'Login', new_user_session_path
-    = yield
+    = content_for?(:content) ? yield(:content) : yield 
     = javascript_include_tag "application"
