@@ -15,10 +15,16 @@
  */
 @import "foundation_and_overrides";
 
+html, body { height: 100%; }
+
 .main-panel {
 	margin-top: 20px !important;
 }
 
 .or-divide {
 	margin-top: 15px;
+}
+
+.full-width {
+	width: 100%;
 }
