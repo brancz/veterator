@@ -1,9 +1,10 @@
 %div.clearfix.panel
   %div.row
-    %div.large-9.columns
+    %div.medium-9.columns
       %h1 Your Sensors
-    %div.large-3.columns
-      = link_to ' New Sensor', new_sensor_path, class: 'button fi-page-add right'
+    %div.medium-3.columns
+      = link_to ' New Sensor', new_sensor_path, class: 'button fi-page-add right show-for-medium-up'
+      = link_to ' New Sensor', new_sensor_path, class: 'button fi-page-add show-for-small-only'
 %div.row
   %div.large-12.columns
     %table
