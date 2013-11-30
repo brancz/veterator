@@ -1,9 +1,10 @@
 %div.clearfix.panel
   %div.row
-    %div.large-9.columns
+    %div.medium-9.columns
       %h1 Your Access Tokens
-    %div.large-3.columns
-      = link_to ' New Token', authentication_tokens_path, method: :post, class: 'fi-page-add button'
+    %div.medium-3.columns
+      = link_to ' New Token', authentication_tokens_path, method: :post, class: 'fi-page-add button right show-for-medium-up'
+      = link_to ' New Token', authentication_tokens_path, method: :post, class: 'fi-page-add button show-for-small-only'
 %div.row
   %div.large-12.columns
     %table
