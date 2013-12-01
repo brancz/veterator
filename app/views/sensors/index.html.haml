@@ -1,26 +1,39 @@
 %div.clearfix.panel
   %div.row
     %div.medium-9.columns
-      %h1 Your Sensors
+      %h1.text-center.show-for-small-only Your Sensors
+      %h1.show-for-medium-up Your Sensors
     %div.medium-3.columns
-      = link_to ' New Sensor', new_sensor_path, class: 'button fi-page-add right show-for-medium-up'
-      = link_to ' New Sensor', new_sensor_path, class: 'button fi-page-add show-for-small-only'
-%div.row
-  %div.large-12.columns
-    %table
-      %thead
-        %tr
-          %th Name
-          %th Unit
-          %th
-          %th
-          %th
-      %tbody
-        - @sensors.each do |sensor|
-          %tr
-            %td= link_to sensor.name, sensor
-            %td= sensor.unit.name
-            %td= link_to '', sensor_records_path(sensor), class: 'fi-graph-trend'
-            %td= link_to ' Edit', edit_sensor_path(sensor), class: 'fi-page-edit'
-            %td= link_to ' Delete', sensor, method: :delete, data: { confirm: 'Are you sure?' }, class: 'fi-page-delete'
-%br/
+      = link_to ' New Sensor', new_sensor_path, class: 'button fi-plus right show-for-medium-up'
+      = link_to ' New Sensor', new_sensor_path, class: 'button fi-plus show-for-small-only'
+- @sensors.each do |sensor|
+  .row
+    .panel.medium-6.small-12.columns
+      %h3
+        = link_to sensor.name, sensor
+        = "(#{sensor.unit.name})"
+        = link_to '', sensor, method: :delete, data: { confirm: 'Are you sure?' }, class: 'fi-x right'
+        = link_to '', edit_sensor_path(sensor), class: 'fi-pencil right'
+      = link_to sensor_records_path(sensor) do
+        .chart-preview
+          %h3.text-center Le Preview
+      %h5 Last 24 Hours
+      %ul.inline-list
+        %li
+          Min:
+          = 0
+        %li
+          Max:
+          = 0
+        %li
+          Q1:
+          = 0
+        %li
+          Q2:
+          = 0
+        %li
+          Q3:
+          = 0
+        %li
+          IQR:
+          = 0

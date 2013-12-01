@@ -4,8 +4,8 @@
       %h1.text-center.show-for-small-only Your Access Tokens
       %h1.show-for-medium-up Your Access Tokens
     %div.medium-3.columns
-      = link_to ' New Token', authentication_tokens_path, method: :post, class: 'fi-page-add button right show-for-medium-up'
-      = link_to ' New Token', authentication_tokens_path, method: :post, class: 'fi-page-add button show-for-small-only'
+      = link_to ' New Token', authentication_tokens_path, method: :post, class: 'fi-plus button right show-for-medium-up'
+      = link_to ' New Token', authentication_tokens_path, method: :post, class: 'fi-plus button show-for-small-only'
 %div.row
   %div.large-12.columns
     %table.full-width
@@ -20,5 +20,5 @@
           %td.text-center= authentication_token.token
           %td.text-center= authentication_token.valid_until
           %td.text-center= authentication_token.user.username
-          %td.text-center= link_to ' Delete', authentication_token, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: 'fi-page-delete button alert small'
+          %td.text-center= link_to ' Delete', authentication_token, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: 'fi-x button alert small'
 %br

@@ -16,12 +16,12 @@
         %section.top-bar-section
           %ul.left
             - if user_signed_in?
-              %li= link_to 'Sensors', sensors_path
+              %li= link_to ' Sensors', sensors_path, class: 'fi-graph-trend'
               %li= link_to 'API Tokens', authentication_tokens_path
           %ul.right
             %li
               - if user_signed_in?
-                = link_to 'Logout', destroy_user_session_path, :method => :delete
+                = link_to ' Logout', destroy_user_session_path, :method => :delete, class: 'fi-logout'
               - else
                 = link_to 'Login', new_user_session_path
     = content_for?(:content) ? yield(:content) : yield 
