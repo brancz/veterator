@@ -6,6 +6,7 @@
     %title= content_for?(:title) ? yield(:title) : "OSHome"
     = stylesheet_link_tag    "application"
     = javascript_include_tag "vendor/modernizr"
+    = javascript_include_tag "d3"
     = csrf_meta_tags
   %body
     .contain-to-grid

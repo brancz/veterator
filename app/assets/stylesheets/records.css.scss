@@ -22,3 +22,8 @@ path {
   fill-opacity: .125;
   shape-rendering: crispEdges;
 }
+
+#from_box select,
+#to_box select {
+	width: auto !important;
+}
