@@ -6,34 +6,34 @@
     %div.medium-3.columns
       = link_to ' New Sensor', new_sensor_path, class: 'button fi-plus right show-for-medium-up'
       = link_to ' New Sensor', new_sensor_path, class: 'button fi-plus show-for-small-only'
-- @sensors.each do |sensor|
+- @sensors.each_slice(2).each do |pair|
   .row
-    .panel.medium-6.small-12.columns
-      %h3
-        = link_to sensor.name, sensor
-        = "(#{sensor.unit.name})"
-        = link_to '', sensor, method: :delete, data: { confirm: 'Are you sure?' }, class: 'fi-x right'
-        = link_to '', edit_sensor_path(sensor), class: 'fi-pencil right'
-      = link_to sensor_records_path(sensor) do
-        .chart-preview
-          %h3.text-center Le Preview
-      %h5 Last 24 Hours
-      %ul.inline-list
-        %li
-          Min:
-          = 0
-        %li
-          Max:
-          = 0
-        %li
-          Q1:
-          = 0
-        %li
-          Q2:
-          = 0
-        %li
-          Q3:
-          = 0
-        %li
-          IQR:
-          = 0
+    - pair.each do |sensor|
+      .spacer.medium-6.small-12.columns
+        .panel.preview
+          %h3
+            = link_to sensor.name, sensor
+            = "(#{sensor.unit.name})"
+          = link_to sensor_records_path(sensor) do
+            .chart-preview
+              %h3.text-center Le Preview
+          %h5 Last 24 Hours
+          %ul.inline-list
+            %li
+              Min:
+              = 0
+            %li
+              Max:
+              = 0
+            %li
+              Q1:
+              = 0
+            %li
+              Q2:
+              = 0
+            %li
+              Q3:
+              = 0
+            %li
+              IQR:
+              = 0
