@@ -18,23 +18,28 @@
 html, body { height: 100%; }
 
 .main-panel {
-	margin-top: 20px !important;
+  margin-top: 20px !important;
 }
 
 .or-divide {
-	margin-top: 15px;
+  margin-top: 15px;
 }
 
 .full-width {
-	width: 100%;
+  width: 100%;
 }
 
 fieldset legend {
-	background: none !important;
+  background: none !important;
 }
 
 .low-button {
-	padding-top: 0.45rem !important;
-	padding-bottom: 0.35rem !important;
-	margin: 0 !important;
+  padding-top: 0.45rem !important;
+  padding-bottom: 0.35rem !important;
+  margin: 0 !important;
+}
+
+section.left-small {
+  border-right: none !important;
+  box-shadow: none !important;
 }

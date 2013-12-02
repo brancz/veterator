@@ -9,21 +9,39 @@
     = javascript_include_tag "d3"
     = csrf_meta_tags
   %body
-    .contain-to-grid
-      %nav.top-bar{"data-topbar" => ""}
-        %ul.title-area
-          %li.name
-            %h1= link_to 'OSHome', sensors_path
-        %section.top-bar-section
-          %ul.left
-            - if user_signed_in?
-              %li= link_to ' Sensors', sensors_path, class: 'fi-graph-trend'
-              %li= link_to ' API Tokens', authentication_tokens_path, class: 'fi-key'
-          %ul.right
+    .off-canvas-wrap
+      .inner-wrap
+        %nav.tab-bar.show-for-small
+          %section.left-small
+            %a.left-off-canvas-toggle.menu-icon
+              %span OSHome
+        %aside.left-off-canvas-menu
+          %ul.off-canvas-list
             %li
-              - if user_signed_in?
-                = link_to ' Logout', destroy_user_session_path, :method => :delete, class: 'fi-logout'
-              - else
-                = link_to 'Login', new_user_session_path
-    = content_for?(:content) ? yield(:content) : yield 
+              %label OSHome
+            - if user_signed_in?
+              %li= link_to ' Dashboard', :root
+              %li= link_to ' Sensors', sensors_path, class: 'fi-graph-trend'
+              %li= link_to ' API Tokens', sensors_path, class: 'fi-key'
+              %li= link_to 'Logout', destroy_user_session_path, :method => :delete, class: 'fi-logout'
+            - else
+              %li= link_to 'Login', new_user_session_path
+        %a.exit-off-canvas
+        .contain-to-grid.hide-for-small
+          %nav.top-bar{"data-topbar" => ""}
+            %ul.title-area
+              %li.name
+                %h1= link_to 'OSHome', sensors_path
+            %section.top-bar-section
+              %ul.left
+                - if user_signed_in?
+                  %li= link_to ' Sensors', sensors_path, class: 'fi-graph-trend'
+                  %li= link_to ' API Tokens', authentication_tokens_path, class: 'fi-key'
+              %ul.right
+                %li
+                  - if user_signed_in?
+                    = link_to 'Logout', destroy_user_session_path, :method => :delete, class: 'fi-logout'
+                  - else
+                    = link_to 'Login', new_user_session_path
+        = content_for?(:content) ? yield(:content) : yield 
     = javascript_include_tag "application"
