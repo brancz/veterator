@@ -12,13 +12,16 @@
       %tr
         %th Token
         %th Valid until
-        %th User
         %th
 
       - @authentication_tokens.each do |authentication_token|
         %tr
           %td.text-center= authentication_token.token
-          %td.text-center= authentication_token.valid_until
-          %td.text-center= authentication_token.user.username
+          %td.text-center
+            - if authentication_token.valid_until.past?
+              Outdated
+              = link_to ' Renew', authentication_token_path(authentication_token), :method => :put, class: 'fi-refresh button success small low-button'
+            - else
+              = authentication_token.valid_until
           %td.text-center= link_to ' Delete', authentication_token, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: 'fi-x button alert small low-button'
 %br

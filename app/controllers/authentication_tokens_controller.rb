@@ -1,5 +1,5 @@
 class AuthenticationTokensController < ApplicationController
-  before_action :set_authentication_token, only: [:destroy]
+  before_action :set_authentication_token, only: [:update, :destroy]
 
   # GET /authentication_tokens
   def index
@@ -16,6 +16,17 @@ class AuthenticationTokensController < ApplicationController
     respond_to do |format|
       if @authentication_token.save
         format.html { redirect_to authentication_tokens_path, notice: 'Authentication token was successfully created.' }
+      else
+        format.html { render action: 'index' }
+      end
+    end
+  end
+
+  # PATCH/PUT /authentication_tokens/1
+  def update
+    respond_to do |format|
+      if @authentication_token.update({valid_until: 2.days.from_now})
+        format.html { redirect_to authentication_tokens_path, notice: 'Token was successfully renewed.' }
       else
         format.html { render action: 'index' }
       end
