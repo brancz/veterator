@@ -11,7 +11,8 @@
     %table.full-width
       %tr
         %th Token
-        %th Valid until
+        %th
+          %span.has-tip{"data-tooltip" => "", "title" => "For security reasons an authentication Token is only valid for two days, but renewed everytime it is used."}Valid until
         %th
 
       - @authentication_tokens.each do |authentication_token|
