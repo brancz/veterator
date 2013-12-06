@@ -18,22 +18,26 @@
             .chart-preview
               %h3.text-center Le Preview
           %h5 Last 24 Hours
+          - statistics = sensor.statistics
           %ul.inline-list
             %li
               Min:
-              = 0
+              = statistics[:min]
             %li
               Max:
-              = 0
+              = statistics[:max]
+            %li
+              Avg:
+              = statistics[:avg]
             %li
               Q1:
-              = 0
+              = statistics[:q1]
             %li
               Q2:
-              = 0
+              = statistics[:q2]
             %li
               Q3:
-              = 0
+              = statistics[:q3]
             %li
               IQR:
-              = 0
+              = statistics[:iqr]
