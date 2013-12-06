@@ -20,7 +20,9 @@
         To
         = select_date @to, prefix: :to
       #submit_box.medium-4.columns
-        = submit_tag '&#xf14b; Filter'.html_safe, id: 'date_submit', class: 'button small low-button fi-filter'
+        = button_tag type: 'submit',id: 'date_submit', class: 'button small low-button' do
+          %i.fi-filter
+          Filter
   #graph.aGraph
   :javascript
     function plot(uri, selector) {
