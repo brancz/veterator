@@ -25,6 +25,7 @@ class ApplicationController < ActionController::Base
         user.authentication_tokens.each do |token|
           if Devise.secure_compare(token.token, params[:token])
             sign_in user, store: false
+						token.renew
           end
         end
       end

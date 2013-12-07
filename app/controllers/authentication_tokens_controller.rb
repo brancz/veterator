@@ -25,7 +25,7 @@ class AuthenticationTokensController < ApplicationController
   # PATCH/PUT /authentication_tokens/1
   def update
     respond_to do |format|
-      if @authentication_token.update({valid_until: 2.days.from_now})
+      if @authentication_token.renew
         format.html { redirect_to authentication_tokens_path, notice: 'Token was successfully renewed.' }
       else
         format.html { render action: 'index' }
