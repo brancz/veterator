@@ -1,15 +1,10 @@
 class SensorsController < ApplicationController
-  before_action :set_sensor, only: [:show, :edit, :update, :destroy]
+  before_action :set_sensor, only: [:edit, :update, :destroy]
 
   # GET /sensors
   # GET /sensors.json
   def index
     @sensors = current_user.sensors
-  end
-
-  # GET /sensors/1
-  # GET /sensors/1.json
-  def show
   end
 
   # GET /sensors/new
