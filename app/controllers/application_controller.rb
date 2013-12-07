@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_filter :update_sanitized_params, if: :devise_controller?
+  before_filter :ensure_json_if_token_auth!
   before_filter :token_authenticate_user!
   before_filter :authenticate_user!
 
@@ -11,16 +12,26 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.for(:sign_up) {|u| u.permit(:username, :email, :password, :password_confirmation)}
   end
 
-  def token_authenticate_user!
-    user_id = params[:user_id].presence
-    user    = user_id && User.find_by_id(user_id)
+  def ensure_json_if_token_auth!
+    render nothing: true, status: 406 if token_authentication? && params[:format] != 'json'
+  end
 
-    if user
-      user.authentication_tokens.each do |token|
-        if Devise.secure_compare(token.token, params[:token])
-          sign_in user, store: false
+  def token_authenticate_user!
+    if token_authentication?
+      user_id = params[:user_id].presence
+      user    = user_id && User.find_by_id(user_id)
+
+      if user
+        user.authentication_tokens.each do |token|
+          if Devise.secure_compare(token.token, params[:token])
+            sign_in user, store: false
+          end
         end
       end
     end
+  end
+
+  def token_authentication?
+    params[:token_auth].presence == 1.to_s
   end
 end
