@@ -4,10 +4,23 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_filter :update_sanitized_params, if: :devise_controller?
+  before_filter :token_authenticate_user!
   before_filter :authenticate_user!
 
   def update_sanitized_params
     devise_parameter_sanitizer.for(:sign_up) {|u| u.permit(:username, :email, :password, :password_confirmation)}
   end
 
+  def token_authenticate_user!
+    user_id = params[:user_id].presence
+    user    = user_id && User.find_by_id(user_id)
+
+    if user
+      user.authentication_tokens.each do |token|
+        if Devise.secure_compare(token.token, params[:token])
+          sign_in user, store: false
+        end
+      end
+    end
+  end
 end
