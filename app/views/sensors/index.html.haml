@@ -12,7 +12,7 @@
       .spacer.medium-6.small-12.columns
         .panel.preview
           %h3
-            = link_to sensor.name, sensor
+            = link_to sensor.name, sensor_records_path(sensor)
             = "(#{sensor.unit.name})"
           = link_to sensor_records_path(sensor) do
             .chart-preview
