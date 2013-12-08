@@ -1,3 +1,11 @@
-%h1 New sensor
-= render 'form'
-= link_to 'Back', sensors_path
+%div.clearfix.panel
+  %div.row
+    %div.medium-9.columns
+      %h1.text-center.show-for-small-only New Sensor
+      %h1.show-for-medium-up New Sensor
+    %div.medium-3.columns
+      = link_to ' Back', sensors_path, class: 'button fi-arrow-left right show-for-medium-up'
+      = link_to ' Back', sensors_path, class: 'button fi-arrow-left show-for-small-only'
+.row
+  .medium-4.columns.medium-offset-4.centered.panel
+    = render 'form'

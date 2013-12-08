@@ -8,12 +8,8 @@
         - @sensor.errors.full_messages.each do |msg|
           %li= msg
   .field
-    = f.label :name
-    %br/
-    = f.text_field :name
+    = f.text_field :name, placeholder: 'Name'
   .field
-    = f.label :unit_id
-    %br/
-    = select("sensor", "unit_id", Unit.all.collect {|u| [ u.name, u.id ] }, {include_blank: 'None'})
+    = select("sensor", "unit_id", Unit.all.collect {|u| [ u.name, u.id ] }, {include_blank: 'Unit'})
   .actions
-    = f.submit
+    = f.submit class: 'button'

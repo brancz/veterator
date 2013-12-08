@@ -1,9 +1,9 @@
-%div.clearfix.panel
-  %div.row
-    %div.medium-9.columns
+.clearfix.panel
+  .row
+    .medium-9.columns
       %h1.text-center.show-for-small-only Your Sensors
       %h1.show-for-medium-up Your Sensors
-    %div.medium-3.columns
+    .medium-3.columns
       = link_to ' New Sensor', new_sensor_path, class: 'button fi-plus right show-for-medium-up'
       = link_to ' New Sensor', new_sensor_path, class: 'button fi-plus show-for-small-only'
 - @sensors.each_slice(2).each do |pair|
