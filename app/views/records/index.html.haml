@@ -1,11 +1,11 @@
-%div.clearfix.panel
-  %div.row
-    %div.medium-6.columns
+.clearfix.panel
+  .row
+    .medium-6.columns
       %h1.text-center.show-for-small-only
         = @sensor.name
       %h1.show-for-medium-up
         = @sensor.name
-    %div.medium-6.columns
+    .medium-6.columns
       = link_to ' Delete', sensor_path(@sensor), method: :delete, :data => { :confirm => 'Are you sure?' }, class: 'button fi-x right show-for-medium-up alert margin-left-20'
       = link_to ' Edit', edit_sensor_path(@sensor), class: 'button fi-pencil right show-for-medium-up'
       = link_to ' Edit', edit_sensor_path(@sensor), class: 'button fi-pencil show-for-small-only'

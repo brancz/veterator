@@ -1,13 +1,13 @@
-%div.clearfix.panel
-  %div.row
-    %div.medium-9.columns
+.clearfix.panel
+  .row
+    .medium-9.columns
       %h1.text-center.show-for-small-only Your Access Tokens
       %h1.show-for-medium-up Your Access Tokens
-    %div.medium-3.columns
+    .medium-3.columns
       = link_to ' New Token', authentication_tokens_path, method: :post, class: 'fi-plus button right show-for-medium-up'
       = link_to ' New Token', authentication_tokens_path, method: :post, class: 'fi-plus button show-for-small-only'
-%div.row
-  %div.large-12.columns
+.row
+  .large-12.columns
     %table.full-width
       %tr
         %th Token
@@ -25,4 +25,3 @@
             - else
               = authentication_token.valid_until
           %td.text-center= link_to ' Delete', authentication_token, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: 'fi-x button alert small low-button'
-%br
