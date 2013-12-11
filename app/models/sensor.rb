@@ -25,13 +25,13 @@ class Sensor < ActiveRecord::Base
     statistics_data[:q3] = 0
     statistics_data[:iqr] = 0
     if arecords.count > 0
-      statistics_data[:min] = arecords.minimum('value')
-      statistics_data[:max] = arecords.maximum('value')
-      statistics_data[:avg] = arecords.average('value')
+      statistics_data[:min] = arecords.minimum('value').round(2)
+      statistics_data[:max] = arecords.maximum('value').round(2)
+      statistics_data[:avg] = arecords.average('value').round(2)
       # calcultates the first through third quartile and the interquartile range
-      statistics_data[:q1] = arecords[(arecords.count/4).to_i].value
-      statistics_data[:q2] = arecords[(arecords.count/2).to_i].value
-      statistics_data[:q3] = arecords[((arecords.count/4)*3).to_i].value
+      statistics_data[:q1] = arecords[(arecords.count/4).to_i].value.round(2)
+      statistics_data[:q2] = arecords[(arecords.count/2).to_i].value.round(2)
+      statistics_data[:q3] = arecords[((arecords.count/4)*3).to_i].value.round(2)
       statistics_data[:iqr] = statistics_data[:q3] - statistics_data[:q1]
     end
     statistics_data
