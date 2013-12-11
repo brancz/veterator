@@ -1,6 +1,6 @@
 OShome::Application.routes.draw do
   resources :authentication_tokens, path: 'users/authentication_tokens',
-		only: [:index, :update, :destroy]
+		only: [:index, :update, :destroy, :create]
 
   resources :sensors, except: [:show] do
     resources :records
