@@ -2,7 +2,7 @@ class Sensor < ActiveRecord::Base
   belongs_to :unit
   has_one :type, through: :unit
 	alias :unit_type :type
-  has_many :records
+  has_many :records, dependent: :destroy
   belongs_to :user
 
   validates :name,
