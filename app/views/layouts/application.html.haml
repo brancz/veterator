@@ -38,10 +38,13 @@
                   %li= link_to ' Sensors', sensors_path, class: 'fi-graph-trend'
                   %li= link_to ' API Tokens', authentication_tokens_path, class: 'fi-key'
               %ul.right
-                %li
-                  - if user_signed_in?
+                - if user_signed_in?
+                  %li
+                    = link_to ' Account', edit_user_registration_path, class: 'fi-torsos'
+                  %li
                     = link_to 'Logout', destroy_user_session_path, :method => :delete, class: 'fi-logout'
-                  - else
+                - else
+                  %li
                     = link_to 'Login', new_user_session_path
         = content_for?(:content) ? yield(:content) : yield 
     = javascript_include_tag "application"

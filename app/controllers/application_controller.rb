@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   before_filter :ensure_json_if_token_auth!
   before_filter :token_authenticate_user!
   before_filter :authenticate_user!
+	before_filter :set_layout!
 
   def update_sanitized_params
     devise_parameter_sanitizer.for(:sign_up) {|u| u.permit(:username, :email, :password, :password_confirmation)}
@@ -35,4 +36,12 @@ class ApplicationController < ActionController::Base
   def token_authentication?
     params[:token_auth].presence == 1.to_s
   end
+
+	def set_layout!
+		if controller_name == 'registrations' && action_name == 'edit'
+			self.class.layout 'application'
+		elsif controller_name == 'registrations'
+			self.class.layout 'devise'
+		end
+	end
 end
