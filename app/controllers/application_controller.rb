@@ -38,7 +38,7 @@ class ApplicationController < ActionController::Base
   end
 
 	def set_layout!
-		if controller_name == 'registrations' && action_name == 'edit'
+		if controller_name == 'registrations' && (action_name == 'edit' || action_name == 'update')
 			self.class.layout 'application'
 		elsif controller_name == 'registrations'
 			self.class.layout 'devise'
