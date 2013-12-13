@@ -10,6 +10,7 @@
       = link_to ' Edit', edit_sensor_path(@sensor), class: 'button fi-pencil right show-for-medium-up'
       = link_to ' Edit', edit_sensor_path(@sensor), class: 'button fi-pencil show-for-small-only'
       = link_to ' Delete', sensor_path(@sensor), method: :delete, :data => { :confirm => 'Are you sure?' }, class: 'button fi-x show-for-small-only alert'
+= render 'layouts/flash'
 .row
   = form_tag sensor_records_path(@sensor), :id => 'date_form', :method => :get do
     .row

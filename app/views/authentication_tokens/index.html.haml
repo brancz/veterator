@@ -6,6 +6,7 @@
     .medium-3.columns
       = link_to ' New Token', authentication_tokens_path, method: :post, class: 'fi-plus button right show-for-medium-up'
       = link_to ' New Token', authentication_tokens_path, method: :post, class: 'fi-plus button show-for-small-only'
+= render 'layouts/flash'
 .row
   .large-12.columns
     %table.full-width

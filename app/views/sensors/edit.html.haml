@@ -6,6 +6,7 @@
     .medium-3.columns
       = link_to ' Back', sensor_records_path(@sensor), class: 'button fi-arrow-left right show-for-medium-up'
       = link_to ' Back', sensor_records_path(@sensor), class: 'button fi-arrow-left show-for-small-only'
+= render 'layouts/flash'
 .row
   .medium-4.columns.medium-offset-4.centered.panel
     = render 'form'

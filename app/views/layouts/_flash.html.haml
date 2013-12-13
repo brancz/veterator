@@ -1,0 +1,11 @@
+.row.margin-top-20
+  - if notice
+    %p.alert-box.info.radius
+      = notice
+      = link_to '#', class: 'close' do
+        &times;
+  - if alert
+    %p.alert-box.warning.radius
+      = alert
+      = link_to '#', class: 'close' do
+        &times;

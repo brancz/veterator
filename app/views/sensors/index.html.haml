@@ -6,6 +6,7 @@
     .medium-3.columns
       = link_to ' New Sensor', new_sensor_path, class: 'button fi-plus right show-for-medium-up'
       = link_to ' New Sensor', new_sensor_path, class: 'button fi-plus show-for-small-only'
+= render 'layouts/flash'
 - @sensors.each_slice(2).each do |pair|
   .row
     - pair.each do |sensor|
