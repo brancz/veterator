@@ -24,8 +24,8 @@ class SensorsController < ApplicationController
 
     respond_to do |format|
       if @sensor.save
-        format.html { redirect_to @sensor, notice: 'Sensor was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @sensor }
+        format.html { redirect_to sensors_path, notice: 'Sensor was successfully created.' }
+        format.json { render action: 'index', status: :created }
       else
         format.html { render action: 'new' }
         format.json { render json: @sensor.errors, status: :unprocessable_entity }
@@ -38,7 +38,7 @@ class SensorsController < ApplicationController
   def update
     respond_to do |format|
       if @sensor.update(sensor_params)
-        format.html { redirect_to @sensor, notice: 'Sensor was successfully updated.' }
+        format.html { redirect_to sensor_records_path(@sensor), notice: 'Sensor was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
