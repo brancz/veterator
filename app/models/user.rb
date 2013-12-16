@@ -6,8 +6,8 @@ class User < ActiveRecord::Base
     :confirmable, :lockable, :timeoutable,
     :authentication_keys => [:login]
 
-  has_many :sensors
-  has_many :authentication_tokens
+  has_many :sensors, dependent: :destroy
+  has_many :authentication_tokens, dependent: :destroy
 
   validates :username,
     :uniqueness => {
