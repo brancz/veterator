@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
 
   has_many :sensors, dependent: :destroy
   has_many :authentication_tokens, dependent: :destroy
+	has_many :roles
 
   validates :username,
     :uniqueness => {
@@ -32,4 +33,7 @@ class User < ActiveRecord::Base
     end
   end
 
+	def role?(role)
+		roles.include role.to_s
+	end
 end

@@ -9,8 +9,12 @@
 case Rails.env
   when 'development'
 
+		user_role = Role.create(name: 'user')
+		admin_role = Role.create(name: 'admin')
+
     user = User.new({username: 'test', email: 'test@example.com', password: 'test', password_confirmation: 'test'})
     user.confirmation_sent_at = Time.now
+		user.roles << user_role
     user.skip_confirmation!
     user.save!(:validate => false)
 
