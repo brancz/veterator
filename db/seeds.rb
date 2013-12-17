@@ -12,6 +12,12 @@ case Rails.env
 		user_role = Role.create(name: 'user')
 		admin_role = Role.create(name: 'admin')
 
+		admin_user = User.new({username: 'testadmin', email: 'admin@example', password: 'test', password_confirmation: 'test'})
+		admin_user.confirmation_sent_at = Time.now
+		admin_user.roles << user_role << admin_role
+		admin_user.skip_confirmation!
+		admin_user.save!(validate: false)
+
     user = User.new({username: 'test', email: 'test@example.com', password: 'test', password_confirmation: 'test'})
     user.confirmation_sent_at = Time.now
 		user.roles << user_role

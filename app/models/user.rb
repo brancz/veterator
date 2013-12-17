@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
 
   has_many :sensors, dependent: :destroy
   has_many :authentication_tokens, dependent: :destroy
-	has_many :roles
+	has_and_belongs_to_many :roles
 
   validates :username,
     :uniqueness => {
