@@ -6,6 +6,7 @@ class Ability
     if user.role? :admin
       can :manage, :all
     else
+			### Sensors
 			can :create, Sensor
       can :read, Sensor do |s|
 				s && s.user == user
@@ -16,6 +17,21 @@ class Ability
 			can :destroy Sensor do |s|
 				s && s.user == user
 			end
+			### Authentication Tokens
+			can :create, AuthenticationToken
+			can :update, AuthenticationToken do |t|
+				t && t.user == user
+			end
+			can :destroy, AuthenticationToken do |t|
+				t && t.user == user
+			end
+			### Records
+			can :create, Record
+			can :destroy, Record do |r|
+				r.user == user
+			end
+			### Units & Types
+			### A user cannot manage units or types
     end
   end
 end
