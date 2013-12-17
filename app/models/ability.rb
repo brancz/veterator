@@ -5,16 +5,16 @@ class Ability
     user ||= User.new # guest user (not logged in)
     if user.role? :admin
       can :manage, :all
-    else
+		elsif user.role? :user
 			### Sensors
 			can :create, Sensor
       can :read, Sensor do |s|
 				s && s.user == user
 			end
-			can :update Sensor do |s|
+			can :update, Sensor do |s|
 				s && s.user == user
 			end
-			can :destroy Sensor do |s|
+			can :destroy, Sensor do |s|
 				s && s.user == user
 			end
 			### Authentication Tokens

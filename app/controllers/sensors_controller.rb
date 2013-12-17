@@ -14,6 +14,7 @@ class SensorsController < ApplicationController
 
   # GET /sensors/1/edit
   def edit
+		authorize! :update, @sensor
   end
 
   # POST /sensors

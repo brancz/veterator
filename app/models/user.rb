@@ -34,6 +34,6 @@ class User < ActiveRecord::Base
   end
 
 	def role?(role)
-		roles.include role.to_s
+		roles.include? Role.find_by_name(role.to_s)
 	end
 end
