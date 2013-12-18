@@ -1,10 +1,11 @@
 class RecordsController < ApplicationController
-  before_action :set_record, only: [:show, :edit, :update, :destroy]
-	before_action :set_sensor, only: [:index, :edit, :new, :create, :update, :destroy]
+  before_action :set_record, only: [:destroy]
+	before_action :set_sensor, only: [:index, :create, :destroy]
 
-  # GET /records
-  # GET /records.json
+  # GET /sensor/1/records
+  # GET /sensor/1/records.json
   def index
+		authorize! :read, @sensor
 		if !params[:from].blank? && !params[:to].blank?
 			@from = time_from_params from_params
 			@to = time_from_params to_params
@@ -18,22 +19,8 @@ class RecordsController < ApplicationController
 		puts @to
   end
 
-  # GET /records/1
-  # GET /records/1.json
-  def show
-  end
-
-  # GET /records/new
-  def new
-    @record = Record.new
-  end
-
-  # GET /records/1/edit
-  def edit
-  end
-
-  # POST /records
-  # POST /records.json
+  # POST /sensor/1/records
+  # POST /sensor/1/records.json
   def create
     @record = Record.new(record_params)
     @record.sensor = @sensor
@@ -49,23 +36,10 @@ class RecordsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /records/1
-  # PATCH/PUT /records/1.json
-  def update
-    respond_to do |format|
-      if @record.update(record_params)
-        format.html { redirect_to sensor_record_path(@sensor, @record), notice: 'Record was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @record.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /records/1
-  # DELETE /records/1.json
+  # DELETE /sensor/1/records/1
+  # DELETE /sensor/1/records/1.json
   def destroy
+		!authorize :destroy, @record
     @record.destroy
     respond_to do |format|
       format.html { redirect_to sensor_records_path(@sensor) }

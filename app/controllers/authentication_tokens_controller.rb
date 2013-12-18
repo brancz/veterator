@@ -24,6 +24,7 @@ class AuthenticationTokensController < ApplicationController
 
   # PATCH/PUT /authentication_tokens/1
   def update
+		authorize! :update, @authentication_token
     respond_to do |format|
       if @authentication_token.renew
         format.html { redirect_to authentication_tokens_path, notice: 'Token was successfully renewed.' }
@@ -35,6 +36,7 @@ class AuthenticationTokensController < ApplicationController
 
   # DELETE /authentication_tokens/1
   def destroy
+		authorize! :destroy, @authentication_token
     @authentication_token.destroy
     respond_to do |format|
       format.html { redirect_to authentication_tokens_url }

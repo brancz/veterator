@@ -3,7 +3,7 @@ OShome::Application.routes.draw do
 		only: [:index, :update, :destroy, :create]
 
   resources :sensors, except: [:show] do
-    resources :records
+    resources :records, only: [:index, :create, :destroy]
   end
 
   resources :units

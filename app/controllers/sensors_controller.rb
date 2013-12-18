@@ -37,6 +37,7 @@ class SensorsController < ApplicationController
   # PATCH/PUT /sensors/1
   # PATCH/PUT /sensors/1.json
   def update
+		authorize! :update, @sensor
     respond_to do |format|
       if @sensor.update(sensor_params)
         format.html { redirect_to sensor_records_path(@sensor), notice: 'Sensor was successfully updated.' }
@@ -51,6 +52,7 @@ class SensorsController < ApplicationController
   # DELETE /sensors/1
   # DELETE /sensors/1.json
   def destroy
+		authorize! :destroy, @sensor
     @sensor.destroy
     respond_to do |format|
       format.html { redirect_to sensors_url }
