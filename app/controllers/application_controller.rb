@@ -9,8 +9,23 @@ class ApplicationController < ActionController::Base
 	before_filter :authenticate_user!
 	before_filter :set_layout!
 
+	rescue_from ActiveRecord::RecordNotFound do |exception|
+		render_not_found
+	end
+
+	rescue_from ActionController::RoutingError do |exception|
+		render_not_found
+	end
+
 	rescue_from CanCan::AccessDenied do |exception|
 		render_not_authorized
+	end
+	
+	def render_not_found
+		respond_to do |format|
+			format.html { render file: "#{Rails.root}/public/404.html", status: 404, layout: false }
+			format.json { render json: { error: true, message: "Error 404, the resource you requested does not exist or has been moved." } }
+		end
 	end
 
 	def render_not_authorized
