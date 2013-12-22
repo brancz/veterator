@@ -6,6 +6,7 @@
       %h1.show-for-medium-up
         = @sensor.name
     .medium-6.columns
+      = link_to ' Download', sensor_records_path(@sensor, format: :csv)
       = link_to ' Delete', sensor_path(@sensor), method: :delete, :data => { :confirm => 'Are you sure?' }, class: 'button fi-x right show-for-medium-up alert margin-left-20'
       = link_to ' Edit', edit_sensor_path(@sensor), class: 'button fi-pencil right show-for-medium-up'
       = link_to ' Edit', edit_sensor_path(@sensor), class: 'button fi-pencil show-for-small-only'

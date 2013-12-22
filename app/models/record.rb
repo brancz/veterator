@@ -9,9 +9,10 @@ class Record < ActiveRecord::Base
 
   def self.to_csv(options = {})
     CSV.generate(options) do |csv|
-      csv << column_names
+      columns = ["created_at", "value"]
+      csv << columns
       all.each do |record|
-        csv << record.attributes.values_at(*column_names)
+        csv << record.attributes.values_at(*columns)
       end
     end
   end

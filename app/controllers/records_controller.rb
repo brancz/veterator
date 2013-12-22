@@ -15,8 +15,12 @@ class RecordsController < ApplicationController
 		end
 		@from ||= Time.now
 		@to ||= Time.now
-		puts @from
-		puts @to
+    respond_to do |format|
+      format.html
+      format.json
+      format.csv { send_data @records.to_csv }
+      format.xls
+    end
   end
 
   # POST /sensor/1/records
