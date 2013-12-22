@@ -6,11 +6,16 @@
       %h1.show-for-medium-up
         = @sensor.name
     .medium-6.columns
-      = link_to ' Download', sensor_records_path(@sensor, format: :csv)
       = link_to ' Delete', sensor_path(@sensor), method: :delete, :data => { :confirm => 'Are you sure?' }, class: 'button fi-x right show-for-medium-up alert margin-left-20'
-      = link_to ' Edit', edit_sensor_path(@sensor), class: 'button fi-pencil right show-for-medium-up'
+      = link_to ' Edit', edit_sensor_path(@sensor), class: 'button fi-pencil right show-for-medium-up margin-left-20'
       = link_to ' Edit', edit_sensor_path(@sensor), class: 'button fi-pencil show-for-small-only'
       = link_to ' Delete', sensor_path(@sensor), method: :delete, :data => { :confirm => 'Are you sure?' }, class: 'button fi-x show-for-small-only alert'
+      = link_to '#', class: 'button dropdown show-for-medium-up right', data: { dropdown: 'drop' } do
+        %span.fi-download
+        Download
+      %ul#drop.f-dropdown{:data => { :dropdown_content => ''} }
+        %li= link_to ' CSV', sensor_records_path(@sensor, format: :csv), class: 'fi-page-export-csv'
+        %li= link_to ' XLS (Excel)', sensor_records_path(@sensor, format: :xls), class: 'fi-page-export-doc'
 = render 'layouts/flash'
 .row
   = form_tag sensor_records_path(@sensor), :id => 'date_form', :method => :get do
