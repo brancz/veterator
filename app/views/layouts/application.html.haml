@@ -22,7 +22,7 @@
             - if user_signed_in?
               %li= link_to ' Dashboard', :root
               %li= link_to ' Sensors', sensors_path, class: 'fi-graph-trend'
-              %li= link_to ' API Tokens', sensors_path, class: 'fi-key'
+              %li= link_to ' Access Keys', authentication_tokens_path, class: 'fi-key'
               %li= link_to 'Logout', destroy_user_session_path, :method => :delete, class: 'fi-logout'
             - else
               %li= link_to 'Login', new_user_session_path
@@ -36,7 +36,7 @@
               %ul.left
                 - if user_signed_in?
                   %li= link_to ' Sensors', sensors_path, class: 'fi-graph-trend'
-                  %li= link_to ' API Tokens', authentication_tokens_path, class: 'fi-key'
+                  %li= link_to ' Access Keys', authentication_tokens_path, class: 'fi-key'
               %ul.right
                 - if user_signed_in?
                   %li

@@ -12,7 +12,7 @@
       = link_to ' Delete', sensor_path(@sensor), method: :delete, :data => { :confirm => 'Are you sure?' }, class: 'button fi-x show-for-small-only alert'
       = link_to '#', class: 'button dropdown show-for-medium-up right', data: { dropdown: 'drop' } do
         %span.fi-download
-        Download
+        Export
       %ul#drop.f-dropdown{:data => { :dropdown_content => ''} }
         %li= link_to ' CSV', sensor_records_path(@sensor, format: :csv), class: 'fi-page-export-csv'
         %li= link_to ' XLS (Excel)', sensor_records_path(@sensor, format: :xls), class: 'fi-page-export-doc'
