@@ -1,0 +1,18 @@
+= inside_layout 'application' do
+  = render 'layouts/flash'
+  .row.margin-top-20
+    .large-4.columns
+      .sidebar
+        %h3= current_user.username
+        %ul.side-nav
+          %li{class: side_nav_active('registrations', ['edit', 'update'])}
+            = link_to 'General', edit_user_registration_path
+          %li{class: side_nav_active('', '')}
+            = link_to 'Password', '#'
+          %li{class: side_nav_active('authentication_tokens', ['index'])}
+            = link_to ' Access Keys', authentication_tokens_path
+          %li.divider
+          %li.nav-item
+            = link_to ' Delete Account', '#', class: 'fi-x-circle red-link', :data => { :confirm => "Are you sure?" }, :method => :delete
+    .large-8.columns.panel
+      = yield

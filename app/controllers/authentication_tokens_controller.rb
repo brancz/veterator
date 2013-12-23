@@ -1,4 +1,5 @@
 class AuthenticationTokensController < ApplicationController
+  layout 'devise_logged_in'
   before_action :set_authentication_token, only: [:update, :destroy]
 
   # GET /authentication_tokens
