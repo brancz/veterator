@@ -11,6 +11,16 @@ OShome::Application.routes.draw do
   resources :types
 
   devise_for :users, controllers: { registrations: 'users/registrations' }
+  resource :users, only: [:confirm_delete_user] do
+    collection do
+      get 'confirm_delete'
+    end
+  end
+  resource :users, only: [:delete_user] do
+    collection do
+      patch 'delete_user'
+    end
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

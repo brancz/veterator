@@ -1,0 +1,6 @@
+%p If you really want to delete your account, then confirm by typing your password and press delete.
+%p
+  %i Warning: once your account has been deleted, it cannot be recovered!
+= form_tag "/users/delete_user", method: :patch do
+  = text_field_tag :current_password
+  = submit_tag 'Delete', class: 'button alert'

@@ -13,6 +13,6 @@
             = link_to ' Access Keys', authentication_tokens_path
           %li.divider
           %li.nav-item
-            = link_to ' Delete Account', '#', class: 'fi-x-circle red-link', :data => { :confirm => "Are you sure?" }, :method => :delete
+            = link_to ' Delete Account', confirm_delete_users_path, class: 'fi-x-circle red-link'
     .large-8.columns.panel
       = yield

@@ -10,10 +10,12 @@ class ApplicationController < ActionController::Base
 	before_filter :set_layout!
 
 	rescue_from ActiveRecord::RecordNotFound do |exception|
+    puts 'RecordNotFound'
 		render_not_found
 	end
 
 	rescue_from ActionController::RoutingError do |exception|
+    puts 'RoutingError'
 		render_not_found
 	end
 
@@ -64,7 +66,8 @@ class ApplicationController < ActionController::Base
 	end
 
 	def set_layout!
-		if controller_name == 'registrations' && (action_name == 'edit' || action_name == 'update')
+		if (controller_name == 'registrations' && (action_name == 'edit' || action_name == 'update')) ||
+       (controller_name == 'users' && (action_name == 'confirm_delete' || action_name == 'delete_user'))
 			self.class.layout 'devise_logged_in'
 		elsif controller_name == 'registrations'
 			self.class.layout 'devise'
