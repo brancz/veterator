@@ -21,6 +21,16 @@ OShome::Application.routes.draw do
       patch 'delete_user'
     end
   end
+  resource :users, only: [:change_password] do
+    collection do
+      get 'change_password'
+    end
+  end
+  resource :users, only: [:update_password] do
+    collection do
+      patch 'update_password'
+    end
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -67,7 +67,7 @@ class ApplicationController < ActionController::Base
 
 	def set_layout!
 		if (controller_name == 'registrations' && (action_name == 'edit' || action_name == 'update')) ||
-       (controller_name == 'users' && (action_name == 'confirm_delete' || action_name == 'delete_user'))
+       (controller_name == 'users' && (action_name == 'confirm_delete' || action_name == 'delete_user' || action_name == 'change_password' || action_name == 'update_password'))
 			self.class.layout 'devise_logged_in'
 		elsif controller_name == 'registrations'
 			self.class.layout 'devise'
