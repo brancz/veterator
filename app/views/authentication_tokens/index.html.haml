@@ -1,4 +1,4 @@
-.clearfix.panel
+.clearfix
   .row
     .medium-9.columns
       %h1.text-center.show-for-small-only Your Access Tokens
@@ -15,14 +15,19 @@
         %th
           %span.has-tip{"data-tooltip" => "", "title" => "For security reasons an authentication Token is only valid for two days, but renewed everytime it is used."}Valid until
         %th
-
-      - @authentication_tokens.each do |authentication_token|
+      - if @authentication_tokens.any?
+        - @authentication_tokens.each do |authentication_token|
+          %tr
+            %td.text-center= authentication_token.token
+            %td.text-center
+              - if authentication_token.valid_until.past?
+                Outdated
+                = link_to ' Renew', authentication_token_path(authentication_token), :method => :put, class: 'fi-refresh button success small low-button'
+              - else
+                = authentication_token.valid_until
+            %td.text-center= link_to ' Delete', authentication_token, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: 'fi-x button alert small low-button'
+      - else
         %tr
-          %td.text-center= authentication_token.token
-          %td.text-center
-            - if authentication_token.valid_until.past?
-              Outdated
-              = link_to ' Renew', authentication_token_path(authentication_token), :method => :put, class: 'fi-refresh button success small low-button'
-            - else
-              = authentication_token.valid_until
-          %td.text-center= link_to ' Delete', authentication_token, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: 'fi-x button alert small low-button'
+          %td{ colspan: '3' }
+            %p.text-center You don't have any access tokens yet.
+            %p.text-center= link_to 'Create one.', authentication_tokens_path, method: :post
