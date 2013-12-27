@@ -1,13 +1,13 @@
 class UsersController < ApplicationController
+  before_filter :set_user
+
   def change_password
-    @user = User.find(current_user.id)
   end
 
   def update_password
-    @user = User.find(current_user.id)
-
     unless @user.valid_password?(params[:user][:current_password])
-      redirect_to change_password_users_path, alert: 'You must provide a valid current password'
+      @user.errors.add :current_password, 'is invalid'
+      render 'change_password'
       return
     end
 
@@ -24,13 +24,19 @@ class UsersController < ApplicationController
   end
 
   def delete_user
-    @user = User.find(current_user.id)
     if @user.valid_password?(params[:current_password])
       @user.destroy
       sign_out
       redirect_to new_user_session_path, notice: 'Successfully removed your account'
     else
+      @user.errors.add :password, 'is incorrect'
       render 'confirm_delete'
     end
+  end
+
+  private
+
+  def set_user
+    @user = User.find(current_user.id)
   end
 end
