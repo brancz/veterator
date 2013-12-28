@@ -1,11 +1,6 @@
 %h1 Delete Account
 %br/
--if @user.errors.any?
-  -@user.errors.full_messages.each do |error|
-    %p.alert-box.info.radius
-      = error
-      = link_to '#', class: 'close' do
-        &times;
+= render 'users/alerts'
 %p If you want to delete your account, confirm by typing your password and press delete.
 %p
   %i Warning: once your account has been deleted, it cannot be recovered!
