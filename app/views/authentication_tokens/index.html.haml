@@ -29,5 +29,7 @@
       - else
         %tr
           %td{ colspan: '3' }
-            %p.text-center You don't have any access tokens yet.
-            %p.text-center= link_to 'Create one.', authentication_tokens_path, method: :post
+            %br/
+            %h3.text-center You don't have any access tokens yet.
+            %br/
+            %h3.text-center= link_to 'Create one.', authentication_tokens_path, method: :post
