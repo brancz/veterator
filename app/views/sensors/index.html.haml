@@ -7,38 +7,47 @@
       = link_to ' New Sensor', new_sensor_path, class: 'button fi-plus right show-for-medium-up'
       = link_to ' New Sensor', new_sensor_path, class: 'button fi-plus show-for-small-only'
 = render 'layouts/flash'
-- @sensors.each_slice(2).each do |pair|
-  .row
-    - pair.each do |sensor|
-      .spacer.medium-6.small-12.columns
-        .panel.preview
-          %h3
-            = link_to sensor.name, sensor_records_path(sensor)
-            = "(#{sensor.unit.name})"
-          = link_to sensor_records_path(sensor) do
-            .chart-preview
-              %h3.text-center Le Preview
-          %h5 Last 24 Hours
-          - statistics = sensor.statistics
-          %ul.inline-list
-            %li
-              Min:
-              = statistics[:min]
-            %li
-              Max:
-              = statistics[:max]
-            %li
-              Avg:
-              = statistics[:avg]
-            %li
-              Q1:
-              = statistics[:q1]
-            %li
-              Q2:
-              = statistics[:q2]
-            %li
-              Q3:
-              = statistics[:q3]
-            %li
-              IQR:
-              = statistics[:iqr]
+- if !@sensors.empty?
+  - @sensors.each_slice(2).each do |pair|
+    .row
+      - pair.each do |sensor|
+        .spacer.medium-6.small-12.columns
+          .panel.preview
+            %h3
+              = link_to sensor.name, sensor_records_path(sensor)
+              = "(#{sensor.unit.name})"
+            = link_to sensor_records_path(sensor) do
+              .chart-preview
+                %h3.text-center Le Preview
+            %h5 Last 24 Hours
+            - statistics = sensor.statistics
+            %ul.inline-list
+              %li
+                Min:
+                = statistics[:min]
+              %li
+                Max:
+                = statistics[:max]
+              %li
+                Avg:
+                = statistics[:avg]
+              %li
+                Q1:
+                = statistics[:q1]
+              %li
+                Q2:
+                = statistics[:q2]
+              %li
+                Q3:
+                = statistics[:q3]
+              %li
+                IQR:
+                = statistics[:iqr]
+- else
+  .row.panel
+    %p.text-center
+      %h2.text-center
+        You have not added any sensors yet.
+        %br/
+        %br/
+        = link_to 'Get started by creating one', new_sensor_path
