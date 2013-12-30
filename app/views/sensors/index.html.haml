@@ -13,9 +13,12 @@
       - pair.each do |sensor|
         .spacer.medium-6.small-12.columns
           .panel.preview
-            %h3
+            %h3.left
               = link_to sensor.name, sensor_records_path(sensor)
               = "(#{sensor.unit.name})"
+            %h3.right
+              %span.fi-wrench
+            %span.clearfix
             = link_to sensor_records_path(sensor) do
               .chart-preview
                 %h3.text-center Le Preview
