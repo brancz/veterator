@@ -17,7 +17,9 @@
               = link_to sensor.name, sensor_records_path(sensor)
               = "(#{sensor.unit.name})"
             %h3.right
-              %span.fi-wrench
+              = link_to '', '#', class: 'dropdown fi-wrench', :data => { :dropdown => "dropdown-#{sensor.name}" }
+            %ul.f-dropdown{:id => "dropdown-#{sensor.name}", :data => { :dropdown_content => ''} }
+              %li= link_to 'test', sensor_records_path(sensor)
             %span.clearfix
             = link_to sensor_records_path(sensor) do
               .chart-preview
