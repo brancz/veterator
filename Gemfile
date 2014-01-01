@@ -54,9 +54,6 @@ gem 'cancan'
 gem 'compass-rails', '~> 2.0.alpha.0'
 gem 'foundation-rails', group: [:assets]
 
-# AngularJS
-gem 'angularjs-rails'
-
 # d3js
 gem 'd3js-rails'
 

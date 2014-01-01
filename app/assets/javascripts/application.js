@@ -13,8 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require foundation
-//= require angular
-//= require_tree ./angular
 //= require turbolinks
 //= require foundation-datepicker
 //= require_tree .
