@@ -11,5 +11,7 @@
     = f.text_field :name, placeholder: 'Name'
   .field
     = select("sensor", "unit_id", Unit.all.collect {|u| [ u.name, u.id ] }, {include_blank: 'Unit'})
+  .field
+    = f.number_field :priority
   .actions
     = f.submit class: 'button'

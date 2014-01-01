@@ -4,7 +4,7 @@ class SensorsController < ApplicationController
   # GET /sensors
   # GET /sensors.json
   def index
-    @sensors = current_user.sensors
+    @sensors = current_user.sensors.order(:priority)
   end
 
   # GET /sensors/new
@@ -68,6 +68,6 @@ class SensorsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sensor_params
-      params.require(:sensor).permit(:name, :unit_id)
+      params.require(:sensor).permit(:name, :unit_id, :priority)
     end
 end
