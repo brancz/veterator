@@ -18,81 +18,104 @@
 html, body { height: 100%; }
 
 .main-panel {
-	margin-top: 20px !important;
+  margin-top: 20px !important;
 }
 
 .or-divide {
-	margin-top: 15px;
+  margin-top: 15px;
 }
 
 .full-width {
-	width: 100%;
+  width: 100%;
 }
 
 fieldset legend {
-	background: none !important;
+  background: none !important;
 }
 
 .low-button {
-	padding-top: 0.45rem !important;
-	padding-bottom: 0.35rem !important;
-	margin: 0 !important;
+  padding-top: 0.45rem !important;
+  padding-bottom: 0.35rem !important;
+  margin: 0 !important;
 }
 
 section.left-small {
-	border-right: none !important;
-	box-shadow: none !important;
+  border-right: none !important;
+  box-shadow: none !important;
 }
 
 .sidebar {
-	background: none repeat scroll 0 0 #FAFAFA;
-	padding: 32px 20px;
+  background: none repeat scroll 0 0 #FAFAFA;
+  padding: 32px 20px;
 }
 
 .red-link {
-	color: #BB240D !important;
+  color: #BB240D !important;
 }
 
 .sidebar .side-nav li.active > a:first-child {
-	background: none repeat scroll 0 0 rgba(0, 64, 84, 0.05);
-	color: #008FBA;
-	font-weight: bold;
-	margin: 0 -20px;
-	padding-left: 20px;
-	padding-right: 20px;
-	position: relative;
+  background: none repeat scroll 0 0 rgba(0, 64, 84, 0.05);
+  color: #008FBA;
+  font-weight: bold;
+  margin: 0 -20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  position: relative;
 }
 
 .sidebar .side-nav li:hover > a:first-child {
-	background: none repeat scroll 0 0 rgba(0, 64, 84, 0.03);
-	color: #006887;
-	margin: 0 -20px;
-	padding-left: 20px;
-	padding-right: 20px;
-	position: relative;
+  background: none repeat scroll 0 0 rgba(0, 64, 84, 0.03);
+  color: #006887;
+  margin: 0 -20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  position: relative;
 }
 
 ul, ol, dl {
-	line-height: 1.6 !important;
+  line-height: 1.6 !important;
 }
 
 .margin-top-20 {
-	margin-top: 20px !important;
+  margin-top: 20px !important;
 }
 
 .side-nav li a {
-	padding: 0.33333rem 0;
+  padding: 0.33333rem 0;
 }
 
 .divider {
-	margin-top: 16px !important;
-	margin-bottom: 16px !important;
+  margin-top: 16px !important;
+  margin-bottom: 16px !important;
 }
 
 li.nav-item {
-	margin-bottom: 0 !important;
+  margin-bottom: 0 !important;
 }
 
 .button.dropdown.show-for-medium-up {
   display: inline-block !important;
+}
+
+.dropdown-arrow:before {
+  border-width: 0.375rem;
+  margin-top: -0.15625rem;
+  right: 0.6rem;
+  border-color: #666 rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
+  border-style: solid;
+  content: "";
+  display: block;
+  height: 0;
+  position: absolute;
+  top: 50%;
+  width: 0;
+}
+
+.dropdown-arrow {
+  display: inline-block;
+  padding: 1rem;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 300ms ease-out 0s;
 }
