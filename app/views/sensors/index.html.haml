@@ -19,7 +19,8 @@
             %h3.right
               = link_to '', '#', class: 'dropdown-arrow', :data => { :dropdown => "dropdown-#{sensor.name}" }
             %ul.f-dropdown{:id => "dropdown-#{sensor.name}", :data => { :dropdown_content => ''} }
-              %li= link_to 'test', sensor_records_path(sensor)
+              %li= link_to 'Show Data', sensor_records_path(sensor)
+              %li= link_to 'Edit Sensor', edit_sensor_path(sensor)
             %span.clearfix
             = link_to sensor_records_path(sensor) do
               .chart-preview
