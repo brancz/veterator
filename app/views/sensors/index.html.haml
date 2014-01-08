@@ -9,9 +9,9 @@
 = render 'layouts/flash'
 - if @sensors.any?
   - @sensors.each_slice(2).each do |pair|
-    .row
+    %ul.row.previews
       - pair.each do |sensor|
-        .spacer.medium-6.small-12.columns
+        %li.spacer.medium-6.small-12.columns.plain-list-style
           .panel.preview
             %h3.left
               = link_to sensor.name, sensor_records_path(sensor)
