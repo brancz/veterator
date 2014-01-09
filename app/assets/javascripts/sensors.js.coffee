@@ -2,4 +2,5 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 $ ->
-  $(".row.previews").sortable(connectWith: ".row.previews").disableSelection()
+  $(".row.previews").sortable()
+  $(".row.previews").disableSelection()

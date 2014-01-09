@@ -13,3 +13,7 @@
 	padding-left: 10px;
 	padding-right: 10px;
 }
+
+[class*="column"] + [class*="column"]:last-child {
+	float: left !important;
+}

@@ -8,47 +8,46 @@
       = link_to ' New Sensor', new_sensor_path, class: 'button fi-plus show-for-small-only'
 = render 'layouts/flash'
 - if @sensors.any?
-  - @sensors.each_slice(2).each do |pair|
-    %ul.row.previews
-      - pair.each do |sensor|
-        %li.spacer.medium-6.small-12.columns.plain-list-style
-          .panel.preview
-            %h3.left
-              = link_to sensor.name, sensor_records_path(sensor)
-              = "(#{sensor.unit.name})"
-            %h3.right
-              = link_to '', '#', class: 'dropdown-arrow', :data => { :dropdown => "dropdown-#{sensor.name}" }
-            %ul.f-dropdown{:id => "dropdown-#{sensor.name}", :data => { :dropdown_content => ''} }
-              %li= link_to 'Show Data', sensor_records_path(sensor)
-              %li= link_to 'Edit Sensor', edit_sensor_path(sensor)
-            %span.clearfix
-            = link_to sensor_records_path(sensor) do
-              .chart-preview
-                %h3.text-center Le Preview
-            %h5 Last 24 Hours
-            - statistics = sensor.statistics
-            %ul.inline-list
-              %li
-                Min:
-                = statistics[:min]
-              %li
-                Max:
-                = statistics[:max]
-              %li
-                Avg:
-                = statistics[:avg]
-              %li
-                Q1:
-                = statistics[:q1]
-              %li
-                Q2:
-                = statistics[:q2]
-              %li
-                Q3:
-                = statistics[:q3]
-              %li
-                IQR:
-                = statistics[:iqr]
+  %ul.row.previews
+    - @sensors.each do |sensor|
+      %li.spacer.medium-6.small-12.columns.plain-list-style
+        .panel.preview
+          %h3.left
+            = link_to sensor.name, sensor_records_path(sensor)
+            = "(#{sensor.unit.name})"
+          %h3.right
+            = link_to '', '#', class: 'dropdown-arrow', :data => { :dropdown => "dropdown-#{sensor.name}" }
+          %ul.f-dropdown{:id => "dropdown-#{sensor.name}", :data => { :dropdown_content => ''} }
+            %li= link_to 'Show Data', sensor_records_path(sensor)
+            %li= link_to 'Edit Sensor', edit_sensor_path(sensor)
+          %span.clearfix
+          = link_to sensor_records_path(sensor) do
+            .chart-preview
+              %h3.text-center Le Preview
+          %h5 Last 24 Hours
+          - statistics = sensor.statistics
+          %ul.inline-list
+            %li
+              Min:
+              = statistics[:min]
+            %li
+              Max:
+              = statistics[:max]
+            %li
+              Avg:
+              = statistics[:avg]
+            %li
+              Q1:
+              = statistics[:q1]
+            %li
+              Q2:
+              = statistics[:q2]
+            %li
+              Q3:
+              = statistics[:q3]
+            %li
+              IQR:
+              = statistics[:iqr]
 - else
   .row.panel
     %p.text-center
