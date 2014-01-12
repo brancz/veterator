@@ -14,6 +14,12 @@ class Sensor < ActiveRecord::Base
   validates :user_id,
     presence: true
 
+	after_initialize :set_initial_sorting_priority
+
+	def set_initial_sorting_priority
+		priority ||= Sensor.maximum('priority') + 100
+	end
+
   def statistics(since = 1.day.ago)
     arecords = records.where('created_at > ?', since).order('value ASC')
     statistics_data = Hash.new
@@ -36,4 +42,17 @@ class Sensor < ActiveRecord::Base
     end
     statistics_data
   end
+
+	def self.sort(ids)
+		if ApplicationController.adapter == 'sqlite3'
+			ids.each_with_index do |id, index|
+				Sensor.find_by_id(id).update(priority: index)
+			end
+		else
+			update_all(
+				['priority = FIND_IN_SET(id, ?)', ids.join(',')],
+				{ id: ids }
+			)
+		end
+	end
 end

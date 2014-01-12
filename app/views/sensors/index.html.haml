@@ -8,10 +8,10 @@
       = link_to ' New Sensor', new_sensor_path, class: 'button fi-plus show-for-small-only'
 = render 'layouts/flash'
 - if @sensors.any?
-  %ul.row.previews
+  %ul.row.sensors
     - @sensors.each do |sensor|
-      %li.spacer.medium-6.small-12.columns.plain-list-style
-        .panel.preview
+      %li.spacer.medium-6.small-12.columns.plain-list-style.sensor{id: "sensor_#{sensor.id}"}
+        .panel
           %h3.left
             = link_to sensor.name, sensor_records_path(sensor)
             = "(#{sensor.unit.name})"

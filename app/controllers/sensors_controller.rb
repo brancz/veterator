@@ -49,6 +49,14 @@ class SensorsController < ApplicationController
     end
   end
 
+	# PATCH/PUT /sensors
+	# PATCH/PUT /sensors.json
+	def sort
+		order = params[:sensor]
+		Sensor.sort(order)
+		render text: order.inspect
+	end
+
   # DELETE /sensors/1
   # DELETE /sensors/1.json
   def destroy

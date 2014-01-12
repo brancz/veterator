@@ -4,6 +4,9 @@ OShome::Application.routes.draw do
 
   resources :sensors, except: [:show] do
     resources :records, only: [:index, :create, :destroy]
+		collection do
+			patch 'sort'
+		end
   end
 
   resources :units

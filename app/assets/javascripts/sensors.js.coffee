@@ -2,5 +2,7 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 $ ->
-  $(".row.previews").sortable()
+	$(".sensors").sortable items: '.sensor', update: ->
+		$.ajax url: '/sensors/sort.json', type: 'PATCH', data: $(this).sortable('serialize')
+
   $(".row.previews").disableSelection()

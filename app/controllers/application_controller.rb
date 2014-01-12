@@ -73,4 +73,8 @@ class ApplicationController < ActionController::Base
 			self.class.layout 'devise'
 		end
 	end
+
+	def self.adapter
+		ActiveRecord::Base.configurations[Rails.env]['adapter']
+	end
 end
