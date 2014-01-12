@@ -17,7 +17,9 @@ class Sensor < ActiveRecord::Base
 	after_initialize :set_initial_sorting_priority
 
 	def set_initial_sorting_priority
-		priority ||= Sensor.maximum('priority') + 100
+		nextpriority = Sensor.maximum('priority')
+		nextpriority ||= 0
+		priority ||= nextpriority + 100
 	end
 
   def statistics(since = 1.day.ago)
