@@ -44,15 +44,15 @@ class Sensor < ActiveRecord::Base
   end
 
 	def self.sort(ids)
-		if ApplicationController.adapter == 'sqlite3'
-			ids.each_with_index do |id, index|
-				Sensor.find_by_id(id).update(priority: index)
-			end
-		else
+		if ApplicationController.adapter == 'mysql2'
 			update_all(
 				['priority = FIND_IN_SET(id, ?)', ids.join(',')],
 				{ id: ids }
 			)
+		else
+			ids.each_with_index do |id, index|
+				Sensor.find_by_id(id).update(priority: index)
+			end
 		end
 	end
 end
