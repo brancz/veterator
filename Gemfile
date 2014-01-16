@@ -52,7 +52,7 @@ gem 'devise'
 gem 'cancan'
 
 # Foundation Zurb
-gem 'compass-rails', '~> 2.0.alpha.0'
+gem 'compass-rails'
 gem 'foundation-rails', group: [:assets]
 
 # d3js
