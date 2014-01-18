@@ -111,8 +111,8 @@ plot_graphs = ->
 			xAxis = d3.svg.axis().scale(x);
 			graph.append("svg:g").attr("class", "x axis").attr("transform", "translate(0," + height + ")").call(xAxis)
 
-			yAxisLeft = d3.svg.axis().scale(y).ticks(2).tickSize(-width - 10).orient("left");
-			graph.append("svg:g").attr("class", "y axis").attr("transform", "translate(-10,0)").call(yAxisLeft)
+			yAxisLeft = d3.svg.axis().scale(y).ticks(2).tickSize(-width).orient("left");
+			graph.append("svg:g").attr("class", "y axis").call(yAxisLeft)
 
 			graph.append("svg:path").attr("d", area(data)).attr("class", "data")
 
