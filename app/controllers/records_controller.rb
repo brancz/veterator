@@ -9,12 +9,11 @@ class RecordsController < ApplicationController
 		if !params[:from].blank? && !params[:to].blank?
 			@from = time_from_params from_params
 			@to = time_from_params to_params
-			@records = Record.where(sensor: @sensor, created_at: @from..@to)
 		else
-			@records = Record.where(sensor: @sensor)
+			@from = 24.hours.ago
+			@to = Time.now
 		end
-		@from ||= Time.now
-		@to ||= Time.now
+		@records = Record.where(sensor: @sensor, created_at: @from..@to)
     respond_to do |format|
       format.html
       format.json

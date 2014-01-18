@@ -77,44 +77,51 @@ plot_graphs = ->
 		height = chart_element.height() - margin[0] - margin[2]
 
 		d3.json uri, (error, data) ->
-			data.forEach (d) ->
-				d.created_at = parseDate(d.created_at)
-				d.value = +d.value
 
-			chart_element.empty()
+			if data.length > 0
 
-			x_min = d3.min data, (d) -> 
-				d.created_at
-			
-			x_max = d3.max data, (d) ->
-				d.created_at
+				data.forEach (d) ->
+					d.created_at = parseDate(d.created_at)
+					d.value = +d.value
 
-			y_min = d3.min data, (d) ->
-				d.value
+				chart_element.empty()
 
-			y_max = d3.max data, (d) ->
-				d.value
+				x_min = d3.min data, (d) -> 
+					d.created_at
+				
+				x_max = d3.max data, (d) ->
+					d.created_at
 
-			x = d3.time.scale().domain([x_min, x_max]).range([0, width])
-			x.tickFormat(d3.time.format("%s"));
+				y_min = d3.min data, (d) ->
+					d.value
 
-			y = d3.scale.linear().domain([y_min, y_max]).range([height, 0])
-			
-			area = d3.svg.area().interpolate("monotone").x((d) ->
-				x d.created_at
-			).y0(height).y1((d) ->
-				y d.value
-			)
+				y_max = d3.max data, (d) ->
+					d.value
 
-			graph = d3.select("##{chart_element.attr('id')}").append("svg:svg").attr("width", chart_element.width()).attr("height", chart_element.height()).append("svd:g").attr("transform", "translate(" + margin[3] + "," + margin[0] + ")")
+				x = d3.time.scale().domain([x_min, x_max]).range([0, width])
+				x.tickFormat(d3.time.format("%s"));
 
-			xAxis = d3.svg.axis().scale(x);
-			graph.append("svg:g").attr("class", "x axis").attr("transform", "translate(0," + height + ")").call(xAxis)
+				y = d3.scale.linear().domain([y_min, y_max]).range([height, 0])
+				
+				area = d3.svg.area().interpolate("monotone").x((d) ->
+					x d.created_at
+				).y0(height).y1((d) ->
+					y d.value
+				)
 
-			yAxisLeft = d3.svg.axis().scale(y).ticks(2).tickSize(-width).orient("left");
-			graph.append("svg:g").attr("class", "y axis").call(yAxisLeft)
+				graph = d3.select("##{chart_element.attr('id')}").append("svg:svg").attr("width", chart_element.width()).attr("height", chart_element.height()).append("svd:g").attr("transform", "translate(" + margin[3] + "," + margin[0] + ")")
 
-			graph.append("svg:path").attr("d", area(data)).attr("class", "data")
+				xAxis = d3.svg.axis().scale(x);
+				graph.append("svg:g").attr("class", "x axis").attr("transform", "translate(0," + height + ")").call(xAxis)
+
+				yAxisLeft = d3.svg.axis().scale(y).ticks(2).tickSize(-width).orient("left");
+				graph.append("svg:g").attr("class", "y axis").call(yAxisLeft)
+
+				graph.append("svg:path").attr("d", area(data)).attr("class", "data")
+
+			else
+
+				chart_element.append "<h3 class='text-center margin-top-20'>No data available for</br>the last 24 hours</h3>"
 
 plot uri, selector if uri? && selector?
 plot_graphs()
