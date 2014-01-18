@@ -72,7 +72,7 @@ plot_graphs = ->
 		number = element.attr('id').split('_')[1]
 		chart_element = $("#chart-preview-#{number}")
 		uri = "/sensors/#{number}/records.json"
-		margin = [10,15,20,40]
+		margin = [15,15,20,30]
 		width = chart_element.width() - margin[1] - margin[3]
 		height = chart_element.height() - margin[0] - margin[2]
 
