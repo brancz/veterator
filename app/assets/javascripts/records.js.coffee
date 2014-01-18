@@ -1,6 +1,8 @@
 # Place all the behaviors and hooks related to the matching controller here.
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
+parseDate = d3.time.format.iso.parse
+
 plot = (uri, selector) ->
   brushed = ->
     x.domain (if brush.empty() then x2.domain() else brush.extent())
@@ -21,7 +23,6 @@ plot = (uri, selector) ->
   width = 960 - margin.left - margin.right
   height = 500 - margin.top - margin.bottom
   height2 = 500 - margin2.top - margin2.bottom
-  parseDate = d3.time.format.iso.parse
   x = d3.time.scale().range([0, width])
   x2 = d3.time.scale().range([0, width])
   y = d3.scale.linear().range([height, 0])
@@ -64,4 +65,56 @@ plot = (uri, selector) ->
     context.append("g").attr("class", "x axis").attr("transform", "translate(0," + height2 + ")").call xAxis2
     context.append("g").attr("class", "x brush").call(brush).selectAll("rect").attr("y", -6).attr "height", height2 + 7
 
-plot uri, selector
+plot_graphs = ->
+	$('.sensor').each ->
+		element = $(this)
+		element_selector = element.attr('id')
+		number = element.attr('id').split('_')[1]
+		chart_element = $("#chart-preview-#{number}")
+		uri = "/sensors/#{number}/records.json"
+		margin = [10,15,20,40]
+		width = chart_element.width() - margin[1] - margin[3]
+		height = chart_element.height() - margin[0] - margin[2]
+
+		d3.json uri, (error, data) ->
+			data.forEach (d) ->
+				d.created_at = parseDate(d.created_at)
+				d.value = +d.value
+
+			chart_element.empty()
+
+			x_min = d3.min data, (d) -> 
+				d.created_at
+			
+			x_max = d3.max data, (d) ->
+				d.created_at
+
+			y_min = d3.min data, (d) ->
+				d.value
+
+			y_max = d3.max data, (d) ->
+				d.value
+
+			x = d3.time.scale().domain([x_min, x_max]).range([0, width])
+			x.tickFormat(d3.time.format("%s"));
+
+			y = d3.scale.linear().domain([y_min, y_max]).range([height, 0])
+			
+			area = d3.svg.area().interpolate("monotone").x((d) ->
+				x d.created_at
+			).y0(height).y1((d) ->
+				y d.value
+			)
+
+			graph = d3.select("##{chart_element.attr('id')}").append("svg:svg").attr("width", chart_element.width()).attr("height", chart_element.height()).append("svd:g").attr("transform", "translate(" + margin[3] + "," + margin[0] + ")")
+
+			xAxis = d3.svg.axis().scale(x);
+			graph.append("svg:g").attr("class", "x axis").attr("transform", "translate(0," + height + ")").call(xAxis)
+
+			yAxisLeft = d3.svg.axis().scale(y).ticks(2).tickSize(-width - 10).orient("left");
+			graph.append("svg:g").attr("class", "y axis").attr("transform", "translate(-10,0)").call(yAxisLeft)
+
+			graph.append("svg:path").attr("d", area(data)).attr("class", "data")
+
+plot uri, selector if uri? && selector?
+plot_graphs()

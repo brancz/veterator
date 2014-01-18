@@ -22,8 +22,8 @@
             %li= link_to 'Edit Sensor', edit_sensor_path(sensor)
           %span.clearfix
           = link_to sensor_records_path(sensor) do
-            .chart-preview
-              %h3.text-center Le Preview
+            .chart-preview{id: "chart-preview-#{sensor.id}"}
+              %h3.text-center No data available
           %h5 Last 24 Hours
           - statistics = sensor.statistics
           %ul.inline-list
