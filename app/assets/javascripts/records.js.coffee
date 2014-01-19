@@ -73,7 +73,7 @@ plot_graphs = ->
 		chart_element = $("#chart-preview-#{number}")
 		uri = "/sensors/#{number}/records.json"
 		margin = [15,15,20,30]
-		width = chart_element.width() - margin[1] - margin[3]
+		width = 391
 		height = chart_element.height() - margin[0] - margin[2]
 
 		d3.json uri, (error, data) ->
@@ -109,7 +109,7 @@ plot_graphs = ->
 					y d.value
 				)
 
-				graph = d3.select("##{chart_element.attr('id')}").append("svg:svg").attr("width", chart_element.width()).attr("height", chart_element.height()).append("svd:g").attr("transform", "translate(" + margin[3] + "," + margin[0] + ")")
+				graph = d3.select("##{chart_element.attr('id')}").append("svg:svg").attr("width", chart_element.width()).attr("height", chart_element.height()).attr("preserveAspectRatio", "xMidYMid").append("svd:g").attr("transform", "translate(" + margin[3] + "," + margin[0] + ")")
 
 				xAxis = d3.svg.axis().scale(x);
 				graph.append("svg:g").attr("class", "x axis").attr("transform", "translate(0," + height + ")").call(xAxis)
@@ -119,9 +119,15 @@ plot_graphs = ->
 
 				graph.append("svg:path").attr("d", area(data)).attr("class", "data")
 
+					
+
 			else
 
 				chart_element.append "<h3 class='text-center margin-top-20'>No data available for</br>the last 24 hours</h3>"
 
 plot uri, selector if uri? && selector?
 plot_graphs()
+$(window).resize ->
+	chart_preview = $(".chart-preview")
+	svg = $(".chart-preview > svg")
+	svg.width( chart_preview.width() - 15 )
