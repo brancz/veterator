@@ -6,21 +6,20 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+user_role = Role.create(name: 'user')
+admin_role = Role.create(name: 'admin')
+
+temperature = Type.create({name: 'Temperature'})
+
+celsius = Unit.new({name: 'Celsius', symbol: '°C'})
+celsius.type = temperature
+celsius.save
+
+fahrenheit = Unit.new({name: 'Fahrenheit', symbol: '°F'})
+fahrenheit.type = temperature
+fahrenheit.save
+
 case Rails.env
-
-	user_role = Role.create(name: 'user')
-	admin_role = Role.create(name: 'admin')
-
-	temperature = Type.create({name: 'Temperature'})
-
-	celsius = Unit.new({name: 'Celsius', symbol: '°C'})
-	celsius.type = temperature
-	celsius.save
-
-	fahrenheit = Unit.new({name: 'Fahrenheit', symbol: '°F'})
-	fahrenheit.type = temperature
-	fahrenheit.save
-
   when 'development'
 
 		admin_user = User.new({username: 'testadmin', email: 'admin@example', password: 'test', password_confirmation: 'test'})
