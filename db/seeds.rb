@@ -7,10 +7,21 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 case Rails.env
-  when 'development'
 
-		user_role = Role.create(name: 'user')
-		admin_role = Role.create(name: 'admin')
+	user_role = Role.create(name: 'user')
+	admin_role = Role.create(name: 'admin')
+
+	temperature = Type.create({name: 'Temperature'})
+
+	celsius = Unit.new({name: 'Celsius', symbol: '°C'})
+	celsius.type = temperature
+	celsius.save
+
+	fahrenheit = Unit.new({name: 'Fahrenheit', symbol: '°F'})
+	fahrenheit.type = temperature
+	fahrenheit.save
+
+  when 'development'
 
 		admin_user = User.new({username: 'testadmin', email: 'admin@example', password: 'test', password_confirmation: 'test'})
 		admin_user.confirmation_sent_at = Time.now
@@ -23,16 +34,6 @@ case Rails.env
 		user.roles << user_role
     user.skip_confirmation!
     user.save!(:validate => false)
-
-    temperature = Type.create({name: 'Temperature'})
-
-    celsius = Unit.new({name: 'Celsius', symbol: '°C'})
-    celsius.type = temperature
-    celsius.save
-
-    fahrenheit = Unit.new({name: 'Fahrenheit', symbol: '°F'})
-    fahrenheit.type = temperature
-    fahrenheit.save
 
     server = Sensor.new({name: 'Server'})
     server.unit = celsius
@@ -49,5 +50,10 @@ case Rails.env
 		Record.create({value: 1.9, sensor: server, created_at: t + 7.minute})
 
   when 'production'
+		admin_user = User.new({username: 'admin', email: 'admin@localhost.localdomain', password: 'q1w2f3p4', password_confirmation: 'q1w2f3p4'})
+		admin_user.confirmation_sent_at = Time.now
+		admin_user.roles << user_role << admin_role
+		admin_user.skip_confirmation!
+		admin_user.save!(validate: false)
 
 end
