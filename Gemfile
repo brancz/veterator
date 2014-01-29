@@ -63,3 +63,5 @@ gem 'haml-rails'
 gem 'erb2haml', group: [:development]
 
 gem 'railroady', group: [:development]
+
+gem 'puma'
