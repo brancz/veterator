@@ -65,3 +65,5 @@ gem 'erb2haml', group: [:development]
 gem 'railroady', group: [:development]
 
 gem 'puma'
+
+gem 'roo'

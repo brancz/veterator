@@ -3,7 +3,12 @@ OShome::Application.routes.draw do
 		only: [:index, :update, :destroy, :create]
 
   resources :sensors, except: [:show] do
-    resources :records, only: [:index, :create, :destroy]
+    resources :records, only: [:index, :create, :destroy] do
+			collection do
+				get :import
+				post :import_action
+			end
+		end
 		collection do
 			patch 'sort'
 		end
@@ -14,23 +19,11 @@ OShome::Application.routes.draw do
   resources :types
 
   devise_for :users, controllers: { registrations: 'users/registrations' }
-  resource :users, only: [:confirm_delete_user] do
+  resource :users, only: [:confirm_delete_user, :delete_user, :change_password, :update_password] do
     collection do
       get 'confirm_delete'
-    end
-  end
-  resource :users, only: [:delete_user] do
-    collection do
       patch 'delete_user'
-    end
-  end
-  resource :users, only: [:change_password] do
-    collection do
       get 'change_password'
-    end
-  end
-  resource :users, only: [:update_password] do
-    collection do
       patch 'update_password'
     end
   end

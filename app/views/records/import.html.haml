@@ -1,0 +1,12 @@
+.clearfix.panel
+  .row
+    .medium-12.columns
+      %h1.text-center.show-for-small-only
+        = "Import data to #{@sensor.name}"
+      %h1.show-for-medium-up
+        = "Import data to #{@sensor.name}"
+= render 'layouts/flash'
+.row
+  = form_tag import_action_sensor_records_path(@sensor), multipart: true do
+    = file_field_tag :file, accept: 'text/csv,application/xls,application/xlsx'
+    = submit_tag "Import"

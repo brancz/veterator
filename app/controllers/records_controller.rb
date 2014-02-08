@@ -1,6 +1,6 @@
 class RecordsController < ApplicationController
   before_action :set_record, only: [:destroy]
-	before_action :set_sensor, only: [:index, :create, :destroy]
+	before_action :set_sensor, only: [:index, :create, :destroy, :import, :import_action]
 
   # GET /sensor/1/records
   # GET /sensor/1/records.json
@@ -49,6 +49,16 @@ class RecordsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+	# IMPORT /sensor/1/records/import
+	def import
+	end
+
+	# IMPORT_ACTION /sensor/1/records/import_action
+	def import_action
+		Record.import(params[:file])
+		redirect_to sensor_records_path(@sensor), notice: "Data successfully imported."
+	end
 
   private
     # Use callbacks to share common setup or constraints between actions.
