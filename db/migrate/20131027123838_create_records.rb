@@ -6,5 +6,7 @@ class CreateRecords < ActiveRecord::Migration
 
       t.timestamps
     end
+
+		add_index :records, :created_at
   end
 end

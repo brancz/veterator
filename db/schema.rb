@@ -30,6 +30,8 @@ ActiveRecord::Schema.define(version: 20140101180410) do
     t.datetime "updated_at"
   end
 
+  add_index "records", ["created_at"], name: "index_records_on_created_at"
+
   create_table "roles", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
