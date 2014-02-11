@@ -56,7 +56,7 @@ class RecordsController < ApplicationController
 
 	# IMPORT_ACTION /sensor/1/records/import_action
 	def import_action
-		Record.import(params[:file])
+		Record.import(params[:file], @sensor)
 		redirect_to sensor_records_path(@sensor), notice: "Data successfully imported."
 	end
 

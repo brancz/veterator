@@ -17,13 +17,20 @@ class Record < ActiveRecord::Base
     end
   end
 
-	def self.import(file)
+	def self.import(file, sensor)
 		spreadsheet = open_spreadsheet(file)
 		header = spreadsheet.row(1)
+		puts "--------------"
+		puts header
+		puts "--------------"
 		(2..spreadsheet.last_row).each do |i|
 			row = Hash[[header, spreadsheet.row(i)].transpose]
 			record = find_by_id(row["id"]) || new
-			record.attributes = row.to_hash.slice(*accessible_attributes)
+			puts "--------------"
+			puts row.to_hash
+			puts "--------------"
+			record.attributes = row.to_hash
+			record.sensor = sensor
 			record.save!
 		end
 	end
