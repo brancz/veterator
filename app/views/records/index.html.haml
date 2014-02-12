@@ -31,23 +31,26 @@
         = button_tag type: 'submit',id: 'date_submit', class: 'button small low-button' do
           %i.fi-filter
           Filter
-  #graph.aGraph
-  :javascript
-    uri = "#{sensor_records_json_with_params_path(@sensor)}"
-    selector = "div#graph"
-  %dl.accordion{"data-accordion" => ""}
-    %dd
-      = link_to 'Data table', '#data-table'
-      #data-table.content
-        %table.full-width
-          %thead
-            %tr
-              %th Value
-              %th Time
-              %th
-          %tbody
-            - @records.each do |record|
+  - if @records.empty?
+    %h1.text-center.margin-top-20 No data for that timespan
+  - else
+    #graph.aGraph
+    :javascript
+      uri = "#{sensor_records_json_with_params_path(@sensor)}"
+      selector = "div#graph"
+    %dl.accordion{"data-accordion" => ""}
+      %dd
+        = link_to 'Data table', '#data-table'
+        #data-table.content
+          %table.full-width
+            %thead
               %tr
-                %td= record.value
-                %td= record.created_at
-                %td= link_to 'Destroy', sensor_record_path(record.sensor, record), method: :delete, data: { confirm: 'Are you sure?' }
+                %th Value
+                %th Time
+                %th
+            %tbody
+              - @records.each do |record|
+                %tr
+                  %td= record.value
+                  %td= record.created_at
+                  %td= link_to 'Destroy', sensor_record_path(record.sensor, record), method: :delete, data: { confirm: 'Are you sure?' }
