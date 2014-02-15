@@ -1,3 +1,10 @@
-%h1 New type
-= render 'form'
-= link_to 'Back', types_path
+.clearfix.panel
+  .row
+    .medium-9.columns
+      %h1.text-center.show-for-small-only New Sensor Type
+      %h1.show-for-medium-up New Sensor Type
+= render 'layouts/flash'
+.row
+  .medium-12.columns
+    = render 'form'
+    = link_to 'Back', types_path
