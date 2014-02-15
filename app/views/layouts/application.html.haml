@@ -33,16 +33,20 @@
               %li.name
                 %h1= link_to 'OSHome', sensors_path
             %section.top-bar-section
-              %ul.left
-                - if user_signed_in?
+              - if user_signed_in?
+                %ul.left
                   %li= link_to ' Sensors', sensors_path, class: 'fi-graph-trend'
-              %ul.right
-                - if user_signed_in?
+                  - if can? :manage, Unit
+                    %li= link_to 'Unit', units_path
+                  - if can? :manage, Type
+                    %li= link_to 'Types', types_path
+                %ul.right
                   %li
-                    = link_to ' Account', edit_user_registration_path, class: 'fi-torso'
+                    = link_to " #{current_user.username}", edit_user_registration_path, class: 'fi-torso'
                   %li
                     = link_to 'Logout', destroy_user_session_path, :method => :delete, class: 'fi-logout'
-                - else
+              - else
+                %ul.right
                   %li
                     = link_to 'Login', new_user_session_path
         = content_for?(:content) ? yield(:content) : yield 
