@@ -3,7 +3,7 @@ OShome::Application.routes.draw do
 		only: [:index, :update, :destroy, :create]
 
   resources :sensors, except: [:show] do
-    resources :records, only: [:index, :create, :destroy] do
+    resources :records, only: [:index, :create, :destroy, :new, :show] do
 			collection do
 				get :import
 				post :import_action

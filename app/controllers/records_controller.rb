@@ -1,6 +1,17 @@
 class RecordsController < ApplicationController
   before_action :set_record, only: [:destroy]
-	before_action :set_sensor, only: [:index, :create, :destroy, :import, :import_action]
+	before_action :set_sensor, only: [:show, :new, :index, :create, :destroy, :import, :import_action]
+
+	# GET /sensor/1/records/new
+	# GET /sensor/1/records/new.json
+	def new
+		@record = Record.new
+	end
+
+	# GET /sensor/1/records/1
+	# GET /sensor/1/records/1.json
+	def show
+	end
 
   # GET /sensor/1/records
   # GET /sensor/1/records.json
