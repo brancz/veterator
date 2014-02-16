@@ -3,6 +3,9 @@
     .medium-9.columns
       %h1.text-center.show-for-small-only New Sensor Type
       %h1.show-for-medium-up New Sensor Type
+    .medium-3.columns
+      = link_to ' Back', types_path, class: 'button fi-arrow-left right show-for-medium-up'
+      = link_to ' Back', types_path, class: 'button fi-arrow-left show-for-small-only'
 = render 'layouts/flash'
 .row
   .medium-12.columns

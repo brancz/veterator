@@ -3,6 +3,9 @@
     .medium-9.columns
       %h1.text-center.show-for-small-only Edit Sensor Unit
       %h1.show-for-medium-up Edit Sensor Unit
+    .medium-3.columns
+      = link_to ' Back', units_path, class: 'button fi-arrow-left right show-for-medium-up'
+      = link_to ' Back', units_path, class: 'button fi-arrow-left show-for-small-only'
 = render 'layouts/flash'
 .row
   .medium-9.columns
