@@ -40,7 +40,7 @@ class AuthenticationTokensController < ApplicationController
 		authorize! :destroy, @authentication_token
     @authentication_token.destroy
     respond_to do |format|
-      format.html { redirect_to authentication_tokens_url }
+      format.html { redirect_to authentication_tokens_url, notice: 'Token successfully removed.' }
     end
   end
 
