@@ -17,13 +17,11 @@
           %th Type
           %th
           %th
-          %th
       %tbody
         - @units.each do |unit|
           %tr
             %td= unit.name
             %td= unit.symbol
             %td= unit.type.name
-            %td= link_to 'Show', unit
             %td= link_to 'Edit', edit_unit_path(unit)
             %td= link_to 'Destroy', unit, method: :delete, data: { confirm: 'Are you sure?' }

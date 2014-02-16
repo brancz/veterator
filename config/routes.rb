@@ -14,9 +14,9 @@ OShome::Application.routes.draw do
 		end
   end
 
-  resources :units
+  resources :units, except: [:show]
 
-  resources :types
+  resources :types, except: [:show]
 
   devise_for :users, controllers: { registrations: 'users/registrations' }
   resource :users, only: [:confirm_delete_user, :delete_user, :change_password, :update_password] do
