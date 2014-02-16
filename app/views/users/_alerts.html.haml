@@ -1,6 +1,6 @@
 -if @user.errors.any?
   -@user.errors.full_messages.each do |error|
-    %p.alert-box.info.radius
+    .alert-box.info.radius{data:{alert:''}}
       = error
       = link_to '#', class: 'close' do
         &times;
