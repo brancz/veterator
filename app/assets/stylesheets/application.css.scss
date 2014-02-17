@@ -36,7 +36,10 @@ fieldset legend {
 .low-button {
   padding-top: 0.45rem !important;
   padding-bottom: 0.35rem !important;
-  margin: 0 !important;
+}
+
+td .low-button {
+	margin: 0 !important;
 }
 
 section.left-small {
