@@ -131,4 +131,4 @@ $(window).resize ->
 	svg.width( chart_preview.width() - 15 )
 
 $ ->
-	$('.datepicker').datepicker();
+	$('.datepicker').datepicker({prevText: "", nextText: ""})
