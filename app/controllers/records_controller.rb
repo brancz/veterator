@@ -17,9 +17,9 @@ class RecordsController < ApplicationController
   # GET /sensor/1/records.json
   def index
 		authorize! :read, @sensor
-		if !params[:from].blank? && !params[:to].blank?
-			@from = time_from_params from_params
-			@to = time_from_params to_params
+		if !params[:from_date].blank? && !params[:to_date].blank?
+			@from = DateTime.strptime(params[:from_date], "%m/%d/%Y")
+			@to = DateTime.strptime(params[:to_date], "%m/%d/%Y")
 		else
 			@from = 24.hours.ago
 			@to = Time.now
@@ -85,16 +85,4 @@ class RecordsController < ApplicationController
     def record_params
       params.require(:record).permit(:value)
     end
-
-		def from_params
-			params.require(:from).permit(:year, :month, :day)
-		end
-
-		def to_params
-			params.require(:to).permit(:year, :month, :day)
-		end
-
-		def time_from_params(params)
-			Time.new(params[:year], params[:month], params[:day], 0)
-		end
 end

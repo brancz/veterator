@@ -119,8 +119,6 @@ plot_graphs = ->
 
 				graph.append("svg:path").attr("d", area(data)).attr("class", "data")
 
-					
-
 			else
 
 				chart_element.append "<h3 class='text-center margin-top-20'>No data available for</br>the last 24 hours</h3>"
@@ -131,3 +129,6 @@ $(window).resize ->
 	chart_preview = $(".chart-preview")
 	svg = $(".chart-preview > svg")
 	svg.width( chart_preview.width() - 15 )
+
+$ ->
+	$('.datepicker').datepicker();
