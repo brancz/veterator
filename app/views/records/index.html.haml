@@ -21,11 +21,11 @@
 .row
   = form_tag sensor_records_path(@sensor), :id => 'date_form', :method => :get do
     .row
-      #from_box.medium-4.columns
+      #from_box.medium-2.columns.medium-offset-6
         = text_field_tag 'from_date', @from.to_date.strftime("%m/%d/%Y"), class: 'datepicker'
-      #to_box.medium-4.columns
+      #to_box.medium-2.columns
         = text_field_tag 'to_date', @to.to_date.strftime("%m/%d/%Y"), class: 'datepicker'
-      #submit_box.medium-4.columns
+      #submit_box.medium-2.columns
         = button_tag type: 'submit',id: 'date_submit', class: 'button small low-button' do
           %i.fi-filter
           Filter
