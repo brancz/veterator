@@ -8,6 +8,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 	def sign_up_params
 		result = super
 		result[:roles] = [Role.find_by_name("user")]
+		result[:locale] = I18n.default_locale
 		result
 	end
 end

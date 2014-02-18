@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
 	before_filter :token_authenticate_user!
 	before_filter :authenticate_user!
 	before_filter :set_layout!
+	before_filter :set_locale
 
 	rescue_from ActiveRecord::RecordNotFound do |exception|
     puts 'RecordNotFound'
@@ -35,6 +36,10 @@ class ApplicationController < ActionController::Base
 			format.html { render file: "#{Rails.root}/public/403.html", status: 403, layout: false }
 			format.json { render json: { error: true, message: "Error 403, you don't have permissions for this operation." } }
 		end
+	end
+
+	def set_locale
+		I18n.locale = user_signed_in? ? current_user.locale.to_sym : I18n.default_locale
 	end
 
 	def update_sanitized_params

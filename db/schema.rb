@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140101180410) do
+ActiveRecord::Schema.define(version: 20140218204051) do
 
   create_table "authentication_tokens", force: true do |t|
     t.string   "token"
@@ -29,8 +29,6 @@ ActiveRecord::Schema.define(version: 20140101180410) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "records", ["created_at"], name: "index_records_on_created_at"
 
   create_table "roles", force: true do |t|
     t.string   "name"
@@ -89,6 +87,7 @@ ActiveRecord::Schema.define(version: 20140101180410) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "username"
+    t.string   "locale"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
