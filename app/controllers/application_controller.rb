@@ -39,7 +39,7 @@ class ApplicationController < ActionController::Base
 	end
 
 	def set_locale
-		I18n.locale = user_signed_in? ? current_user.locale.to_sym : I18n.default_locale
+		I18n.locale = user_signed_in? && current_user.locale ? current_user.locale.to_sym : I18n.default_locale
 	end
 
 	def update_sanitized_params
