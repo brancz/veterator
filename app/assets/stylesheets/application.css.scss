@@ -15,8 +15,12 @@
  */
 @import "foundation_and_overrides";
 
-html, body {
+html {
 	height: 100%;
+}
+
+body {
+	min-height: 100%;
 }
 
 .full-height {
