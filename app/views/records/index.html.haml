@@ -14,8 +14,8 @@
         %span.fi-download
         Export
       %ul#drop.f-dropdown{:data => { :dropdown_content => ''} }
-        %li= link_to ' CSV', sensor_records_path(@sensor, format: :csv), class: 'fi-page-export-csv'
-        %li= link_to ' XLS (Excel)', sensor_records_path(@sensor, format: :xls), class: 'fi-page-export-doc'
+        %li= link_to ' CSV', sensor_records_path(@sensor, format: :csv, from_date: @from.strftime("%m/%d/%Y"), to_date: @to.strftime("%m/%d/%Y")), class: 'fi-page-export-csv'
+        %li= link_to ' XLS (Excel)', sensor_records_path(@sensor, format: :xls, from_date: @from.strftime("%m/%d/%Y"), to_date: @to.strftime("%m/%d/%Y")), class: 'fi-page-export-doc'
       = link_to ' Import', import_sensor_records_path(@sensor), class: 'button hide-for-small-only right'
 = render 'layouts/flash'
 .row
@@ -23,10 +23,10 @@
     .row
       #from_box.medium-2.columns.medium-offset-6
         = label_tag 'From'
-        = text_field_tag 'from_date', @from.to_date.strftime("%m/%d/%Y"), class: 'datepicker'
+        = text_field_tag 'from_date', @from.strftime("%m/%d/%Y"), class: 'datepicker'
       #to_box.medium-2.columns
         = label_tag 'To'
-        = text_field_tag 'to_date', @to.to_date.strftime("%m/%d/%Y"), class: 'datepicker'
+        = text_field_tag 'to_date', @to.strftime("%m/%d/%Y"), class: 'datepicker'
       #submit_box.medium-2.columns
         = button_tag type: 'submit',id: 'date_submit', class: 'button small low-button' do
           %i.fi-filter

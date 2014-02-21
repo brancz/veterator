@@ -18,11 +18,11 @@ class RecordsController < ApplicationController
   def index
 		authorize! :read, @sensor
 		if !params[:from_date].blank? && !params[:to_date].blank?
-			@from = DateTime.strptime(params[:from_date], "%m/%d/%Y")
-			@to = DateTime.strptime(params[:to_date], "%m/%d/%Y")
+			@from = DateTime.strptime(params[:from_date], "%m/%d/%Y").to_date
+			@to = DateTime.strptime(params[:to_date], "%m/%d/%Y").to_date
 		else
-			@from = 24.hours.ago
-			@to = Time.now
+			@from = 24.hours.ago.to_date
+			@to = Time.now.to_date
 		end
 		@records = Record.where(sensor: @sensor, created_at: @from..@to)
     respond_to do |format|
