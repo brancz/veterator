@@ -15,5 +15,7 @@
 //= require jquery.ui.all
 //= require foundation
 //= require turbolinks
-//= require foundation-datepicker
+//= require vendor/modernizr
+//= require d3
 //= require_tree .
+//= require foundation-datepicker

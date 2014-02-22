@@ -1,9 +1,9 @@
 # Place all the behaviors and hooks related to the matching controller here.
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
-parseDate = d3.time.format.iso.parse
+@parseDate = d3.time.format.iso.parse
 
-plot = (uri, selector) ->
+@plot = (uri, selector) ->
   brushed = ->
     x.domain (if brush.empty() then x2.domain() else brush.extent())
     focus.select("path").attr "d", area
@@ -65,7 +65,7 @@ plot = (uri, selector) ->
     context.append("g").attr("class", "x axis").attr("transform", "translate(0," + height2 + ")").call xAxis2
     context.append("g").attr("class", "x brush").call(brush).selectAll("rect").attr("y", -6).attr "height", height2 + 7
 
-plot_graphs = ->
+@plot_graphs = ->
 	$('.sensor').each ->
 		element = $(this)
 		element_selector = element.attr('id')
@@ -122,13 +122,3 @@ plot_graphs = ->
 			else
 
 				chart_element.append "<h3 class='text-center margin-top-20'>No data available for</br>the last 24 hours</h3>"
-
-plot uri, selector if uri? && selector?
-plot_graphs()
-$(window).resize ->
-	chart_preview = $(".chart-preview")
-	svg = $(".chart-preview > svg")
-	svg.width( chart_preview.width() - 15 )
-
-$ ->
-	$('.datepicker').datepicker({prevText: "", nextText: ""})
