@@ -4,25 +4,28 @@
 @parseDate = d3.time.format.iso.parse
 
 @plot = (uri, selector) ->
+  rwidth = $('#graph').width()
+  rheight = rwidth / 2
+
   brushed = ->
     x.domain (if brush.empty() then x2.domain() else brush.extent())
     focus.select("path").attr "d", area
     focus.select(".x.axis").call xAxis
   margin =
-    top: 10
+    top: Math.max(rheight / 50, 10)
     right: 10
-    bottom: 100
+    bottom: Math.max(rheight / 5, 55)
     left: 40
 
   margin2 =
-    top: 430
+    top: Math.max(rheight / 1.16, 20)
     right: 10
-    bottom: 20
+    bottom: Math.max(rheight / 25, 20)
     left: 40
 
-  width = 960 - margin.left - margin.right
-  height = 500 - margin.top - margin.bottom
-  height2 = 500 - margin2.top - margin2.bottom
+  width = rwidth - margin.left - margin.right
+  height = rheight - margin.top - margin.bottom
+  height2 = rheight - margin2.top - margin2.bottom
   x = d3.time.scale().range([0, width])
   x2 = d3.time.scale().range([0, width])
   y = d3.scale.linear().range([height, 0])
