@@ -172,3 +172,7 @@ li.nav-item {
 	font-family: "foundation-icons";
 	content: "\f10b";
 }
+
+.side-nav li.active > a:first-child:not(.button) {
+	color: #008CBA !important;
+}
