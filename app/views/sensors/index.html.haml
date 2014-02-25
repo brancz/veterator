@@ -20,6 +20,7 @@
           %ul.f-dropdown{:id => "dropdown-#{sensor.name}", :data => { :dropdown_content => ''} }
             %li= link_to 'Show Data', sensor_records_path(sensor)
             %li= link_to 'Edit Sensor', edit_sensor_path(sensor)
+            %li= link_to 'Delete Sensor', sensor, method: :delete, data: {confirm: 'Are you sure?'}
           %span.clearfix
           = link_to sensor_records_path(sensor) do
             .chart-preview{id: "chart-preview-#{sensor.id}"}
