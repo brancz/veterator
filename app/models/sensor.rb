@@ -45,6 +45,10 @@ class Sensor < ActiveRecord::Base
     statistics_data
   end
 
+	def clean_name
+		name.gsub(/[^0-9A-Za-z]/, '')
+	end
+
 	def self.sort(ids)
 		if ApplicationController.adapter == 'mysql2'
 			update_all(

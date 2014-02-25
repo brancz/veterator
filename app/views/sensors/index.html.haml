@@ -16,8 +16,8 @@
             = link_to sensor.name, sensor_records_path(sensor)
             = "(#{sensor.unit.name})"
           %h3.right
-            = link_to '', '#', class: 'dropdown-arrow', :data => { :dropdown => "dropdown-#{sensor.name}" }
-          %ul.f-dropdown{:id => "dropdown-#{sensor.name}", :data => { :dropdown_content => ''} }
+            = link_to '', '#', class: 'dropdown-arrow', :data => { :dropdown => "dropdown-#{sensor.clean_name}" }
+          %ul.f-dropdown{:id => "dropdown-#{sensor.clean_name}", :data => { :dropdown_content => ''} }
             %li= link_to 'Show Data', sensor_records_path(sensor)
             %li= link_to 'Edit Sensor', edit_sensor_path(sensor)
             %li= link_to 'Delete Sensor', sensor, method: :delete, data: {confirm: 'Are you sure?'}
