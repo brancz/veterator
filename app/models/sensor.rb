@@ -46,7 +46,7 @@ class Sensor < ActiveRecord::Base
   end
 
 	def clean_name
-		name.gsub(/[^0-9A-Za-z]/, '')
+		name.gsub(/[^0-9A-Za-z]/, '').downcase
 	end
 
 	def self.sort(ids)
