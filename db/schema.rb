@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 20140218204051) do
 
   create_table "records", force: true do |t|
     t.decimal  "value"
-    t.string   "sensor_id"
+    t.integer  "sensor_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -47,7 +47,7 @@ ActiveRecord::Schema.define(version: 20140218204051) do
 
   create_table "sensors", force: true do |t|
     t.string   "name"
-    t.string   "unit_id"
+    t.integer  "unit_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
