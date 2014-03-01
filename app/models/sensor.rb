@@ -1,7 +1,7 @@
 class Sensor < ActiveRecord::Base
   belongs_to :unit
   has_one :type, through: :unit
-	alias :unit_type :type
+  alias :unit_type :type
   has_many :records, dependent: :destroy
   belongs_to :user
 
@@ -14,13 +14,13 @@ class Sensor < ActiveRecord::Base
   validates :user_id,
     presence: true
 
-	after_initialize :set_initial_sorting_priority
+  after_initialize :set_initial_sorting_priority
 
-	def set_initial_sorting_priority
-		nextpriority = Sensor.maximum('priority')
-		nextpriority ||= 0
-		priority ||= nextpriority + 100
-	end
+  def set_initial_sorting_priority
+    nextpriority = Sensor.maximum('priority')
+    nextpriority ||= 0
+    priority ||= nextpriority + 100
+  end
 
   def statistics(since = 1.day.ago)
     arecords = records.where('created_at > ?', since).order('value ASC')
@@ -45,20 +45,20 @@ class Sensor < ActiveRecord::Base
     statistics_data
   end
 
-	def clean_name
-		name.gsub(/[^0-9A-Za-z]/, '').downcase
-	end
+  def clean_name
+    name.gsub(/[^0-9A-Za-z]/, '').downcase
+  end
 
-	def self.sort(ids)
-		if ApplicationController.adapter == 'mysql2'
-			update_all(
-				['priority = FIND_IN_SET(id, ?)', ids.join(',')],
-				{ id: ids }
-			)
-		else
-			ids.each_with_index do |id, index|
-				Sensor.find_by_id(id).update(priority: index)
-			end
-		end
-	end
+  def self.sort(ids)
+    if ApplicationController.adapter == 'mysql2'
+      update_all(
+        ['priority = FIND_IN_SET(id, ?)', ids.join(',')],
+        { id: ids }
+      )
+    else
+      ids.each_with_index do |id, index|
+        Sensor.find_by_id(id).update(priority: index)
+      end
+    end
+  end
 end

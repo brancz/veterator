@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
 
   has_many :sensors, dependent: :destroy
   has_many :authentication_tokens, dependent: :destroy
-	has_and_belongs_to_many :roles
+  has_and_belongs_to_many :roles
 
   validates :username,
     :uniqueness => {
@@ -17,12 +17,12 @@ class User < ActiveRecord::Base
 
   attr_accessor :login
 
-	def generate_new_token!
-		new_token = SecureRandom.hex
-		self.token = Digest::SHA1::hexdigest(new_token)
-		self.token_valid_until = 2.weeks.from_now
-		new_token
-	end
+  def generate_new_token!
+    new_token = SecureRandom.hex
+    self.token = Digest::SHA1::hexdigest(new_token)
+    self.token_valid_until = 2.weeks.from_now
+    new_token
+  end
 
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup
@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
     end
   end
 
-	def role?(role)
-		roles.include? Role.find_by_name(role.to_s)
-	end
+  def role?(role)
+    roles.include? Role.find_by_name(role.to_s)
+  end
 end

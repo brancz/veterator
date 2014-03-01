@@ -18,7 +18,7 @@ path {
 }
 
 .chart-preview .x.axis line {
-	stroke: lightgrey;
+  stroke: lightgrey;
 }
 
 .brush .extent {
@@ -28,20 +28,20 @@ path {
 }
 
 .chart-preview .x.axis path {
-	display: none;
+  display: none;
 }
 
 .chart-preview .y.axis path {
-	display: none;
+  display: none;
 }
 
 .chart-preview .y.axis line {
-	stroke: lightgrey;
+  stroke: lightgrey;
 }
 
 #from_box select,
 #to_box select {
-	width: auto !important;
+  width: auto !important;
 }
 
 .margin-left-20 {
@@ -49,5 +49,5 @@ path {
 }
 
 #date_submit {
-	margin-top: 23px;
+  margin-top: 23px;
 }

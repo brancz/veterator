@@ -4,31 +4,31 @@ class UnitsController < ApplicationController
   # GET /units
   # GET /units.json
   def index
-		authorize! :read, Type
+    authorize! :read, Type
     @units = Unit.all
   end
 
   # GET /units/1
   # GET /units/1.json
   def show
-		authorize! :read, Type
+    authorize! :read, Type
   end
 
   # GET /units/new
   def new
-		authorize! :create, Type
+    authorize! :create, Type
     @unit = Unit.new
   end
 
   # GET /units/1/edit
   def edit
-		authorize! :update, Type
+    authorize! :update, Type
   end
 
   # POST /units
   # POST /units.json
   def create
-		authorize! :create, Type
+    authorize! :create, Type
     @unit = Unit.new(unit_params)
 
     respond_to do |format|
@@ -45,7 +45,7 @@ class UnitsController < ApplicationController
   # PATCH/PUT /units/1
   # PATCH/PUT /units/1.json
   def update
-		authorize! :update, Type
+    authorize! :update, Type
     respond_to do |format|
       if @unit.update(unit_params)
         format.html { redirect_to units_path, notice: 'Unit was successfully updated.' }
@@ -60,7 +60,7 @@ class UnitsController < ApplicationController
   # DELETE /units/1
   # DELETE /units/1.json
   def destroy
-		authorize! :destroy, Type
+    authorize! :destroy, Type
     @unit.destroy
     respond_to do |format|
       format.html { redirect_to units_url }

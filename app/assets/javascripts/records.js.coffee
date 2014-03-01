@@ -69,59 +69,59 @@
     context.append("g").attr("class", "x brush").call(brush).selectAll("rect").attr("y", -6).attr "height", height2 + 7
 
 @plot_graphs = ->
-	$('.sensor').each ->
-		element = $(this)
-		element_selector = element.attr('id')
-		number = element.attr('id').split('_')[1]
-		chart_element = $("#chart-preview-#{number}")
-		uri = "/sensors/#{number}/records.json"
-		margin = [15,15,20,30]
-		width = 391
-		height = chart_element.height() - margin[0] - margin[2]
+  $('.sensor').each ->
+    element = $(this)
+    element_selector = element.attr('id')
+    number = element.attr('id').split('_')[1]
+    chart_element = $("#chart-preview-#{number}")
+    uri = "/sensors/#{number}/records.json"
+    margin = [15,15,20,30]
+    width = 391
+    height = chart_element.height() - margin[0] - margin[2]
 
-		d3.json uri, (error, data) ->
+    d3.json uri, (error, data) ->
 
-			if data.length > 0
+      if data.length > 0
 
-				data.forEach (d) ->
-					d.created_at = parseDate(d.created_at)
-					d.value = +d.value
+        data.forEach (d) ->
+          d.created_at = parseDate(d.created_at)
+          d.value = +d.value
 
-				chart_element.empty()
+        chart_element.empty()
 
-				x_min = d3.min data, (d) -> 
-					d.created_at
-				
-				x_max = d3.max data, (d) ->
-					d.created_at
+        x_min = d3.min data, (d) -> 
+          d.created_at
+        
+        x_max = d3.max data, (d) ->
+          d.created_at
 
-				y_min = d3.min data, (d) ->
-					d.value
+        y_min = d3.min data, (d) ->
+          d.value
 
-				y_max = d3.max data, (d) ->
-					d.value
+        y_max = d3.max data, (d) ->
+          d.value
 
-				x = d3.time.scale().domain([x_min, x_max]).range([0, width])
-				x.tickFormat(d3.time.format("%s"));
+        x = d3.time.scale().domain([x_min, x_max]).range([0, width])
+        x.tickFormat(d3.time.format("%s"));
 
-				y = d3.scale.linear().domain([y_min, y_max]).range([height, 0])
-				
-				area = d3.svg.area().interpolate("monotone").x((d) ->
-					x d.created_at
-				).y0(height).y1((d) ->
-					y d.value
-				)
+        y = d3.scale.linear().domain([y_min, y_max]).range([height, 0])
+        
+        area = d3.svg.area().interpolate("monotone").x((d) ->
+          x d.created_at
+        ).y0(height).y1((d) ->
+          y d.value
+        )
 
-				graph = d3.select("##{chart_element.attr('id')}").append("svg:svg").attr("width", chart_element.width()).attr("height", chart_element.height()).attr("preserveAspectRatio", "xMidYMid").append("svd:g").attr("transform", "translate(" + margin[3] + "," + margin[0] + ")")
+        graph = d3.select("##{chart_element.attr('id')}").append("svg:svg").attr("width", chart_element.width()).attr("height", chart_element.height()).attr("preserveAspectRatio", "xMidYMid").append("svd:g").attr("transform", "translate(" + margin[3] + "," + margin[0] + ")")
 
-				xAxis = d3.svg.axis().scale(x);
-				graph.append("svg:g").attr("class", "x axis").attr("transform", "translate(0," + height + ")").call(xAxis)
+        xAxis = d3.svg.axis().scale(x);
+        graph.append("svg:g").attr("class", "x axis").attr("transform", "translate(0," + height + ")").call(xAxis)
 
-				yAxisLeft = d3.svg.axis().scale(y).ticks(2).tickSize(-width).orient("left");
-				graph.append("svg:g").attr("class", "y axis").call(yAxisLeft)
+        yAxisLeft = d3.svg.axis().scale(y).ticks(2).tickSize(-width).orient("left");
+        graph.append("svg:g").attr("class", "y axis").call(yAxisLeft)
 
-				graph.append("svg:path").attr("d", area(data)).attr("class", "data")
+        graph.append("svg:path").attr("d", area(data)).attr("class", "data")
 
-			else
+      else
 
-				chart_element.append "<h3 class='text-center margin-top-20'>No data available for</br>the last 24 hours</h3>"
+        chart_element.append "<h3 class='text-center margin-top-20'>No data available for</br>the last 24 hours</h3>"

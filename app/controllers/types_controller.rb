@@ -4,31 +4,31 @@ class TypesController < ApplicationController
   # GET /types
   # GET /types.json
   def index
-		authorize! :read, Type
+    authorize! :read, Type
     @types = Type.all
   end
 
   # GET /types/1
   # GET /types/1.json
   def show
-		authorize! :read, Type
+    authorize! :read, Type
   end
 
   # GET /types/new
   def new
-		authorize! :create, Type
+    authorize! :create, Type
     @type = Type.new
   end
 
   # GET /types/1/edit
   def edit
-		authorize! :update, Type
+    authorize! :update, Type
   end
 
   # POST /types
   # POST /types.json
   def create
-		authorize! :create, Type
+    authorize! :create, Type
     @type = Type.new(type_params)
 
     respond_to do |format|
@@ -45,7 +45,7 @@ class TypesController < ApplicationController
   # PATCH/PUT /types/1
   # PATCH/PUT /types/1.json
   def update
-		authorize! :update, Type
+    authorize! :update, Type
     respond_to do |format|
       if @type.update(type_params)
         format.html { redirect_to types_path, notice: 'Type was successfully updated.' }
@@ -60,7 +60,7 @@ class TypesController < ApplicationController
   # DELETE /types/1
   # DELETE /types/1.json
   def destroy
-		authorize! :destroy, Type
+    authorize! :destroy, Type
     @type.destroy
     respond_to do |format|
       format.html { redirect_to types_url }

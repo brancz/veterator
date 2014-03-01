@@ -14,14 +14,14 @@ class SensorsController < ApplicationController
 
   # GET /sensors/1/edit
   def edit
-		authorize! :update, @sensor
+    authorize! :update, @sensor
   end
 
   # POST /sensors
   # POST /sensors.json
   def create
     @sensor = Sensor.new(sensor_params)
-		@sensor.user = current_user
+    @sensor.user = current_user
 
     respond_to do |format|
       if @sensor.save
@@ -37,7 +37,7 @@ class SensorsController < ApplicationController
   # PATCH/PUT /sensors/1
   # PATCH/PUT /sensors/1.json
   def update
-		authorize! :update, @sensor
+    authorize! :update, @sensor
     respond_to do |format|
       if @sensor.update(sensor_params)
         format.html { redirect_to sensor_records_path(@sensor), notice: 'Sensor was successfully updated.' }
@@ -49,18 +49,18 @@ class SensorsController < ApplicationController
     end
   end
 
-	# PATCH/PUT /sensors
-	# PATCH/PUT /sensors.json
-	def sort
-		order = params[:sensor]
-		Sensor.sort(order)
-		render text: order.inspect
-	end
+  # PATCH/PUT /sensors
+  # PATCH/PUT /sensors.json
+  def sort
+    order = params[:sensor]
+    Sensor.sort(order)
+    render text: order.inspect
+  end
 
   # DELETE /sensors/1
   # DELETE /sensors/1.json
   def destroy
-		authorize! :destroy, @sensor
+    authorize! :destroy, @sensor
     @sensor.destroy
     respond_to do |format|
       format.html { redirect_to sensors_url }

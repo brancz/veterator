@@ -16,15 +16,15 @@
 @import "foundation_and_overrides";
 
 html {
-	height: 100%;
+  height: 100%;
 }
 
 body {
-	min-height: 100%;
+  min-height: 100%;
 }
 
 .full-height {
-	height: 100%;
+  height: 100%;
 }
 
 .main-panel {
@@ -49,7 +49,7 @@ fieldset legend {
 }
 
 td .low-button {
-	margin: 0 !important;
+  margin: 0 !important;
 }
 
 section.left-small {
@@ -134,45 +134,45 @@ li.nav-item {
 }
 
 .plain-list-style {
-	list-style-type: none;
+  list-style-type: none;
 }
 
 .ui-datepicker-header {
-	border-top: 1px solid #DDD;
-	border-left: 1px solid #DDD;
-	border-right: 1px solid #DDD;
-	background-color: #FFF;
-	padding: 5px 10px;
+  border-top: 1px solid #DDD;
+  border-left: 1px solid #DDD;
+  border-right: 1px solid #DDD;
+  background-color: #FFF;
+  padding: 5px 10px;
 }
 
 .ui-datepicker-title,
 .ui-datepicker-prev,
 .ui-datepicker-next {
-	vertical-align: middle;
+  vertical-align: middle;
 }
 
 .ui-datepicker-title {
-	text-align: center;
+  text-align: center;
 }
 
 .ui-datepicker-prev {
-	float: left;
+  float: left;
 }
 
 .ui-datepicker-prev:before {
-	font-family: "foundation-icons";
-	content: "\f10a";
+  font-family: "foundation-icons";
+  content: "\f10a";
 }
 
 .ui-datepicker-next {
-	float: right;
+  float: right;
 }
 
 .ui-datepicker-next:after {
-	font-family: "foundation-icons";
-	content: "\f10b";
+  font-family: "foundation-icons";
+  content: "\f10b";
 }
 
 .side-nav li.active > a:first-child:not(.button) {
-	color: #008CBA !important;
+  color: #008CBA !important;
 }

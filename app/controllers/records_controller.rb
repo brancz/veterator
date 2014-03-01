@@ -1,30 +1,30 @@
 class RecordsController < ApplicationController
   before_action :set_record, only: [:destroy]
-	before_action :set_sensor, only: [:show, :new, :index, :create, :destroy, :import, :import_action]
+  before_action :set_sensor, only: [:show, :new, :index, :create, :destroy, :import, :import_action]
 
-	# GET /sensor/1/records/new
-	# GET /sensor/1/records/new.json
-	def new
-		@record = Record.new
-	end
+  # GET /sensor/1/records/new
+  # GET /sensor/1/records/new.json
+  def new
+    @record = Record.new
+  end
 
-	# GET /sensor/1/records/1
-	# GET /sensor/1/records/1.json
-	def show
-	end
+  # GET /sensor/1/records/1
+  # GET /sensor/1/records/1.json
+  def show
+  end
 
   # GET /sensor/1/records
   # GET /sensor/1/records.json
   def index
-		authorize! :read, @sensor
-		if !params[:from_date].blank? && !params[:to_date].blank?
-			@from = DateTime.strptime(params[:from_date], "%m/%d/%Y").to_date
-			@to = DateTime.strptime(params[:to_date], "%m/%d/%Y").to_date
-		else
-			@from = 24.hours.ago.to_date
-			@to = Time.now.to_date
-		end
-		@records = Record.where(sensor: @sensor, created_at: @from..@to)
+    authorize! :read, @sensor
+    if !params[:from_date].blank? && !params[:to_date].blank?
+      @from = DateTime.strptime(params[:from_date], "%m/%d/%Y").to_date
+      @to = DateTime.strptime(params[:to_date], "%m/%d/%Y").to_date
+    else
+      @from = 24.hours.ago.to_date
+      @to = Time.now.to_date
+    end
+    @records = Record.where(sensor: @sensor, created_at: @from..@to)
     respond_to do |format|
       format.html
       format.json
@@ -53,7 +53,7 @@ class RecordsController < ApplicationController
   # DELETE /sensor/1/records/1
   # DELETE /sensor/1/records/1.json
   def destroy
-		!authorize :destroy, @record
+    !authorize :destroy, @record
     @record.destroy
     respond_to do |format|
       format.html { redirect_to sensor_records_path(@sensor) }
@@ -61,15 +61,15 @@ class RecordsController < ApplicationController
     end
   end
 
-	# IMPORT /sensor/1/records/import
-	def import
-	end
+  # IMPORT /sensor/1/records/import
+  def import
+  end
 
-	# IMPORT_ACTION /sensor/1/records/import_action
-	def import_action
-		Record.import(params[:file], @sensor)
-		redirect_to sensor_records_path(@sensor), notice: "Data successfully imported."
-	end
+  # IMPORT_ACTION /sensor/1/records/import_action
+  def import_action
+    Record.import(params[:file], @sensor)
+    redirect_to sensor_records_path(@sensor), notice: "Data successfully imported."
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -77,9 +77,9 @@ class RecordsController < ApplicationController
       @record = Record.find(params[:id])
     end
 
-		def set_sensor
+    def set_sensor
       @sensor = Sensor.find(params[:sensor_id])
-		end
+    end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def record_params
