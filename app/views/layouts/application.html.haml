@@ -40,7 +40,7 @@
                 %ul.left
                   %li= link_to ' Sensors', sensors_path, class: 'fi-graph-trend'
                   - if can? :manage, Unit
-                    %li= link_to 'Unit', units_path
+                    %li= link_to 'Units', units_path
                   - if can? :manage, Type
                     %li= link_to 'Types', types_path
                 %ul.right
