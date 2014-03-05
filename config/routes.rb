@@ -1,17 +1,17 @@
 OShome::Application.routes.draw do
   resources :authentication_tokens, path: 'users/authentication_tokens',
-		only: [:index, :update, :destroy, :create]
+    only: [:index, :update, :destroy, :create]
 
   resources :sensors, except: [:show] do
     resources :records, only: [:index, :create, :destroy, :new, :show] do
-			collection do
-				get :import
-				post :import_action
-			end
-		end
-		collection do
-			patch 'sort'
-		end
+      collection do
+        get :import
+        post :import_action
+      end
+    end
+    collection do
+      patch 'sort'
+    end
   end
 
   resources :units, except: [:show]
