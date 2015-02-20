@@ -1,32 +1,7 @@
-OShome::Application.routes.draw do
-  resources :authentication_tokens, path: 'users/authentication_tokens',
-    only: [:index, :update, :destroy, :create]
+Rails.application.routes.draw do
+  resources :sensors
 
-  resources :sensors, except: [:show] do
-    resources :records, only: [:index, :create, :destroy, :new, :show] do
-      collection do
-        get :import
-        post :import_action
-      end
-    end
-    collection do
-      patch 'sort'
-    end
-  end
-
-  resources :units, except: [:show]
-
-  resources :types, except: [:show]
-
-  devise_for :users, controllers: { registrations: 'users/registrations' }
-  resource :users, only: [:confirm_delete_user, :delete_user, :change_password, :update_password] do
-    collection do
-      get 'confirm_delete'
-      patch 'delete_user'
-      get 'change_password'
-      patch 'update_password'
-    end
-  end
+  devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -67,7 +42,7 @@ OShome::Application.routes.draw do
   #       get 'recent', on: :collection
   #     end
   #   end
-  
+
   # Example resource route with concerns:
   #   concern :toggleable do
   #     post 'toggle'

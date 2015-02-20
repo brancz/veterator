@@ -1,6 +1,0 @@
--if @sensor.errors.any?
-  -@sensor.errors.full_messages.each do |error|
-    .alert-box.info.radius{data:{alert:''}}
-      = error
-      = link_to '#', class: 'close' do
-        &times;

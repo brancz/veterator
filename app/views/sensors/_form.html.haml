@@ -1,8 +1,0 @@
-= form_for(@sensor) do |f|
-  = render 'sensors/alert'
-  .field
-    = f.text_field :name, placeholder: 'Name'
-  .field
-    = collection_select @sensor, :unit_id, Unit.all, :id, :name, include_blank: 'Unit'
-  .actions
-    = f.submit class: 'button'

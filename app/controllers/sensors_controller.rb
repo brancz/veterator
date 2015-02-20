@@ -1,10 +1,24 @@
 class SensorsController < ApplicationController
-  before_action :set_sensor, only: [:edit, :update, :destroy]
+  before_action :set_sensor, only: [:show, :edit, :update, :destroy]
 
   # GET /sensors
   # GET /sensors.json
   def index
-    @sensors = current_user.sensors.order(:priority)
+    @sensors = Sensor.all
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @sensors }
+    end
+  end
+
+  # GET /sensors/1
+  # GET /sensors/1.json
+  def show
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @sensor }
+    end
   end
 
   # GET /sensors/new
@@ -14,19 +28,17 @@ class SensorsController < ApplicationController
 
   # GET /sensors/1/edit
   def edit
-    authorize! :update, @sensor
   end
 
   # POST /sensors
   # POST /sensors.json
   def create
     @sensor = Sensor.new(sensor_params)
-    @sensor.user = current_user
 
     respond_to do |format|
       if @sensor.save
-        format.html { redirect_to sensors_path, notice: 'Sensor was successfully created.' }
-        format.json { render action: 'index', status: :created }
+        format.html { redirect_to @sensor, notice: 'Sensor was successfully created.' }
+        format.json { render json: @sensor, status: :created }
       else
         format.html { render action: 'new' }
         format.json { render json: @sensor.errors, status: :unprocessable_entity }
@@ -37,10 +49,9 @@ class SensorsController < ApplicationController
   # PATCH/PUT /sensors/1
   # PATCH/PUT /sensors/1.json
   def update
-    authorize! :update, @sensor
     respond_to do |format|
       if @sensor.update(sensor_params)
-        format.html { redirect_to sensor_records_path(@sensor), notice: 'Sensor was successfully updated.' }
+        format.html { redirect_to @sensor, notice: 'Sensor was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -49,18 +60,9 @@ class SensorsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /sensors
-  # PATCH/PUT /sensors.json
-  def sort
-    order = params[:sensor]
-    Sensor.sort(order)
-    render text: order.inspect
-  end
-
   # DELETE /sensors/1
   # DELETE /sensors/1.json
   def destroy
-    authorize! :destroy, @sensor
     @sensor.destroy
     respond_to do |format|
       format.html { redirect_to sensors_url }
@@ -76,6 +78,6 @@ class SensorsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sensor_params
-      params.require(:sensor).permit(:name, :unit_id)
+      params.require(:sensor).permit(:title, :description)
     end
 end

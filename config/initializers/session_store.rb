@@ -1,3 +1,3 @@
 # Be sure to restart your server when you modify this file.
 
-OShome::Application.config.session_store :cookie_store, key: '_OShome_session'
+Rails.application.config.session_store :cookie_store, key: '_OShome_session'

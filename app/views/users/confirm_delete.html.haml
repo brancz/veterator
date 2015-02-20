@@ -1,9 +1,0 @@
-%h1 Delete Account
-%br/
-= render 'users/alerts'
-%p If you want to delete your account, confirm by typing your password and press delete.
-%p
-  %i Warning: once your account has been deleted, it cannot be recovered!
-= form_tag "/users/delete_user", method: :patch do
-  = password_field_tag :current_password
-  = submit_tag 'Delete', class: 'button alert'
