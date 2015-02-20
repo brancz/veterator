@@ -1,29 +1,27 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Sensors</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Description</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @sensors.each do |sensor| %>
-      <tr>
-        <td><%= sensor.title %></td>
-        <td><%= sensor.description %></td>
-        <td><%= link_to 'Show', sensor %></td>
-        <td><%= link_to 'Edit', edit_sensor_path(sensor) %></td>
-        <td><%= link_to 'Destroy', sensor, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+<div class="container">
+  <div class="row">
+  <% @sensors.each_slice(2).each do |sensor_pair| %>
+    <% sensor_pair.each do |sensor| %>
+    <div class="col-sm-6">
+      <div class="panel panel-default">
+        <div class="panel-heading"><%= link_to sensor.title, sensor %></div>
+        <div class="panel-body">
+          <div class="chart-placeholder"></div>
+          <small>
+            <%= link_to sensor do %>
+              <span>more</span>
+              <i class="glyphicon glyphicon-chevron-right"></i>
+            <% end %>
+          </small>
+        </div>
+      </div>
+    </div>
     <% end %>
-  </tbody>
-</table>
+  <% end %>
+  <% if @sensors.empty? %>
+    <h2 class="text-center">No sensors added yet, <%= link_to 'get started!', new_sensor_url %></h2>
+  <% end %>
+</div>
 
-<br>
-
-<%= link_to 'New Sensor', new_sensor_path %>

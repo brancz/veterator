@@ -6,6 +6,7 @@ gem 'active_model_serializers'
 gem 'devise'
 
 # Frontend ...
+gem 'sass-rails'
 gem 'uglifier'
 gem 'jquery-rails'
 gem 'turbolinks'
