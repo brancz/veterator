@@ -9,12 +9,13 @@
         <div class="panel-heading"><%= link_to sensor.title, sensor %></div>
         <div class="panel-body">
           <div class="chart-placeholder"></div>
-          <small>
+          <small class="pull-right">
             <%= link_to sensor do %>
               <span>more</span>
               <i class="glyphicon glyphicon-chevron-right"></i>
             <% end %>
           </small>
+          <div class="clearfix"></div>
         </div>
       </div>
     </div>
