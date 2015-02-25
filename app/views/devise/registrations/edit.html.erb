@@ -1,0 +1,66 @@
+<div class="container">
+  <div class="col-md-3">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <ul class="nav nav-pills nav-stacked" style="max-width: 300px;">
+          <li><%= link_to 'Edit User', edit_user_registration_url %></li>
+          <li><%= link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?\n\nThis will delete all data connected to your account." }, method: :delete %></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-9">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h2>Edit <%= resource_name.to_s.humanize %></h2>
+      </div>
+
+      <div class="panel-body">
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+        <%= devise_error_messages! %>
+
+        <div class="form-group row">
+          <%= f.label :email, class: 'control-label col-sm-3' %>
+          <div class="col-sm-6">
+            <%= f.email_field :email, autofocus: true, class: 'form-control' %>
+          </div>
+        </div>
+
+        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+          <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+        <% end %>
+
+        <div class="form-group row">
+          <%= f.label :password, class: 'control-label col-sm-3' %>
+          <div class="col-sm-6">
+            <%= f.password_field :password, autocomplete: "off", class: 'form-control' %>
+            <i>(leave blank if you don't want to change it)</i>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <%= f.label :password_confirmation, class: 'control-label col-sm-3' %>
+          <div class="col-sm-6">
+            <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control' %>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <%= f.label :current_password, class: 'control-label col-sm-3' %>
+          <div class="col-sm-6">
+            <%= f.password_field :current_password, autocomplete: "off", class: 'form-control' %>
+            <i>(we need your current password to confirm your changes)</i>
+          </div>
+        </div>
+
+        <div class="actions row">
+          <div class="col-sm-6 col-sm-offset-3">
+            <%= f.submit "Update", class: 'btn btn-primary btn-block' %>
+          </div>
+        </div>
+      <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
