@@ -4,7 +4,7 @@ class SensorsController < ApplicationController
   # GET /sensors
   # GET /sensors.json
   def index
-    @sensors = Sensor.all
+    @sensors = current_user.sensors
 
     respond_to do |format|
       format.html # index.html.erb
@@ -34,6 +34,7 @@ class SensorsController < ApplicationController
   # POST /sensors.json
   def create
     @sensor = Sensor.new(sensor_params)
+    @sensor.user = current_user
 
     respond_to do |format|
       if @sensor.save

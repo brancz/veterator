@@ -9,6 +9,7 @@ gem 'devise'
 gem 'sass-rails'
 gem 'uglifier'
 gem 'jquery-rails'
+gem 'jquery-turbolinks'
 gem 'turbolinks'
 source 'https://rails-assets.org' do
   gem 'rails-assets-bootstrap'
