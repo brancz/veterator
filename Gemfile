@@ -4,6 +4,7 @@ gem 'rails', '4.2.0'
 gem 'sqlite3'
 gem 'active_model_serializers'
 gem 'devise'
+gem 'cancan'
 
 # Frontend ...
 gem 'sass-rails'
@@ -25,5 +26,11 @@ group :development, :test do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+
+  # load env vars from .env file
+  gem 'dotenv-rails'
+
+  # simple smtp server
+  gem 'mailcatcher'
 end
 
