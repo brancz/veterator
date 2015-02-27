@@ -17,5 +17,7 @@
 //= require turbolinks
 //= require_tree .
 
-$('a').tooltip();
+$(function() {
+    $('a').tooltip();
+});
 

@@ -48,8 +48,16 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <%- if user_signed_in? %>
-        <li><%= link_to '', edit_user_registration_url, class: 'glyphicon glyphicon-user', 'data-toggle' => "tooltip", 'data-placement' => "bottom", 'title' => "", 'data-original-title' => "Profile" %></li>
-        <li><%= link_to '', destroy_user_session_url, method: :delete, class: 'glyphicon glyphicon-log-out', 'data-toggle' => "tooltip", 'data-placement' => "bottom", 'title' => "", 'data-original-title' => "Logout" %></li>
+        <li>
+          <%= link_to edit_user_registration_url, class: 'glyphicon glyphicon-user', 'data-toggle' => "tooltip", 'data-placement' => "bottom", 'title' => "", 'data-original-title' => "Profile" do %>
+            <span class="visible-xs-inline">Profile</span>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to destroy_user_session_url, method: :delete, class: 'glyphicon glyphicon-log-out', 'data-toggle' => "tooltip", 'data-placement' => "bottom", 'title' => "", 'data-original-title' => "Logout" do %>
+            <span class="visible-xs-inline">Logout</span>
+          <% end %>
+        </li>
         <%- else %>
         <li><%= link_to 'Sign Up', new_user_registration_url %></li>
         <li><%= link_to 'Login', new_user_session_url %></li>
