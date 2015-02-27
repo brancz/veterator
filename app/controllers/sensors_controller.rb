@@ -1,10 +1,13 @@
 class SensorsController < ApplicationController
   before_action :set_sensor, only: [:show, :edit, :update, :destroy]
+  skip_before_filter :authenticate_user!, only: :index
   authorize_resource
 
   # GET /sensors
   # GET /sensors.json
   def index
+    return redirect_to '/users/sign_in' unless user_signed_in?
+
     @sensors = current_user.sensors
 
     respond_to do |format|
