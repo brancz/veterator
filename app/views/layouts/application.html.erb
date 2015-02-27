@@ -49,12 +49,12 @@
       <ul class="nav navbar-nav navbar-right">
         <%- if user_signed_in? %>
         <li>
-          <%= link_to edit_user_registration_url, class: 'glyphicon glyphicon-user', 'data-toggle' => "tooltip", 'data-placement' => "bottom", 'title' => "", 'data-original-title' => "Profile" do %>
+          <%= link_to edit_user_registration_url, class: 'glyphicon glyphicon-user', 'data-toggle' => "tooltip", 'data-placement' => "bottom", 'title' => "", 'data-original-title' => "Profile", 'data-template' => '<div class="tooltip hidden-xs" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>' do %>
             <span class="visible-xs-inline">Profile</span>
           <% end %>
         </li>
         <li>
-          <%= link_to destroy_user_session_url, method: :delete, class: 'glyphicon glyphicon-log-out', 'data-toggle' => "tooltip", 'data-placement' => "bottom", 'title' => "", 'data-original-title' => "Logout" do %>
+          <%= link_to destroy_user_session_url, method: :delete, class: 'glyphicon glyphicon-log-out', 'data-toggle' => "tooltip", 'data-placement' => "bottom", 'title' => "", 'data-original-title' => "Logout", 'data-template' => '<div class="tooltip hidden-xs" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>' do %>
             <span class="visible-xs-inline">Logout</span>
           <% end %>
         </li>
