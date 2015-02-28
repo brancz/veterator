@@ -5,6 +5,8 @@ gem 'sqlite3'
 gem 'active_model_serializers'
 gem 'devise'
 gem 'cancan'
+gem 'rack-cors', require: 'rack/cors'
+gem 'grape'
 
 # Frontend ...
 gem 'sass-rails'

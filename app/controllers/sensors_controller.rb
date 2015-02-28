@@ -1,4 +1,5 @@
 class SensorsController < ApplicationController
+  layout Proc.new { |controller| action_name == 'index' ? 'application' : 'sensor' }
   before_action :set_sensor, only: [:show, :edit, :update, :destroy]
   skip_before_filter :authenticate_user!, only: :index
   authorize_resource

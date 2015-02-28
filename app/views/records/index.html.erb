@@ -1,0 +1,27 @@
+<div class="panel-heading">
+  <h2>Records <small>for sensor <%= @sensor.title %></small></h2>
+</div>
+
+<div class="panel-body">
+  <% if @records.empty? %>
+  <p class="text-center">There are no records for this sensor yet.</p>
+  <% else %>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Timestamp</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @records.each do |record| %>
+      <tr>
+        <td><%= record.created_at %></td>
+        <td><%= record.value %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <% end %>
+</div>
+

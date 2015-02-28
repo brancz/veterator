@@ -1,46 +1,14 @@
-<div class="container">
+<div class="panel-body">
   <div class="row">
-    <div class="col-sm-12">
-      <div class="panel panel-default">
-        <div class="panel-body">
-          <div class="row">
-            <div class="col-sm-10">
-              <h2>
-                <span><%= @sensor.title %></span>
-                <small><%= @sensor.description %></small>
-              </h2>
-            </div>
-            <div class="col-sm-2">
-              <div class="pull-right">
-                <h3>
-                  <div class="actions">
-                    <span class="action">
-                      <%= link_to '#export', 'data-toggle' => "tooltip", 'data-placement' => "bottom", 'title' => "", 'data-original-title' => "Export" do %>
-                        <i class="glyphicon glyphicon-export text-muted"></i>
-                      <% end %>
-                    </span>
-                    <span class="action">
-                      <%= link_to edit_sensor_url(@sensor), 'data-toggle' => "tooltip", 'data-placement' => "bottom", 'title' => "", 'data-original-title' => "Edit" do %>
-                        <i class="glyphicon glyphicon-edit"></i>
-                      <% end %>
-                    </span>
-                    <span class="action">
-                      <%= link_to @sensor, method: :delete, confirm: 'Are you sure?', 'data-toggle' => "tooltip", 'data-placement' => "bottom", 'title' => "", 'data-original-title' => "Delete" do %>
-                        <i class="glyphicon glyphicon-remove-circle text-danger"></i>
-                      <% end %>
-                    </span>
-                  </div>
-                </h3>
-              </div>
-              <div class="clearfix"></div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="chart col-sm-12"></div>
-          </div>
-        </div>
-      </div>
+    <div class="col-sm-10">
+      <h2>
+        <span><%= @sensor.title %></span>
+        <small><%= @sensor.description %></small>
+      </h2>
     </div>
+  </div>
+  <div class="row">
+    <div class="chart col-sm-12"></div>
   </div>
 </div>
 

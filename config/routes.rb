@@ -1,8 +1,18 @@
+require 'api'
+
 Rails.application.routes.draw do
-  resources :sensors
+  resources :sensors do
+    resources :records, only: [:index]
+  end
 
   devise_for :users, controllers: { registrations: 'registrations' }
-  resources :authentication_token, only: [:index, :create]
+  namespace :users do
+    resources :token, only: [:index, :create], controller: :authentication_token
+  end
+
+  API::API.logger Rails.logger
+  mount API::API => '/api'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

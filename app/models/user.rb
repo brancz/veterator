@@ -25,6 +25,10 @@ class User < ActiveRecord::Base
       [token, token_hash]
     end
 
+    def find_by_raw_token(raw_token)
+      find_by authentication_token: hmac(raw_token)
+    end
+
     def hmac(string)
       encode OpenSSL::HMAC.digest(digest, Devise.secret_key, string)
     end
