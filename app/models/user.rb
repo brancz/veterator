@@ -6,4 +6,35 @@ class User < ActiveRecord::Base
          :confirmable, :lockable
 
   has_many :sensors
+
+  def create_new_authentication_token
+    raw_token, self.authentication_token = User.generate_safe_token
+    self.save
+    raw_token
+  end
+
+  class << self
+    def generate_safe_token
+      token = nil
+      token_hash = nil
+      loop do
+        token = Devise.friendly_token
+        token_hash = hmac token
+        break if find_by(authentication_token: token_hash).nil?
+      end
+      [token, token_hash]
+    end
+
+    def hmac(string)
+      encode OpenSSL::HMAC.digest(digest, Devise.secret_key, string)
+    end
+
+    def encode(plain_text)
+      Base64.encode64(plain_text).encode('utf-8')
+    end
+
+    def digest
+      OpenSSL::Digest::SHA256.new
+    end
+  end
 end
