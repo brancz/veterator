@@ -1,4 +1,6 @@
-class AuthenticationTokenController < ApplicationController
+class Users::AuthenticationTokenController < ApplicationController
+  layout 'devise'
+
   # GET /autentication_token
   def index
   end

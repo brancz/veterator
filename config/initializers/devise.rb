@@ -259,11 +259,13 @@ Devise.setup do |config|
   # config.omniauth_path_prefix = '/my_engine/users/auth'
 
   Rails.application.config.to_prepare do
-    computed_layout = ->(controller) { user_signed_in? ? 'devise' : 'unauthenticated_devise' }
-    Devise::SessionsController.layout computed_layout
-    Devise::RegistrationsController.layout computed_layout
-    Devise::ConfirmationsController.layout computed_layout
-    Devise::UnlocksController.layout computed_layout
-    Devise::PasswordsController.layout computed_layout
+    Devise::SessionsController.layout 'unauthenticated_devise'
+    Devise::RegistrationsController.layout Proc.new { |controller|
+      return 'devise' if user_signed_in?
+      'unauthenticated_devise'
+    }
+    Devise::ConfirmationsController.layout 'unauthenticated_devise'
+    Devise::UnlocksController.layout 'unauthenticated_devise'
+    Devise::PasswordsController.layout 'unauthenticated_devise'
   end
 end

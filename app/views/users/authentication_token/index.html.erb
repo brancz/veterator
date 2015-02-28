@@ -1,0 +1,27 @@
+<div class="panel-heading">
+  <h2>Authentication Token</h2>
+</div>
+
+<div class="panel-body">
+  <p>
+    An authentication token is required for systems (eg. embedded devices) to add records through our API. The token is only displayed when it is generated, afterwards it will not be viewable again. If you forget your authentication token, you will need to generate a new one.
+  </p>
+  <% unless current_user.authentication_token.present? %>
+    <p class="text-center"><i class="glyphicon glyphicon-info-sign"></i> You have not yet generated an authentication token. Do so by hitting the button below.</p>
+  <% end %>
+
+  <% if @token %>
+    <p class="text-center">Your authentication token is</p>
+    <h4 class="text-center"><%= @token %></h4>
+  <% end %>
+
+  <div class="actions row">
+    <div class="col-sm-6 col-sm-offset-3">
+      <%= button_to 'Generate new authentication token', users_token_index_url, class: 'btn btn-primary btn-block', method: :post %>
+      <% if current_user.authentication_token.present? %>
+        <p class="text-center"><i class="glyphicon glyphicon-info-sign"></i> <strong>You have already created a token.</strong> When generating a new authentication token, the old one will become invalid.</p>
+      <% end %>
+    </div>
+  </div>
+</div>
+
