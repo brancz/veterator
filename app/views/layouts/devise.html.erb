@@ -1,19 +1,21 @@
 <%= inside_layout 'application' do %>
   <div class="container">
-    <div class="col-md-3">
-      <div class="panel panel-default">
-        <div class="panel-body">
-          <ul class="nav nav-pills nav-stacked">
-            <li><%= link_to 'Profile', edit_user_registration_url %></li>
-            <li><%= link_to 'Authentication Token', users_token_index_url %></li>
-            <li><%= link_to "Cancel Account", user_registration_url, data: { confirm: "Are you sure?\n\nThis will delete all data connected to your account." }, method: :delete %></li>
-          </ul>
+    <div class="row">
+      <div class="col-md-3">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <ul class="nav nav-pills nav-stacked">
+              <li><%= link_to 'Profile', edit_user_registration_url %></li>
+              <li><%= link_to 'Authentication Token', users_token_index_url %></li>
+              <li><%= link_to "Cancel Account", user_registration_url, data: { confirm: "Are you sure?\n\nThis will delete all data connected to your account." }, method: :delete %></li>
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="col-md-9">
-      <div class="panel panel-default">
-        <%= yield %>
+      <div class="col-md-9">
+        <div class="panel panel-default">
+          <%= yield %>
+        </div>
       </div>
     </div>
   </div>
