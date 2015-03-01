@@ -8,7 +8,10 @@
     </div>
   </div>
   <div class="row">
-    <div class="chart col-sm-12"></div>
+    <div class="col-sm-12">
+      <svg id="graph"></svg>
+      <script>createLineChartFor(<%= @sensor.id %>);</script>
+    </div>
   </div>
 </div>
 

@@ -17,6 +17,7 @@ gem 'turbolinks'
 source 'https://rails-assets.org' do
   gem 'rails-assets-bootstrap'
   gem 'rails-assets-bootstrap-material-design'
+  gem 'rails-assets-d3'
 end
 
 group :development, :test do

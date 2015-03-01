@@ -23,11 +23,34 @@
   text-decoration: none;
 }
 
-.chart {
-  background-color: lightgray;
+#graph {
   width: 100%;
-  height: 500px;
+  height: 100%;
   display: block;
   margin-top: 15px;
+  position: relative;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #555;
+  shape-rendering: crispEdges;
+}
+
+.axis text {
+  fill: #555;
+}
+
+.line {
+  fill: none;
+  stroke: #ef0d0c;
+  stroke-width: 1.5px;
+}
+
+.hover-line {
+  fill: none;
+  stroke: gray;
+  stroke-width: 1px;
 }
 
