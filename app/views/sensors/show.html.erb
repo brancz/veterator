@@ -1,17 +1,12 @@
+<div class="panel-heading">
+  <h2>
+    <span><%= @sensor.title %></span>
+    <small><%= @sensor.description %></small>
+  </h2>
+</div>
+
 <div class="panel-body">
-  <div class="row">
-    <div class="col-sm-10">
-      <h2>
-        <span><%= @sensor.title %></span>
-        <small><%= @sensor.description %></small>
-      </h2>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-12">
-      <svg id="graph"></svg>
-    </div>
-  </div>
+  <svg id="graph"></svg>
   <div class="row">
     <div class="col-sm-2 col-sm-offset-7">
       <p class="text-right"><strong>Timestamp</strong></p>
