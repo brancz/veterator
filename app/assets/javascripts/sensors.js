@@ -5,7 +5,7 @@ function createLineChartFor(sensor_id) {
 
     var xScale = d3.time.scale()
         .range([0, width])
-        .nice(d3.time.day);
+        .nice();
 
     var yScale = d3.scale.linear()
         .range([height, 0])
@@ -25,9 +25,9 @@ function createLineChartFor(sensor_id) {
 
     var graph = d3.select("#graph")
         .attr("width", width + margin*2)
-        .attr("height", height + margin*2)
+        .attr("height", height + margin + 20)
         .append("g")
-        .attr("transform", "translate(" + margin + "," + margin + ")");
+        .attr("transform", "translate(" + margin + "," + 20 + ")");
 
     d3.json("/sensors/" + sensor_id + "/records.json", function(error, json) {
         data = json.records;
@@ -166,6 +166,16 @@ function createLineChartFor(sensor_id) {
             currentUserPositionX = -1;
         }
 
+        function displayValueForPosition(mouseX) {
+            var xValue = xScale.invert(mouseX);
+            var bisectDate = d3.bisector(function(d) { return d.created_at; }).left;
+            var record = data[bisectDate(data, xValue)];
+            if(record) {
+                $('#created_at').text(d3.time.format("%Y-%m-%d %H:%M:%S")(new Date(record.created_at)));
+                $('#value').text(record.value);
+            }
+        }
+
         function handleMouseOverGraph(event) {
             var mouseX = event.pageX - (margin + $('#graph').offset().left);
             var mouseY = event.pageY - (margin + $('#graph').offset().top);
@@ -176,13 +186,16 @@ function createLineChartFor(sensor_id) {
                 hoverLine.classed("hide", false);
 
                 // set position of hoverLine
-                hoverLine.attr("x1", mouseX).attr("x2", mouseX)
+                hoverLine.attr("x1", mouseX).attr("x2", mouseX);
+
+                // display value of current position
+                displayValueForPosition(mouseX);
                 
                 // user is interacting
                 userCurrentlyInteracting = true;
             } else {
                 // proactively act as if we've left the area since we're out of the bounds we want
-                handleMouseOutGraph(event)
+                handleMouseOutGraph(event);
             }
         }
 

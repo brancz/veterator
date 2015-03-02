@@ -10,8 +10,18 @@
   <div class="row">
     <div class="col-sm-12">
       <svg id="graph"></svg>
-      <script>createLineChartFor(<%= @sensor.id %>);</script>
     </div>
   </div>
+  <div class="row">
+    <div class="col-sm-2 col-sm-offset-7">
+      <p class="text-right"><strong>Timestamp</strong></p>
+      <p class="text-right"><strong>Value</strong></p>
+    </div>
+    <div class="col-sm-3">
+      <p><span id="created_at"></span></p>
+      <p><span id="value"></span> </p>
+    </div>
+  </div>
+  <script>createLineChartFor(<%= @sensor.id %>);</script>
 </div>
 

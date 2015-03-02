@@ -14,6 +14,6 @@ sensor = user.sensors.create(
 
 puts '### Test Records (365 Records) ###'
 1.year.ago.to_date.step(Time.now.to_date).each.with_index do |date, index|
-  sensor.records.create(value: index, created_at: date)
+  sensor.records.create(value: index+50, created_at: date)
 end
 
