@@ -9,6 +9,10 @@ class RecordsController < ApplicationController
 
     respond_to do |format|
       format.html
+      format.csv do
+        response.headers['Content-Disposition'] = "attachment; filename=\"#{@sensor.title}.csv\""
+        render 'records/index.csv.erb'
+      end
       format.json { render json: @records }
     end
   end
