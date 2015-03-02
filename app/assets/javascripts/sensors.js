@@ -1,3 +1,11 @@
+$(function() {
+    $('#language-selector').change(function(e) {
+        $('.code-snippet').hide();
+        var selection = $(this).val();
+        $('.code-snippet-'+selection).show();
+    });
+});
+
 function createLineChartFor(sensor_id) {
     var margin = 60,
     width = parseInt(d3.select("#graph").style("width")) - margin*2,

@@ -1,8 +1,57 @@
 <div class="panel-heading">
-  <h2>Editing Sensor</h2>
+  <h2>Sensor Settings</h2>
 </div>
 
 <div class="panel-body">
-  <%= render 'form' %>
+  <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+    <div class="panel panel-default">
+      <div class="panel-heading" role="tab" id="headingOne">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            Common Settings
+          </a>
+        </h4>
+      </div>
+      <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+        <div class="panel-body">
+          <%= render 'form' %>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading" role="tab" id="headingTwo">
+        <h4 class="panel-title">
+          <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            Advanced Settings
+          </a>
+        </h4>
+      </div>
+      <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+        <div class="panel-body">
+          <p>We have prepared a couple of code snippets to get you started with capturing your data automatically.</p>
+          <p>
+            Here's an example with
+            <select id="language-selector" name="Language">
+              <option>curl</option>
+              <option>ruby</option>
+            </select>
+          </p>
+          <pre class="code-snippet code-snippet-curl"><code>$ curl --data '{"value":10}' <%= "#{root_url}api/v1/sensors/#{@sensor.id}/records" %> --headers "Authorization:&lt;Your Authentication Token&gt;"  --header "Content-Type:application/json"</code></pre>
+          <pre class="code-snippet code-snippet-ruby" style="display:none;"><code>require 'net/http'
+require 'json'
+
+uri = URI('<%= "#{root_url}api/v1/sensors/#{@sensor.id}/records" %>')
+http = Net::HTTP.new(uri.host, uri.port)
+req = Net::HTTP::Post.new(uri.path, initheader = {
+  'Content-Type' => 'application/json',
+  'Authorization' => '&lt;Your Authentication Token&gt;'
+})
+req.body = {value: 10}.to_json
+res = http.request(req)
+</code></pre>
+          <blockquote>Hint: Generate your authentication token on the <%= link_to 'Authentication Token page', users_token_index_url %> in your profile.</blockquote>
+        </div>
+      </div>
+    </div>
 </div>
 
