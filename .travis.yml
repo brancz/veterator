@@ -1,0 +1,12 @@
+language: ruby
+rvm:
+  - 2.2.0
+cache: bundler
+bundler_args: "--without development"
+sudo: false
+before_script:
+- psql -c 'create database oshome_test;' -U postgres
+- cp config/database.yml.travis config/database.yml
+- bundle exec rake db:migrate
+addons:
+  postgresql: '9.3'
