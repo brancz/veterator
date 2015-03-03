@@ -7,6 +7,7 @@ gem 'devise'
 gem 'cancan'
 gem 'rack-cors', require: 'rack/cors'
 gem 'grape'
+gem 'pg'
 
 # Frontend ...
 gem 'sass-rails'

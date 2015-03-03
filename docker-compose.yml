@@ -1,0 +1,16 @@
+db:
+  image: postgres:9.4
+  volumes:
+    - ~/.docker-volumes/OShome/db/:/var/lib/postgresql/data/
+  ports:
+    - "5432"
+web:
+  build: .
+  command: rackup -p 5000 --host 0.0.0.0
+  volumes:
+    - .:/usr/src/app
+  ports:
+    - "5000:5000"
+  links:
+    - db
+
