@@ -34,9 +34,10 @@
             <select id="language-selector" name="Language">
               <option>curl</option>
               <option>ruby</option>
+              <option>python</option>
             </select>
           </p>
-          <pre class="code-snippet code-snippet-curl"><code>$ curl --data '{"value":10}' <%= "#{root_url}api/v1/sensors/#{@sensor.id}/records" %> --headers "Authorization:&lt;Your Authentication Token&gt;"  --header "Content-Type:application/json"</code></pre>
+          <pre class="code-snippet code-snippet-curl"><code>$ curl --data '{"value":10}' <%= "#{root_url}api/v1/sensors/#{@sensor.id}/records" %> --header "Authorization:&lt;Your Authentication Token&gt;"  --header "Content-Type:application/json"</code></pre>
           <pre class="code-snippet code-snippet-ruby" style="display:none;"><code>require 'net/http'
 require 'json'
 
@@ -48,6 +49,15 @@ req = Net::HTTP::Post.new(uri.path, initheader = {
 })
 req.body = {value: 10}.to_json
 res = http.request(req)
+</code></pre>
+          <pre class="code-snippet code-snippet-python" style="display:none;"><code>import requests
+import json
+
+response = requests.post(
+    '<%= "#{root_url}api/v1/sensors/#{@sensor.id}/records" %>',
+    data=json.dumps({'value': 10}),
+    headers={'content-type': 'application/json', 'authorization': '&lt;Your Authentication Token&gt;'}
+)
 </code></pre>
           <blockquote>Hint: Generate your authentication token on the <%= link_to 'Authentication Token page', users_token_index_url %> in your profile.</blockquote>
         </div>
