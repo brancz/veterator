@@ -1,6 +1,13 @@
 module API
   module V1
     class Records < Grape::API
+      rescue_from ActiveRecord::RecordNotFound do
+        rack_response({ message: '404 Not Found' }.to_json, 404)
+      end
+
+      format :json
+      content_type :json, 'application/json'
+
       namespace :sensors do
         helpers do
           def authenticate!
@@ -9,6 +16,10 @@ module API
 
           def unauthenticated!
             error!({ message: '401 Unauthenticated' }, 401)
+          end
+
+          def unprocessable!(entity)
+            error!({ message: entity.errors.full_messages }, 422)
           end
 
           def current_user
@@ -22,10 +33,12 @@ module API
         end
 
         # Create a new record for a sensor
-        post ':id/records' do
+        post '/:id/records' do
           authenticate!
           sensor = Sensor.find params[:id]
-          sensor.records.create value: params[:value]
+          record = sensor.records.new value: params[:value]
+          unprocessable!(record) unless record.valid?
+          record.save
         end
       end
     end

@@ -38,5 +38,11 @@ group :development, :test do
 
   # testing framework
   gem 'rspec-rails'
+
+  # db factories
+  gem 'factory_girl_rails'
+
+  # cleaning the database after test runs
+  gem 'database_cleaner'
 end
 

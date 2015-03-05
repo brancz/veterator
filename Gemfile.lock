@@ -64,6 +64,7 @@ GEM
     coffee-script-source (1.9.1)
     columnize (0.9.0)
     daemons (1.1.9)
+    database_cleaner (1.4.0)
     debug_inspector (0.0.2)
     debugger-linecache (1.2.0)
     descendants_tracker (0.0.4)
@@ -83,6 +84,11 @@ GEM
     erubis (2.7.0)
     eventmachine (1.0.5)
     execjs (2.3.0)
+    factory_girl (4.5.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.5.0)
+      factory_girl (~> 4.5.0)
+      railties (>= 3.0.0)
     globalid (0.3.3)
       activesupport (>= 4.1.0)
     grape (0.10.1)
@@ -246,8 +252,10 @@ DEPENDENCIES
   active_model_serializers
   byebug
   cancan
+  database_cleaner
   devise
   dotenv-rails
+  factory_girl_rails
   grape
   jquery-rails
   jquery-turbolinks

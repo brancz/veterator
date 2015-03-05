@@ -13,6 +13,4 @@ web:
     - "5000:5000"
   links:
     - db
-  environment:
-    - RAILS_ENV=development
 
