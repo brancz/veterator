@@ -6,11 +6,13 @@ db:
     - "5432"
 web:
   build: .
-  command: rackup -p 5000 --host 0.0.0.0
+  command: bundle exec rails s -p 5000 -b '0.0.0.0'
   volumes:
     - .:/usr/src/app
   ports:
     - "5000:5000"
   links:
     - db
+  environment:
+    - RAILS_ENV=development
 
