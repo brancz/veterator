@@ -1,6 +1,6 @@
 language: ruby
 rvm:
-  - 2.2.0
+- 2.2.0
 cache: bundler
 bundler_args: "--without development"
 sudo: false
@@ -10,3 +10,11 @@ before_script:
 - bundle exec rake db:migrate
 addons:
   postgresql: '9.3'
+deploy:
+  provider: heroku
+  api_key:
+    secure: AuqRajfWl7n6hyPxuH8wdQUnCnMO6iEQZ8DHoocgmee8uX/6JjMkE7VTHSYt9Ao4y9DYt5ONMBp/1KMx7RY3zVZwsoSge73FtJN7Xs1BdtkFJsFzv77MWHiszoqmRZKpZCUP++R9WhlkYfbEqBod7lEHR9gVjT+PjV0w9b1pxMs=
+  app: oshome
+  run: "rake db:migrate"
+  on:
+    repo: flower-pot/OShome
