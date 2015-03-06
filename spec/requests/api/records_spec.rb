@@ -6,8 +6,8 @@ describe '[POST] /api/v1/sensors/:id/records' do
     @sensor = Sensor.create(attributes_for(:sensor).merge(user: @user))
   end
 
-  def authenticate!
-    header 'Authorization', @user.create_new_authentication_token
+  def authenticate!(user = @user)
+    header 'Authorization', user.create_new_authentication_token
   end
 
   context 'when not authenticated' do
@@ -26,13 +26,41 @@ describe '[POST] /api/v1/sensors/:id/records' do
   end
 
   context 'when not authorized to access sensor' do
-    it 'responds with 403'
+    it 'responds with 403' do
+      other_user = create :confirmed_user
+      authenticate! other_user
+      post "/api/v1/sensors/#{@sensor.id}/records"
+      expect(last_response.status).to eq 403
+    end
   end
 
   context 'when resource is valid' do
-    it 'responds with 201'
-    it 'creates the resource'
-    it 'shows the resource'
+    it 'responds with 201' do
+      authenticate!
+      post "/api/v1/sensors/#{@sensor.id}/records", { value: 10 }, {
+        'Content-Type' => 'application/json'
+      }
+      expect(last_response.status).to eq 201
+    end
+
+    it 'creates the resource' do
+      authenticate!
+      expect{
+        post "/api/v1/sensors/#{@sensor.id}/records", { value: 10 }, {
+          'Content-Type' => 'application/json'
+        }
+      }.to change { Record.count }.by 1
+    end
+
+    it 'shows the resource' do
+      authenticate!
+      post "/api/v1/sensors/#{@sensor.id}/records", { value: 10 }, {
+        'Content-Type' => 'application/json'
+      }
+      expect(last_response.body).to eq ({
+        value: '10.0', sensor_id: @sensor.id
+      }.to_json)
+    end
   end
 
   context 'when resource is invalid' do
