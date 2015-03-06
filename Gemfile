@@ -3,13 +3,14 @@ source 'https://rubygems.org'
 ruby '2.2.0'
 
 gem 'rails', '4.2.0'
-gem 'sqlite3'
 gem 'active_model_serializers'
 gem 'devise'
 gem 'cancan'
 gem 'rack-cors', require: 'rack/cors'
 gem 'grape'
 gem 'pg'
+gem 'rails_12factor'
+gem 'puma'
 
 # Frontend ...
 gem 'sass-rails'
@@ -44,5 +45,8 @@ group :development, :test do
 
   # cleaning the database after test runs
   gem 'database_cleaner'
+
+  # simulate heroku env
+  gem 'foreman'
 end
 
