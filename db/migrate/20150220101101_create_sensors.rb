@@ -3,6 +3,7 @@ class CreateSensors < ActiveRecord::Migration
     create_table :sensors do |t|
       t.string :title
       t.string :description
+      t.integer :chart_type
       t.references :user, index: true
 
       t.timestamps null: false

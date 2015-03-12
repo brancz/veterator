@@ -6,7 +6,7 @@ $(function() {
     });
 });
 
-function createLineChartFor(sensor_id, selector, interactive) {
+function createLineChartFor(sensor_id, selector, interactive, interpolationType) {
     var margin = 60,
         width = parseInt(d3.select(selector).style("width")) - margin*2,
         height = ((parseInt(d3.select(selector).style("width"))/16)*9) - margin*2;
@@ -30,6 +30,8 @@ function createLineChartFor(sensor_id, selector, interactive) {
     var line = d3.svg.line()
         .x(function(d) { return xScale(d.created_at); })
         .y(function(d) { return yScale(d.value); });
+
+    line.interpolate(interpolationType || 'linear');
 
     var graph = d3.select(selector)
         .attr("width", width + margin*2)

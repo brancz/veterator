@@ -55,6 +55,7 @@ class SensorsController < ApplicationController
   # PATCH/PUT /sensors/1
   # PATCH/PUT /sensors/1.json
   def update
+    puts sensor_params
     respond_to do |format|
       if @sensor.update(sensor_params)
         format.html { redirect_to @sensor, notice: 'Sensor was successfully updated.' }
@@ -84,6 +85,6 @@ class SensorsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sensor_params
-      params.require(:sensor).permit(:title, :description)
+      params.require(:sensor).permit(:title, :description, :chart_type)
     end
 end
