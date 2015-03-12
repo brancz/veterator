@@ -1,4 +1,4 @@
-puts '### Test User ###'
+puts '### Creating Test User ###'
 user = User.create(
   email: 'fbranczyk@gmail.com',
   password: 'testtest',
@@ -6,14 +6,20 @@ user = User.create(
   confirmed_at: Time.now
 )
 
-puts '### Test Sensor ###'
+puts '### Creating Test Sensor ###'
 sensor = user.sensors.create(
   title: 'Test Title',
   description: 'Test Description'
 )
 
-puts '### Test Records (365 Records) ###'
-1.year.ago.to_date.step(Time.now.to_date).each.with_index do |date, index|
-  sensor.records.create(value: index+50, created_at: date)
+puts '### Creating Test Records ###'
+require 'csv'
+require 'date'
+CSV.foreach('db/seed-sensor-records.csv') do |row|
+  raw_date, raw_value = row
+  sensor.records.create(
+    value: raw_value.to_f,
+    created_at: Date.parse(raw_date)
+  )
 end
 
