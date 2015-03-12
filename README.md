@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/flower-pot/OShome.svg?branch=master)](https://travis-ci.org/flower-pot/OShome)
+
 OShome
 ======
 
