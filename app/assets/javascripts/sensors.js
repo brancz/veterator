@@ -6,10 +6,10 @@ $(function() {
     });
 });
 
-function createLineChartFor(sensor_id) {
+function createLineChartFor(sensor_id, selector, interactive) {
     var margin = 60,
-    width = parseInt(d3.select("#graph").style("width")) - margin*2,
-    height = ((parseInt(d3.select("#graph").style("width"))/16)*9) - margin*2;
+        width = parseInt(d3.select(selector).style("width")) - margin*2,
+        height = ((parseInt(d3.select(selector).style("width"))/16)*9) - margin*2;
 
     var xScale = d3.time.scale()
         .range([0, width])
@@ -31,7 +31,7 @@ function createLineChartFor(sensor_id) {
         .x(function(d) { return xScale(d.created_at); })
         .y(function(d) { return yScale(d.value); });
 
-    var graph = d3.select("#graph")
+    var graph = d3.select(selector)
         .attr("width", width + margin*2)
         .attr("height", height + margin + 20)
         .append("g")
@@ -106,8 +106,8 @@ function createLineChartFor(sensor_id) {
         hoverLine.classed('hide', true);
 
         function resize() {
-            width = parseInt(d3.select("#graph").style("width")) - margin*2;
-            height = ((parseInt(d3.select("#graph").style("width"))/16)*9) - margin*2;
+            width = parseInt(d3.select(selector).style("width")) - margin*2;
+            height = ((parseInt(d3.select(selector).style("width"))/16)*9) - margin*2;
 
             hoverLine.attr('y2', height);
 
@@ -185,8 +185,8 @@ function createLineChartFor(sensor_id) {
         }
 
         function handleMouseOverGraph(event) {
-            var mouseX = event.pageX - (margin + $('#graph').offset().left);
-            var mouseY = event.pageY - (margin + $('#graph').offset().top);
+            var mouseX = event.pageX - (margin + $(selector).offset().left);
+            var mouseY = event.pageY - (margin + $(selector).offset().top);
             
             //debug("MouseOver graph [" + containerId + "] => x: " + mouseX + " y: " + mouseY + "  height: " + h + " event.clientY: " + event.clientY + " offsetY: " + event.offsetY + " pageY: " + event.pageY + " hoverLineYOffset: " + hoverLineYOffset)
             if(mouseX >= 0 && mouseX <= width && mouseY >= 0 && mouseY <= height) {
@@ -209,12 +209,14 @@ function createLineChartFor(sensor_id) {
 
         d3.select(window).on('resize', resize); 
 
-        $('#graph').mouseleave(function(event) {
-            handleMouseOutGraph(event);
-        });
-        $('#graph').mousemove(function(event) {
-            handleMouseOverGraph(event);
-        });
+        if(interactive) {
+            $(selector).mouseleave(function(event) {
+                handleMouseOutGraph(event);
+            });
+            $(selector).mousemove(function(event) {
+                handleMouseOverGraph(event);
+            });
+        }
 
         resize();
     });

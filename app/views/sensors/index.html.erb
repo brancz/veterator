@@ -6,7 +6,10 @@
       <div class="panel panel-default">
         <div class="panel-heading"><%= link_to sensor.title, sensor %></div>
         <div class="panel-body">
-          <div class="chart-placeholder"></div>
+          <%= link_to sensor do %>
+            <svg id="chart-sensor-<%= sensor.id %>" class="small-chart"></svg>
+          <% end %>
+          <script>createLineChartFor(<%= sensor.id %>, "#chart-sensor-<%= sensor.id %>", false);</script>
           <small class="pull-right">
             <%= link_to sensor do %>
               <span>more</span>
