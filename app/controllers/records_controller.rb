@@ -5,6 +5,7 @@ class RecordsController < ApplicationController
   # GET /sensors/:sensor_id/records
   # GET /sensors/:sensor_id/records.json
   def index
+    authorize! :show, @sensor
     @records = @sensor.records
 
     respond_to do |format|

@@ -1,4 +1,5 @@
 describe 'Record#valid?' do
+  subject { @sensor.records.new(value: value) }
   before :each do
     @sensor = Sensor.new(
       title: 'Test Title',
@@ -6,13 +7,28 @@ describe 'Record#valid?' do
     )
   end
 
-  context 'when invalid' do
-    it 'should require a value' do
-      record = @sensor.records.new
-      expect(record.valid?).to be false
-      expect(record.errors.full_messages).to eq ([
-        "Value can't be blank"
-      ])
+  context 'value not set' do
+    let(:value) { nil }
+
+    it 'should be invalid' do
+      expect(subject).not_to be_valid
+      expect(subject).to have(1).errors_on(:value)
+    end
+  end
+
+  context 'value set to non number' do
+    let(:value) { 'Not a number' }
+
+    it 'should cast the value' do
+      expect(subject.value).to eq('Not a number'.to_f)
+    end
+  end
+
+  context 'value set to number type' do
+    let(:value) { 10.0 }
+
+    it 'it should be valid' do
+      expect(subject).to be_valid
     end
   end
 end

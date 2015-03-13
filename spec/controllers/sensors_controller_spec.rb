@@ -33,7 +33,7 @@ RSpec.describe SensorsController do
     end
 
     context 'unauthorized' do
-      it 'responds with 403' do
+      it 'responds with access denied' do
         sensor = create(:sensor, user: create(:confirmed_user))
         expect {
           get :show, { id: sensor.id }
@@ -62,7 +62,7 @@ RSpec.describe SensorsController do
     end
 
     context 'unauthorized to edit' do
-      it 'responds with 403' do
+      it 'responds with access denied' do
         sensor = create(:sensor, user: create(:confirmed_user))
         expect {
           get :edit, { id: sensor.id }
@@ -84,6 +84,26 @@ RSpec.describe SensorsController do
         expect(response.status).to eq 302
         expect(response.headers).to include('Location' => "http://test.host/sensors/#{@sensor.id}")
       end
+
+      it 'should update the resource' do
+        updated_attributes = { title: 'new test title', description: 'new description', chart_type: 'monotone' }
+        patch :update, id: @sensor.id, sensor: updated_attributes
+        expect(response.status).to eq 302
+        expect(response.headers).to include('Location' => "http://test.host/sensors/#{@sensor.id}")
+        @sensor = Sensor.find(@sensor.id)
+        expect(@sensor.title).to eq(updated_attributes[:title])
+        expect(@sensor.description).to eq(updated_attributes[:description])
+        expect(@sensor.chart_type).to eq(updated_attributes[:chart_type])
+      end
+    end
+
+    context 'unauthorized to update' do
+      it 'responds with access denied' do
+        sensor = create(:sensor, user: create(:confirmed_user))
+        expect {
+          patch :update, id: sensor.id, sensor: { title: 'new test title' }
+        }.to raise_error(CanCan::AccessDenied)
+      end
     end
   end
 
@@ -92,8 +112,24 @@ RSpec.describe SensorsController do
 
     context 'authorized' do
       it 'redirects to sensor show when after valid create' do
-        post :create, sensor: { title: 'test title', description: 'test desc' }
+        sensor_attributes = {
+          title: 'test title',
+          description: 'test desc',
+          chart_type: 'monotone'
+        }
+        post :create, sensor: sensor_attributes
         expect(response.status).to eq 302
+      end
+
+      it 'adds new sensor entry' do
+        expect{
+          sensor_attributes = {
+            title: 'test title',
+            description: 'test desc',
+            chart_type: 'monotone'
+          }
+          post :create, sensor: sensor_attributes
+        }.to change{ Sensor.count }.by(1)
       end
     end
   end
@@ -110,6 +146,20 @@ RSpec.describe SensorsController do
         delete :destroy, { id: @sensor.id }
         expect(response.status).to eq 302
         expect(response.headers).to include('Location' => "http://test.host/sensors")
+      end
+
+      it 'should delete the sensor' do
+        delete :destroy, { id: @sensor.id }
+        expect(Sensor.exists?(@sensor.id)).to be false
+      end
+    end
+
+    context 'unauthorized to delete' do 
+      it 'responds with access denied' do
+        sensor = create(:sensor, user: create(:confirmed_user))
+        expect{
+          delete :destroy, { id: sensor.id }
+        }.to raise_error(CanCan::AccessDenied)
       end
     end
   end
