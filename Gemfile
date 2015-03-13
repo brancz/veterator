@@ -9,7 +9,7 @@ gem 'cancan'
 gem 'rack-cors', require: 'rack/cors'
 gem 'grape'
 gem 'pg'
-gem 'rails_12factor'
+gem 'rails_12factor', group: :production
 gem 'puma'
 
 # Frontend ...
