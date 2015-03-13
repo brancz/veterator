@@ -55,7 +55,6 @@ class SensorsController < ApplicationController
   # PATCH/PUT /sensors/1
   # PATCH/PUT /sensors/1.json
   def update
-    puts sensor_params
     respond_to do |format|
       if @sensor.update(sensor_params)
         format.html { redirect_to @sensor, notice: 'Sensor was successfully updated.' }
