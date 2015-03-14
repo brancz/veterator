@@ -39,7 +39,7 @@ function createLineChartFor(sensor_id, selector, interactive, interpolationType)
         .append("g")
         .attr("transform", "translate(" + margin + "," + 20 + ")");
 
-    d3.json("/sensors/" + sensor_id + "/records.json", function(error, json) {
+    d3.json("/sensors/" + sensor_id + "/records.json" + location.search, function(error, json) {
         data = json.records;
         data.forEach(function(d) {
             d.created_at = Date.parse(d.created_at);

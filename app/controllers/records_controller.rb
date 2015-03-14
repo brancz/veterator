@@ -1,4 +1,5 @@
 class RecordsController < ApplicationController
+  include DateFilter
   layout 'sensor'
   before_action :set_sensor
 
@@ -6,7 +7,8 @@ class RecordsController < ApplicationController
   # GET /sensors/:sensor_id/records.json
   def index
     authorize! :show, @sensor
-    @records = @sensor.records
+    set_filter_dates
+    @records = @sensor.records.where(created_at: @from..@to)
 
     respond_to do |format|
       format.html

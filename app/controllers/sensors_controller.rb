@@ -1,4 +1,5 @@
 class SensorsController < ApplicationController
+  include DateFilter
   layout Proc.new { |controller| (action_name == 'index' || action_name == 'new') ? 'application' : 'sensor' }
   before_action :set_sensor, only: [:show, :edit, :update, :destroy]
   skip_before_filter :authenticate_user!, only: :index
@@ -8,7 +9,6 @@ class SensorsController < ApplicationController
   # GET /sensors.json
   def index
     return redirect_to '/users/sign_in' unless user_signed_in?
-
     @sensors = current_user.sensors
 
     respond_to do |format|
@@ -20,6 +20,7 @@ class SensorsController < ApplicationController
   # GET /sensors/1
   # GET /sensors/1.json
   def show
+    set_filter_dates
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @sensor }
