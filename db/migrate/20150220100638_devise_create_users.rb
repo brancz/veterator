@@ -33,6 +33,10 @@ class DeviseCreateUsers < ActiveRecord::Migration
       ## API Token
       t.string   :authentication_token
 
+      ## Save Locale Settings
+      t.string   :user_locale
+      t.string   :time_zone
+
       t.timestamps
     end
 

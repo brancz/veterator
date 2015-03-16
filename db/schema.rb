@@ -55,6 +55,8 @@ ActiveRecord::Schema.define(version: 20150228170252) do
     t.string   "unlock_token"
     t.datetime "locked_at"
     t.string   "authentication_token"
+    t.string   "user_locale"
+    t.string   "time_zone"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
