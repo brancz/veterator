@@ -16,7 +16,7 @@
     <tbody>
     <% @records.each do |record| %>
       <tr>
-        <td><%= record.created_at %></td>
+        <td><%= l record.created_at, format: :full %></td>
         <td><%= record.value %></td>
       </tr>
     <% end %>
