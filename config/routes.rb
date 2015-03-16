@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   resources :sensors do
-    resources :records, only: [:index]
+    resources :records, only: [:index] do
+      collection do
+        get 'export'
+      end
+    end
   end
 
   devise_for :users, controllers: { registrations: 'registrations' }

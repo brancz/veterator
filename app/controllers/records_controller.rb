@@ -12,11 +12,20 @@ class RecordsController < ApplicationController
 
     respond_to do |format|
       format.html
+      format.json { render json: @records }
+    end
+  end
+
+  # GET /sensors/:sensor_id/records/export.csv
+  def export
+    authorize! :show, @sensor
+    @records = @sensor.records
+
+    respond_to do |format|
       format.csv do
         response.headers['Content-Disposition'] = "attachment; filename=\"#{@sensor.title}.csv\""
         render 'records/index.csv.erb'
       end
-      format.json { render json: @records }
     end
   end
 
