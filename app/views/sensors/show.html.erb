@@ -6,17 +6,21 @@
 </div>
 
 <div class="panel-body">
-  <svg id="graph"></svg>
-  <div class="row">
-    <div class="col-sm-2 col-sm-offset-7">
-      <p class="text-right"><strong>Timestamp</strong></p>
-      <p class="text-right"><strong>Value</strong></p>
+  <% if @records.empty? %>
+    <%= render 'no_records' %>
+  <% else %>
+    <svg id="graph"></svg>
+    <div class="row">
+      <div class="col-sm-2 col-sm-offset-7">
+        <p class="text-right"><strong>Timestamp</strong></p>
+        <p class="text-right"><strong>Value</strong></p>
+      </div>
+      <div class="col-sm-3">
+        <p><span id="created_at"></span></p>
+        <p><span id="value"></span> </p>
+      </div>
     </div>
-    <div class="col-sm-3">
-      <p><span id="created_at"></span></p>
-      <p><span id="value"></span> </p>
-    </div>
-  </div>
-  <script>createLineChartFor(<%= @sensor.id %>, "#graph", true, "<%= @sensor.chart_type %>");</script>
+    <script>createLineChartFor(<%= @sensor.id %>, "#graph", true, "<%= @sensor.chart_type %>");</script>
+  <% end %>
 </div>
 

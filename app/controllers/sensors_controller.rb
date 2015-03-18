@@ -21,6 +21,7 @@ class SensorsController < ApplicationController
   # GET /sensors/1.json
   def show
     set_filter_dates
+    @records = @sensor.records.where(created_at: @from..@to)
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @sensor }

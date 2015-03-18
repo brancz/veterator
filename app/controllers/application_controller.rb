@@ -16,8 +16,10 @@ class ApplicationController < ActionController::Base
   end
 
   def set_locale
-    user_locale = current_user.user_locale
-    I18n.locale = user_locale.to_sym if user_signed_in? && !user_locale.blank?
+    if user_signed_in?
+      user_locale = current_user.user_locale
+      I18n.locale = user_locale.to_sym if !user_locale.blank?
+    end
     I18n.locale ||= I18n.default_locale
   end
 end

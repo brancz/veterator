@@ -1,0 +1,14 @@
+<div class="row">
+  <div class="col-sm-6 col-sm-offset-3">
+    <p class="text-center">
+    There are no records between <%= l @from %> and <%= l @to %><br />
+    Please choose a different time range.
+    </p>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-4 col-sm-offset-4">
+    <%= render 'sensors/date_filter_form' %>
+  </div>
+</div>
+

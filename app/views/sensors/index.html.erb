@@ -6,11 +6,19 @@
       <div class="panel panel-default">
         <div class="panel-heading"><%= link_to sensor.title, sensor %></div>
         <div class="panel-body">
-          <%= link_to sensor do %>
-            <svg id="chart-sensor-<%= sensor.id %>" class="small-chart"></svg>
+          <% if sensor.records.where(created_at: Date.today..Date.tomorrow).empty? %>
+            <%= link_to sensor do %>
+            <div class="text-center" style="width: 100%; height: 200px; background-color: #F0F0F0;">
+              <h2 style="position: relative; top: 40%;"><strong>no data for today</strong></h2>
+            </div>
+            <% end %>
+          <% else %>
+            <%= link_to sensor do %>
+              <svg id="chart-sensor-<%= sensor.id %>" class="small-chart"></svg>
+            <% end %>
           <% end %>
           <script>createLineChartFor(<%= sensor.id %>, "#chart-sensor-<%= sensor.id %>", false, "<%= sensor.chart_type %>");</script>
-          <small class="pull-right">
+          <small class="pull-right" style="margin-top: 15px;">
             <%= link_to sensor do %>
               <span>more</span>
               <i class="glyphicon glyphicon-chevron-right"></i>

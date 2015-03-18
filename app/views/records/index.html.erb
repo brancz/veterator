@@ -4,7 +4,7 @@
 
 <div class="panel-body">
   <% if @records.empty? %>
-  <p class="text-center">There are no records for this sensor yet.</p>
+    <%= render 'sensors/no_records' %>
   <% else %>
   <table class="table table-striped">
     <thead>

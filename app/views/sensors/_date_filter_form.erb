@@ -1,0 +1,18 @@
+<%= form_tag '', method: :get, class: 'form-horizontal' do %>
+  <div class="form-group">
+    <%= label_tag :from, :from, class: 'control-label col-sm-3' %>
+    <div class="col-sm-9">
+      <%= date_field_tag :from, @from, class: 'form-control' %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= label_tag :to, :to, class: 'control-label col-sm-3' %>
+    <div class="col-sm-9">
+      <%= date_field_tag :to, @to, class: 'form-control' %>
+    </div>
+  </div>
+  <%= button_tag type: 'submit', class: 'btn btn-primary btn-block' do %>
+    <i class="glyphicon glyphicon-filter"></i> Filter
+  <% end %>
+<% end %>
+

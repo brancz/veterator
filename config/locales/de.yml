@@ -2,3 +2,6 @@ de:
   time:
     formats:
       full: "%d.%m.%Y %T"
+  date:
+    formats:
+      default: "%d.%m.%Y"
