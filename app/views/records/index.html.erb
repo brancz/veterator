@@ -1,5 +1,5 @@
 <div class="panel-heading">
-  <h2>Records <small>for sensor <%= @sensor.title %></small></h2>
+  <h2><%= t 'sensor.records' %> <small><%= t 'sensor.for_sensor', sensor_title: @sensor.title %></small></h2>
 </div>
 
 <div class="panel-body">
@@ -9,8 +9,8 @@
   <table class="table table-striped">
     <thead>
       <tr>
-        <th>Timestamp</th>
-        <th>Value</th>
+        <th><%= t 'sensor.timestamp' %></th>
+        <th><%= t 'sensor.value' %></th>
       </tr>
     </thead>
     <tbody>

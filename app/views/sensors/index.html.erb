@@ -9,7 +9,7 @@
           <% if sensor.records.where(created_at: Date.today..Date.tomorrow).empty? %>
             <%= link_to sensor do %>
             <div class="text-center" style="width: 100%; height: 200px; background-color: #F0F0F0;">
-              <h2 style="position: relative; top: 40%;"><strong>no data for today</strong></h2>
+              <h2 style="position: relative; top: 40%;"><strong><%= t 'sensor.no_data' %></strong></h2>
             </div>
             <% end %>
           <% else %>
@@ -20,7 +20,7 @@
           <script>createLineChartFor(<%= sensor.id %>, "#chart-sensor-<%= sensor.id %>", false, "<%= sensor.chart_type %>");</script>
           <small class="pull-right" style="margin-top: 15px;">
             <%= link_to sensor do %>
-              <span>more</span>
+              <span><%= t 'sensor.more' %></span>
               <i class="glyphicon glyphicon-chevron-right"></i>
             <% end %>
           </small>
@@ -31,7 +31,7 @@
     <% end %>
   <% end %>
   <% if @sensors.empty? %>
-    <h2 class="text-center">No sensors added yet, <%= link_to 'get started!', new_sensor_url %></h2>
+    <h2 class="text-center"><%= t('sensor.no_sensors_html', get_started_link: link_to(t('sensor.get_started_link'), new_sensor_url)) %></h2>
   <% end %>
 </div>
 

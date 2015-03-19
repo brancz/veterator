@@ -1,8 +1,8 @@
 <div class="row">
   <div class="col-sm-6 col-sm-offset-3">
     <p class="text-center">
-    There are no records between <%= l @from %> and <%= l @to %><br />
-    Please choose a different time range.
+    <%= t 'sensor.no_data_between', from: l(@from), to: l(@to) %><br />
+    <%= t 'sensor.choose_different_time_range' %>
     </p>
   </div>
 </div>
