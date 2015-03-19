@@ -1,5 +1,5 @@
 <div class="panel-heading">
-  <h2>Profile</h2>
+  <h2><%= t 'profile.title' %></h2>
 </div>
 
 <div class="panel-body">
@@ -7,7 +7,7 @@
     <%= devise_error_messages! %>
 
     <div class="form-group row">
-      <%= f.label :email, class: 'control-label col-sm-3' %>
+      <%= f.label t('profile.email'), class: 'control-label col-sm-3' %>
       <div class="col-sm-6">
         <%= f.email_field :email, autofocus: true, class: 'form-control' %>
       </div>
@@ -18,45 +18,45 @@
     <% end %>
 
     <div class="form-group row">
-      <%= f.label :time_zone, class: 'control-label col-sm-3' %>
+      <%= f.label t('profile.time_zone'), class: 'control-label col-sm-3' %>
       <div class="col-sm-6">
         <%= f.select :time_zone, options_for_select(ActiveSupport::TimeZone.all.collect { |s| ["(#{s.formatted_offset}) #{s.name}", s.name] }, selected: resource.time_zone), {}, class: 'form-control' %>
       </div>
     </div>
 
     <div class="form-group row">
-      <%= f.label :user_locale, class: 'control-label col-sm-3' %>
+      <%= f.label t('profile.locale'), class: 'control-label col-sm-3' %>
       <div class="col-sm-6">
         <%= f.select :user_locale, options_for_select(I18n.available_locales.map(&:to_s), selected: resource.user_locale), {}, class: 'form-control' %>
       </div>
     </div>
 
     <div class="form-group row">
-      <%= f.label :password, class: 'control-label col-sm-3' %>
+      <%= f.label t('profile.password'), class: 'control-label col-sm-3' %>
       <div class="col-sm-6">
         <%= f.password_field :password, autocomplete: "off", class: 'form-control' %>
-        <i>(leave blank if you don't want to change it)</i>
+        <i>(<%= t 'profile.leave_blank_if_unchanged' %>)</i>
       </div>
     </div>
 
     <div class="form-group row">
-      <%= f.label :password_confirmation, class: 'control-label col-sm-3' %>
+      <%= f.label t('profile.password_confirmation'), class: 'control-label col-sm-3' %>
       <div class="col-sm-6">
         <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control' %>
       </div>
     </div>
 
     <div class="form-group row">
-      <%= f.label :current_password, class: 'control-label col-sm-3' %>
+      <%= f.label t('profile.current_password'), class: 'control-label col-sm-3' %>
       <div class="col-sm-6">
         <%= f.password_field :current_password, autocomplete: "off", class: 'form-control' %>
-        <i>(we need your current password to confirm your changes)</i>
+        <i>(<%= t 'profile.current_password_requirement' %>)</i>
       </div>
     </div>
 
     <div class="actions row">
       <div class="col-sm-6 col-sm-offset-3">
-        <%= f.submit "Update Profile", class: 'btn btn-primary btn-block' %>
+        <%= f.submit t('profile.update'), class: 'btn btn-primary btn-block' %>
       </div>
     </div>
   <% end %>
