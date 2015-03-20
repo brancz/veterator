@@ -28,9 +28,9 @@
       </div>
       <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
         <div class="panel-body">
-          <p>We have prepared a couple of code snippets to get you started with capturing your data automatically.</p>
+          <p><%= t 'sensor.we_prepared_code_snippets' %></p>
           <p>
-            Here's an example with
+            <%= t 'sensor.heres_an_example' %>
             <select id="language-selector" name="Language">
               <option>curl</option>
               <option>ruby</option>
@@ -59,7 +59,7 @@ response = requests.post(
     headers={'content-type': 'application/json', 'authorization': '&lt;Your Authentication Token&gt;'}
 )
 </code></pre>
-          <blockquote>Hint: Generate your authentication token on the <%= link_to 'Authentication Token page', users_token_index_url %> in your profile.</blockquote>
+          <blockquote><%= t 'sensor.generate_token_hint_html', auth_token_link: link_to(t('sensor.auth_token_link'), users_token_index_url) %></blockquote>
         </div>
       </div>
     </div>
