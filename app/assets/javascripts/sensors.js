@@ -170,20 +170,20 @@ function createLineChartFor(sensor_id, selector, interactive, interpolationType)
         function handleMouseOutGraph(event) {
             // hide the hover-line
             hoverLine.classed("hide", true);
+
+            // reset timestamp and value
+            $('#created_at').text('');
+            $('#value').text('');
             
             // user is no longer interacting
             userCurrentlyInteracting = false;
             currentUserPositionX = -1;
         }
 
-        function displayValueForPosition(mouseX) {
+        function valueForPosition(mouseX) {
             var xValue = xScale.invert(mouseX);
             var bisectDate = d3.bisector(function(d) { return d.created_at; }).left;
-            var record = data[bisectDate(data, xValue)];
-            if(record) {
-                $('#created_at').text(d3.time.format("%Y-%m-%d %H:%M:%S")(new Date(record.created_at)));
-                $('#value').text(record.value);
-            }
+            return data[bisectDate(data, xValue)];
         }
 
         function handleMouseOverGraph(event) {
@@ -195,11 +195,15 @@ function createLineChartFor(sensor_id, selector, interactive, interpolationType)
                 // show the hover line
                 hoverLine.classed("hide", false);
 
-                // set position of hoverLine
-                hoverLine.attr("x1", mouseX).attr("x2", mouseX);
-
                 // display value of current position
-                displayValueForPosition(mouseX);
+                record = valueForPosition(mouseX);
+                if(record) {
+                    // set position of hoverLine
+                    hoverLine.attr("x1", xScale(record.created_at)).attr("x2", xScale(record.created_at));
+
+                    $('#created_at').text(d3.time.format("%Y-%m-%d %H:%M:%S")(new Date(record.created_at)));
+                    $('#value').text(record.value);
+                }
                 
                 // user is interacting
                 userCurrentlyInteracting = true;
