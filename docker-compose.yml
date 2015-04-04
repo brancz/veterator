@@ -1,7 +1,7 @@
 db:
   image: postgres:9.4
   volumes:
-    - ~/.docker-volumes/OShome/db/:/var/lib/postgresql/data/
+    - ~/.docker-volumes/veterator/db/:/var/lib/postgresql/data/
   ports:
     - "5432"
 web:

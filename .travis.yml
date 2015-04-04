@@ -5,7 +5,7 @@ cache: bundler
 bundler_args: "--without development"
 sudo: false
 before_script:
-- psql -c 'create database oshome_test;' -U postgres
+- psql -c 'create database veterator_test;' -U postgres
 - cp config/database.yml.travis config/database.yml
 - bundle exec rake db:migrate
 addons:
@@ -14,7 +14,7 @@ deploy:
   provider: heroku
   api_key:
     secure: AuqRajfWl7n6hyPxuH8wdQUnCnMO6iEQZ8DHoocgmee8uX/6JjMkE7VTHSYt9Ao4y9DYt5ONMBp/1KMx7RY3zVZwsoSge73FtJN7Xs1BdtkFJsFzv77MWHiszoqmRZKpZCUP++R9WhlkYfbEqBod7lEHR9gVjT+PjV0w9b1pxMs=
-  app: oshome
+  app: veterator
   run: "rake db:migrate"
   on:
-    repo: flower-pot/OShome
+    repo: flower-pot/veterator

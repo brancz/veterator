@@ -1,7 +1,7 @@
-[![Build Status](https://travis-ci.org/flower-pot/OShome.svg?branch=master)](https://travis-ci.org/flower-pot/OShome)
+[![Build Status](https://travis-ci.org/flower-pot/veterator.svg?branch=master)](https://travis-ci.org/flower-pot/veterator)
 
-OShome
-======
+veterator
+=========
 
 Development
 -----------
