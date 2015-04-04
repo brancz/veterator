@@ -3,6 +3,9 @@
 veterator
 =========
 
+Veterator is a latin word for smartypants, since this application will be a
+smartass to you, telling you how much electricity, water, etc. you are using.
+
 Development
 -----------
 
