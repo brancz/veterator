@@ -1,4 +1,4 @@
-FROM ruby:2.2.1
+FROM ruby:2.2.2
 
 RUN curl -sL https://deb.nodesource.com/setup | bash -
 RUN apt-get update -qq
