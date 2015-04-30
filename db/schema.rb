@@ -18,9 +18,10 @@ ActiveRecord::Schema.define(version: 20150228170252) do
 
   create_table "records", force: :cascade do |t|
     t.decimal  "value"
+    t.integer  "granularity", default: 0
     t.integer  "sensor_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   add_index "records", ["sensor_id"], name: "index_records_on_sensor_id", using: :btree
