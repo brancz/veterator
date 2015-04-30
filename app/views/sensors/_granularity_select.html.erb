@@ -1,0 +1,9 @@
+<%= form_for '', method: :get, :html => { :id => "granularity_form" } do %>
+  <div class="form-group">
+    <%= label_tag :granularity, t('granularity'), class: 'control-label col-sm-3' %>
+    <div class="col-sm-9">
+      <%= select "record", "granularity", options_for_select(Record.granularities.keys.map { |g| [t("record.granularities.#{g}"), g] }), {}, { class: 'form-control' } %>
+      <script>$('#record_granularity').change(function(){ $('#granularity_form').submit(); });</script>
+    </div>
+  </div>
+<% end %>
