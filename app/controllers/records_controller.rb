@@ -8,7 +8,8 @@ class RecordsController < ApplicationController
   def index
     authorize! :show, @sensor
     set_filter_dates
-    @records = @sensor.records.where(granularity: granularity, created_at: @from..@to)
+    set_granularity
+    @records = @sensor.records.where(granularity: @granularity, created_at: @from..@to)
 
     respond_to do |format|
       format.html
