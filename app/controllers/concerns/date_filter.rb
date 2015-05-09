@@ -7,7 +7,7 @@ module DateFilter
   end
 
   def set_granularity
-    @granularity = Granularity.select_by_time_range(@from, @to)
+    @granularity = Record.granularities[Granularity.select_by_time_range(@from, @to)]
   end
 end
 
