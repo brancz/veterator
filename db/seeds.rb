@@ -23,3 +23,4 @@ CSV.foreach('db/seed-sensor-records.csv') do |row|
   )
 end
 
+AggregateRecordsJob.perform_now
