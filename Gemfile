@@ -39,6 +39,7 @@ group :development, :test do
 
   # testing framework
   gem 'rspec-rails'
+  gem 'rspec-activejob'
   gem 'rspec-collection_matchers'
 
   # db factories

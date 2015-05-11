@@ -182,6 +182,9 @@ GEM
     rake (10.4.2)
     responders (2.1.0)
       railties (>= 4.2.0, < 5)
+    rspec-activejob (0.4.1)
+      activejob (>= 4.2)
+      rspec-mocks
     rspec-collection_matchers (1.1.2)
       rspec-expectations (>= 2.99.0.beta1)
     rspec-core (3.2.3)
@@ -273,6 +276,7 @@ DEPENDENCIES
   rails-assets-bootstrap-material-design!
   rails-assets-d3!
   rails_12factor
+  rspec-activejob
   rspec-collection_matchers
   rspec-rails
   sass-rails

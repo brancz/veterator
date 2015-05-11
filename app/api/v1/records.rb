@@ -47,6 +47,7 @@ module V1
         record = sensor.records.new value: params[:value]
         unprocessable!(record) unless record.valid?
         record.save
+        AggregateRecordsJob.perform_later
         { value: record.value, sensor_id: sensor.id }
       end
     end

@@ -49,7 +49,16 @@ describe '[POST] /api/v1/sensors/:id/records' do
         post "/api/v1/sensors/#{@sensor.id}/records", { value: 10 }, {
           'Content-Type' => 'application/json'
         }
-      }.to change { Record.count }.by 1
+      }.to change { Record.original.count }.by 1
+    end
+
+    it 'queues an aggregation job' do
+      authenticate!
+      expect do
+        post "/api/v1/sensors/#{@sensor.id}/records", { value: 10 }, {
+          'Content-Type' => 'application/json'
+        }
+      end.to enqueue_a(AggregateRecordsJob)
     end
 
     it 'shows the resource' do
