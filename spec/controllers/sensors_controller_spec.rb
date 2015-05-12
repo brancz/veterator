@@ -17,7 +17,7 @@ RSpec.describe SensorsController do
     login_user
 
     before :each do
-      @sensor = create(:sensor, user: @user)
+      @sensor = create(:sensor, users: [@user])
     end
 
     context 'authorized to access' do
@@ -34,7 +34,7 @@ RSpec.describe SensorsController do
 
     context 'unauthorized' do
       it 'responds with access denied' do
-        sensor = create(:sensor, user: create(:confirmed_user))
+        sensor = create(:sensor, users: [create(:confirmed_user)])
         expect {
           get :show, { id: sensor.id }
         }.to raise_error(CanCan::AccessDenied)
@@ -46,7 +46,7 @@ RSpec.describe SensorsController do
     login_user
 
     before :each do
-      @sensor = create(:sensor, user: @user)
+      @sensor = create(:sensor, users: [@user])
     end
 
     context 'authorized to edit' do
@@ -63,7 +63,7 @@ RSpec.describe SensorsController do
 
     context 'unauthorized to edit' do
       it 'responds with access denied' do
-        sensor = create(:sensor, user: create(:confirmed_user))
+        sensor = create(:sensor, users: [create(:confirmed_user)])
         expect {
           get :edit, { id: sensor.id }
         }.to raise_error(CanCan::AccessDenied)
@@ -75,7 +75,7 @@ RSpec.describe SensorsController do
     login_user
 
     before :each do
-      @sensor = create(:sensor, user: @user)
+      @sensor = create(:sensor, users: [@user])
     end
 
     context 'authorized' do
@@ -99,7 +99,7 @@ RSpec.describe SensorsController do
 
     context 'unauthorized to update' do
       it 'responds with access denied' do
-        sensor = create(:sensor, user: create(:confirmed_user))
+        sensor = create(:sensor, users: [create(:confirmed_user)])
         expect {
           patch :update, id: sensor.id, sensor: { title: 'new test title' }
         }.to raise_error(CanCan::AccessDenied)
@@ -138,7 +138,7 @@ RSpec.describe SensorsController do
     login_user
 
     before :each do
-      @sensor = create(:sensor, user: @user)
+      @sensor = create(:sensor, users: [@user])
     end
 
     context 'authorized' do
@@ -156,7 +156,7 @@ RSpec.describe SensorsController do
 
     context 'unauthorized to delete' do 
       it 'responds with access denied' do
-        sensor = create(:sensor, user: create(:confirmed_user))
+        sensor = create(:sensor, users: [create(:confirmed_user)])
         expect{
           delete :destroy, { id: sensor.id }
         }.to raise_error(CanCan::AccessDenied)

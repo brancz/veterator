@@ -42,7 +42,7 @@ class SensorsController < ApplicationController
   # POST /sensors.json
   def create
     @sensor = Sensor.new(sensor_params)
-    @sensor.user = current_user
+    @sensor.users << current_user
 
     respond_to do |format|
       if @sensor.save

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150228170252) do
+ActiveRecord::Schema.define(version: 20150512160348) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,11 @@ ActiveRecord::Schema.define(version: 20150228170252) do
   end
 
   add_index "sensors", ["user_id"], name: "index_sensors_on_user_id", using: :btree
+
+  create_table "sensors_users", id: false, force: :cascade do |t|
+    t.integer "sensor_id", null: false
+    t.integer "user_id",   null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

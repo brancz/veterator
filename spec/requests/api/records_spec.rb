@@ -3,7 +3,7 @@ describe '[POST] /api/v1/sensors/:id/records' do
 
   before :each do
     @user = User.create(attributes_for(:user).merge(confirmed_at: Time.now))
-    @sensor = Sensor.create(attributes_for(:sensor).merge(user: @user))
+    @sensor = Sensor.create(attributes_for(:sensor).merge(users: [@user]))
   end
 
   def authenticate!(user = @user)

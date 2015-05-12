@@ -3,7 +3,7 @@ RSpec.describe RecordsController do
     login_user
 
     before :each do
-      @sensor = create(:sensor, user: @user)
+      @sensor = create(:sensor, users: [@user])
     end
 
     context 'authorized to view sensor' do
@@ -20,7 +20,7 @@ RSpec.describe RecordsController do
 
     context 'unauthorized to view sensor' do
       it 'responds with access denied' do
-        sensor = create(:sensor, user: create(:confirmed_user))
+        sensor = create(:sensor, users: [create(:confirmed_user)])
         expect {
           get :index, { sensor_id: sensor }
         }.to raise_error(CanCan::AccessDenied)

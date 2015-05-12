@@ -4,7 +4,7 @@ class Ability
   def initialize(user)
     user ||= User.new
 
-    belongs_to_user = ->(s) { s && s.user == user }
+    belongs_to_user = ->(s) { s && s.users.include?(user) }
     can :index, Sensor
     can :show, Sensor, &belongs_to_user
     can :new, Sensor
