@@ -51,5 +51,8 @@ group :development, :test do
 
   # simulate heroku env
   gem 'foreman'
+
+  # let's track line coverage!
+  gem 'coveralls'
 end
 
