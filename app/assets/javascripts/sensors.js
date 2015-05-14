@@ -36,6 +36,9 @@ $(function() {
         focus: function() {
             $('#user-search').val('');
             return false;
+        },
+        open: function() {
+            $("ul.ui-menu").width($(this).innerWidth());
         }
     });
 });
