@@ -29,6 +29,39 @@
       <%= f.select :chart_type, options_for_select(Sensor.chart_types.collect {|s| [s[0].humanize, s[0]]}, selected: @sensor.chart_type), {}, class: 'form-control' %>
     </div>
   </div>
+  <div class="form-group row">
+    <%= f.label t('sensor.users'), class: 'control-label col-sm-3' %>
+    <div class="col-sm-6">
+      <div class="row">
+        <ul class="list-unstyled" id="user-access-list" style="padding: 0px 18px;">
+          <%- if @sensor.users.size == 0 %>
+            <li class="user">
+              <div class="row">
+                <input type="hidden" name="sensor[user_ids][]" value="<%= current_user.id %>" />
+                <div class="col-sm-9"><%= current_user.email %></div>
+              </div>
+            </li>
+          <%- end %>
+          <%- @sensor.users.each do |user| %>
+            <li class="user">
+              <div class="row">
+                <input type="hidden" name="sensor[user_ids][]" value="<%= user.id %>" />
+                <div class="col-sm-9"><%= user.email %></div>
+                <%- if current_user.id != user.id %>
+                  <div class="col-sm-3 text-right"><button type="button" class="remove-user close"><span>&times;</span></button></div>
+                <%- end %>
+              </div>
+            </li>
+          <%- end %>
+          <li id="user-search-list-item">
+            <div class="form-group row" style="padding: 10px; margin-top: 15px;">
+              <input type="text" id="user-search" class="form-control" placeholder="Search for user to add">
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
   <div class="actions row">
     <div class="col-sm-6 col-sm-offset-3">
       <%= f.submit class: 'btn btn-primary btn-block' %>

@@ -29,6 +29,7 @@ en:
   are_you_sure: "Are you sure?"
   delete: "Delete"
   sensor:
+    users: "Users"
     title: "Sensor"
     dashboard: "Dashboard"
     new: "New Sensor"

@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: 'registrations' }
   namespace :users do
     resources :token, only: [:index, :create], controller: :authentication_token
+    resources :search, only: [:index], controller: :search
   end
 
   API.logger Rails.logger

@@ -87,6 +87,6 @@ class SensorsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sensor_params
-      params.require(:sensor).permit(:title, :description, :chart_type)
+      params.require(:sensor).permit(:title, :description, :chart_type, user_ids: [])
     end
 end

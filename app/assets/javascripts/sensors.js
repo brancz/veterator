@@ -4,6 +4,40 @@ $(function() {
         var selection = $(this).val();
         $('.code-snippet-'+selection).show();
     });
+
+    var removeUser = function(e) {
+        $(e.target).parent().parent().parent().parent().remove();
+    }
+
+    $('button.remove-user').click(removeUser);
+
+    $('#user-search').autocomplete({
+        source: function (request, response) {
+            $.getJSON("/users/search.json?term=" + request.term, function (data) {
+                response($.map(data.search, function (value, key) {
+                    return {
+                        label: value.email,
+                        id: value.id
+                    };
+                }));
+            });
+        },
+        select: function (e, selection) {
+            $('<li class="user">' +
+            '<div class="row">' +
+            '<input type="hidden" name="sensor[user_ids][]" value="' + selection.item.id + '" />' +
+            '<div class="col-sm-9">' + selection.item.label + '</div>' +
+            '<div class="col-sm-3 text-right"><button type="button" class="remove-user close"><span>&times;</span></button></div>' +
+            '</div>' +
+            '</li>').insertBefore('#user-search-list-item');
+            $('button.remove-user').click(removeUser);
+            return false;
+        },
+        focus: function() {
+            $('#user-search').val('');
+            return false;
+        }
+    });
 });
 
 function createLineChartFor(sensor_id, selector, interactive, interpolationType) {

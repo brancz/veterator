@@ -5,6 +5,12 @@ user = User.create(
   password_confirmation: 'testtest',
   confirmed_at: Time.now
 )
+User.create(
+    email: 'test@gmail.com',
+    password: 'testtest',
+    password_confirmation: 'testtest',
+    confirmed_at: Time.now
+)
 
 puts '### Creating Test Sensor ###'
 sensor = user.sensors.create(
