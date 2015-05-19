@@ -1,4 +1,6 @@
 [![Build Status](https://travis-ci.org/flower-pot/veterator.svg?branch=master)](https://travis-ci.org/flower-pot/veterator)
+[![Coverage Status](https://coveralls.io/repos/flower-pot/veterator/badge.svg?branch=master)](https://coveralls.io/r/flower-pot/veterator?branch=master)
+[![Test Coverage](https://codeclimate.com/github/flower-pot/veterator/badges/coverage.svg)](https://codeclimate.com/github/flower-pot/veterator/coverage)
 
 veterator
 =========
