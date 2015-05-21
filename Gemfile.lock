@@ -46,7 +46,7 @@ GEM
       thread_safe (~> 0.3, >= 0.3.1)
     bcrypt (3.1.10)
     builder (3.2.2)
-    cancan (1.6.10)
+    cancancan (1.10.1)
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
     coffee-rails (4.1.0)
@@ -248,7 +248,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers
-  cancan
+  cancancan
   coveralls
   database_cleaner
   devise
