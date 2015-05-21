@@ -15,7 +15,7 @@ class Record < ActiveRecord::Base
         daily: :avg_on_day,
         monthly: :avg_in_month,
         yearly: :avg_in_year
-    }[granularity]
+    }.fetch(granularity)
     sensor.records.public_send(method, created_at)
   end
 end

@@ -31,7 +31,7 @@ class AggregateRecordsJob < ActiveJob::Base
         daily: :end_of_day,
         monthly: :end_of_month,
         yearly: :end_of_year
-    }[time_symbol]
+    }.fetch(time_symbol)
     time.public_send(method)
   end
 
@@ -40,7 +40,7 @@ class AggregateRecordsJob < ActiveJob::Base
         daily: :beginning_of_day,
         monthly: :beginning_of_month,
         yearly: :beginning_of_year
-    }[time_symbol]
+    }.fetch(time_symbol)
     time.public_send(method)
   end
 end
