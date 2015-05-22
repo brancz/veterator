@@ -12,6 +12,8 @@ Current status is only recording and analysing data directly with this rails
 app, however, the vision is to evolve to a data warehouse like application
 aggregating data in multiple dimensions.
 
+For a production setup refer to [doc/setup.md](./doc/setup.md)
+
 Development
 -----------
 
