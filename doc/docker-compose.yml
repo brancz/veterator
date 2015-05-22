@@ -1,0 +1,28 @@
+files:
+  image: ubuntu
+db:
+  image: postgres:9.4
+  volumes_from:
+    - files
+  volumes:
+    - /var/lib/postgresql/data/
+  ports:
+    - "5432"
+web:
+  image: flowerpot/veterator
+  ports:
+    - "5000:5000"
+  links:
+    - db
+  environment:
+    - RAILS_SERVE_STATIC_FILES=true
+    - SECRET_KEY_BASE=
+    - EMAIL=
+    - HOST=
+    - PORT=
+    - SMTP_HOST=
+    - SMTP_PORT=
+    - SMTP_USER=
+    - SMTP_PASSWORD=
+    - SMTP_DOMAIN=
+
