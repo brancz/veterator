@@ -17,6 +17,4 @@ web:
   links:
     - db
   env_file: .env
-  environment:
-    - RACK_ENV=development
 

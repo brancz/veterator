@@ -6,6 +6,8 @@ class Sensor < ActiveRecord::Base
                     'bundle', 'cardinal', 'cardinal-open', 'cardinal-closed',
                     'monotone']
 
+  scope :zombies, -> { joins("LEFT JOIN sensors_users ON sensors_users.sensor_id = sensors.id").where("sensors_users.user_id IS NULL") }
+
   validates :title, presence: true
   validates :description, presence: true
 end
