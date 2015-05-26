@@ -46,4 +46,18 @@ RSpec.describe AggregateRecordsJob, type: :job do
       expect(sensor.records.yearly.count).to eq 1
     end
   end
+
+  context 'multiple sensors exist' do
+    it 'only aggregates records for each single sensor' do
+      sensor1 = Sensor.create(title: 'test', description: 'test')
+      sensor1.records.create(value: 1.0, created_at: DateTime.new(2001,1,1,0,0,0,'+0'))
+      sensor2 = Sensor.create(title: 'test', description: 'test')
+      sensor2.records.create(value: 3.0, created_at: DateTime.new(2001,1,1,0,0,0,'+0'))
+
+      AggregateRecordsJob.perform_now
+
+      expect(sensor1.records.yearly.first.value).to eq 1.0
+      expect(sensor2.records.yearly.first.value).to eq 3.0
+    end
+  end
 end
