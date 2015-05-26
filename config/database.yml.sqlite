@@ -1,0 +1,9 @@
+development: &default
+  adapter: sqlite3
+  encoding: unicode
+  database: db/veterator_development.sqlite3
+
+test:
+  <<: *default
+  database: db/veterator_test.sqlite3
+

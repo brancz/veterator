@@ -42,5 +42,8 @@ group :development, :test do
 
   # let's track line coverage!
   gem 'coveralls'
+
+  # sqlite ..
+  gem 'sqlite3'
 end
 
