@@ -8,7 +8,7 @@ gem 'devise'
 gem 'cancancan'
 gem 'rack-cors', require: 'rack/cors'
 gem 'grape'
-gem 'pg'
+gem 'pg', group: :pg
 gem 'rails_12factor', group: :production
 gem 'puma'
 

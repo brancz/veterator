@@ -55,6 +55,10 @@ project. Generally [postgres](#postgres) is preferred.
 
 To setup the application for development with sqlite follow these steps.
 
+Install the required gems
+
+	bundle install --without pg
+
 Override the `database.yml` with the sqlite config.
 
 	cp config/database.yml.sqlite config/database.yml
