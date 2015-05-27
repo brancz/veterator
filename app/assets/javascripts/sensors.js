@@ -220,7 +220,10 @@ function createLineChartFor(sensor_id, selector, interactive, interpolationType)
         function valueForPosition(mouseX) {
             var xValue = xScale.invert(mouseX);
             var bisectDate = d3.bisector(function(d) { return d.created_at; }).left;
-            return data[bisectDate(data, xValue)];
+            var index = bisectDate(data, xValue);
+            var distanceA = xValue - data[index-1].created_at;
+            var distanceB = data[index].created_at - xValue;
+            return distanceA < distanceB ? data[index-1] : data[index];
         }
 
         function handleMouseOverGraph(event) {
