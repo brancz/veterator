@@ -41,7 +41,7 @@ group :development, :test do
   gem 'foreman'
 
   # let's track line coverage!
-  gem 'coveralls'
+  gem 'codeclimate-test-reporter'
 
   # sqlite ..
   gem 'sqlite3'

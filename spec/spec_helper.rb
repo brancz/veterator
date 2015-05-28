@@ -21,8 +21,8 @@ unless ENV['CI']
 end
 
 if ENV['CI']
-  require 'coveralls'
-  Coveralls.wear!
+  require 'codeclimate-test-reporter'
+  CodeClimate::TestReporter.start
 end
 
 ENV["RAILS_ENV"] ||= 'test'
