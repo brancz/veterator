@@ -31,6 +31,9 @@ group :development, :test do
   gem 'rspec-activejob'
   gem 'rspec-collection_matchers'
 
+  # feature testing
+  gem 'capybara'
+
   # db factories
   gem 'factory_girl_rails'
 
