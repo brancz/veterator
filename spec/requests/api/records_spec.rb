@@ -20,7 +20,7 @@ describe '[POST] /api/v1/sensors/:id/records' do
   context 'when sensor resource is not found' do
     it 'responds with 404' do
       authenticate!
-      post '/api/v1/sensors/2/records'
+      post "/api/v1/sensors/#{Sensor.last.id+1}/records"
       expect(last_response.status).to eq 404
     end
   end
