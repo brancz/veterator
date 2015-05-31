@@ -8,10 +8,5 @@ FactoryGirl.define do
   factory :confirmed_user, parent: :user do
     after(:create) { |u| u.confirm! }
   end
-
-  factory :sensor do |s|
-    title 'Test Title'
-    description 'Test Description'
-  end
 end
 
