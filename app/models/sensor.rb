@@ -8,6 +8,6 @@ class Sensor < ActiveRecord::Base
 
   scope :zombies, -> { joins("LEFT JOIN sensors_users ON sensors_users.sensor_id = sensors.id").where("sensors_users.user_id IS NULL") }
 
-  validates :title, presence: true
-  validates :description, presence: true
+  validates :title, presence: true, length: { in: 1..20 }
+  validates :description, presence: true, length: { maximum: 20 }
 end

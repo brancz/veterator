@@ -4,7 +4,7 @@ describe 'Sensor#valid?' do
 
     it 'should not require a title and a description' do
       expect(subject).not_to be_valid
-      expect(subject).to have(1).errors_on(:title)
+      expect(subject).to have(2).errors_on(:title)
       expect(subject).to have(1).errors_on(:description)
     end
 

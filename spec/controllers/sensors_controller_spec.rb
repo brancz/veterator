@@ -95,6 +95,12 @@ RSpec.describe SensorsController do
         expect(@sensor.description).to eq(updated_attributes[:description])
         expect(@sensor.chart_type).to eq(updated_attributes[:chart_type])
       end
+
+      it 'errors when the sensors attributes are not valid' do
+        patch :update, id: @sensor.id, sensor: { title: '' }
+        expect(response.status).to eq 200
+        expect(assigns(:sensor).errors.empty?).to be false
+      end
     end
 
     context 'unauthorized to update' do
@@ -130,6 +136,12 @@ RSpec.describe SensorsController do
           }
           post :create, sensor: sensor_attributes
         }.to change{ Sensor.count }.by(1)
+      end
+
+      it 'errors when the sensors attributes are not valid' do
+        patch :create, sensor: { title: '' }
+        expect(response.status).to eq 200
+        expect(assigns(:sensor).errors.empty?).to be false
       end
     end
   end
