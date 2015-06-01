@@ -5,7 +5,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable, :lockable
 
-  has_and_belongs_to_many :sensors, -> { uniq }
+  has_many :sensor_accesses
+  has_many :sensors, -> { uniq } , through: :sensor_accesses
 
   def create_new_authentication_token
     raw_token, self.authentication_token = User.generate_safe_token

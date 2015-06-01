@@ -26,6 +26,16 @@ ActiveRecord::Schema.define(version: 20150512160348) do
 
   add_index "records", ["sensor_id"], name: "index_records_on_sensor_id", using: :btree
 
+  create_table "sensor_accesses", force: :cascade do |t|
+    t.integer  "sensor_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sensor_accesses", ["sensor_id"], name: "index_sensor_accesses_on_sensor_id", using: :btree
+  add_index "sensor_accesses", ["user_id"], name: "index_sensor_accesses_on_user_id", using: :btree
+
   create_table "sensors", force: :cascade do |t|
     t.string   "title"
     t.string   "description"
@@ -36,11 +46,6 @@ ActiveRecord::Schema.define(version: 20150512160348) do
   end
 
   add_index "sensors", ["user_id"], name: "index_sensors_on_user_id", using: :btree
-
-  create_table "sensors_users", id: false, force: :cascade do |t|
-    t.integer "sensor_id", null: false
-    t.integer "user_id",   null: false
-  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
