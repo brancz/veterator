@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20150512160348) do
   create_table "sensor_accesses", force: :cascade do |t|
     t.integer  "sensor_id"
     t.integer  "user_id"
+    t.integer  "access_level", default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end

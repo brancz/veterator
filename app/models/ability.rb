@@ -4,13 +4,19 @@ class Ability
   def initialize(user)
     user ||= User.new
 
-    belongs_to_user = ->(s) { s && s.users.include?(user) }
     can :index, Sensor
-    can :show, Sensor, &belongs_to_user
+    can :show, Sensor do |s|
+      s && s.users.include?(user)
+    end
     can :new, Sensor
     can :create, Sensor
-    can :edit, Sensor, &belongs_to_user
-    can :update, Sensor, &belongs_to_user
-    can :destroy, Sensor, &belongs_to_user
+
+    is_owner = ->(s) { 
+      access = s.sensor_accesses.where(user: user).first
+      s && access && access.owner?
+    }
+    can :edit, Sensor, &is_owner
+    can :update, Sensor, &is_owner
+    can :destroy, Sensor, &is_owner
   end
 end
