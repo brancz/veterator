@@ -6,7 +6,12 @@ $(function() {
     });
 
     var removeUser = function(e) {
-        $(e.target).parent().parent().parent().parent().remove();
+        var col = $(e.target).parent().parent();
+        var row = col.parent();
+        var listItem = row.parent();
+        listItem.hide();
+        var index = row.find('.current_index').val();
+        $('<input type="hidden" name="sensor[sensor_accesses_attributes]['+index+'][_destroy]" value="1" />').insertBefore(col);
     }
 
     $('button.remove-user').click(removeUser);
@@ -23,11 +28,14 @@ $(function() {
             });
         },
         select: function (e, selection) {
+            var new_index = parseInt($('.user').last().find('.current_index').val()) + 1;
             $('<li class="user">' +
             '<div class="row">' +
-            '<input type="hidden" name="sensor[user_ids][]" value="' + selection.item.id + '" />' +
-            '<div class="col-sm-9">' + selection.item.label + '</div>' +
-            '<div class="col-sm-3 text-right"><button type="button" class="remove-user close"><span>&times;</span></button></div>' +
+            '<input type="hidden" class="current_index" value="' + new_index + '" />' +
+            '<input type="hidden" name="sensor[sensor_accesses_attributes][' + new_index + '][user_id]" value="' + selection.item.id + '" />' +
+            '<div class="col-sm-8">' + selection.item.label + '</div>' +
+            '<div class="col-sm-3 text-right"></div>' +
+            '<div class="col-sm-1 text-right"><button type="button" class="remove-user close"><span>&times;</span></button></div>' +
             '</div>' +
             '</li>').insertBefore('#user-search-list-item');
             $('button.remove-user').click(removeUser);

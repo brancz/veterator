@@ -1,5 +1,6 @@
 class Sensor < ActiveRecord::Base
   has_many :sensor_accesses
+  accepts_nested_attributes_for :sensor_accesses, reject_if: :all_blank, allow_destroy: true
   has_many :users, -> { uniq }, through: :sensor_accesses
   has_many :records, dependent: :delete_all
   enum chart_type: ['linear', 'linear-closed', 'step', 'step-before',

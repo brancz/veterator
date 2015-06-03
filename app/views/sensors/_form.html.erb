@@ -34,22 +34,15 @@
     <div class="col-sm-6">
       <div class="row">
         <ul class="list-unstyled" id="user-access-list" style="padding: 0px 18px;">
-          <%- if @sensor.users.size == 0 %>
+          <%- @sensor.sensor_accesses.each_with_index do |sensor_access, index| %>
             <li class="user">
               <div class="row">
-                <input type="hidden" name="sensor[user_ids][]" value="<%= current_user.id %>" />
-                <div class="col-sm-9"><%= current_user.email %></div>
-              </div>
-            </li>
-          <%- end %>
-          <%- @sensor.users.each do |user| %>
-            <li class="user">
-              <div class="row">
-                <input type="hidden" name="sensor[user_ids][]" value="<%= user.id %>" />
-                <div class="col-sm-9"><%= user.email %></div>
-                <%- if current_user.id != user.id %>
-                  <div class="col-sm-3 text-right"><button type="button" class="remove-user close"><span>&times;</span></button></div>
-                <%- end %>
+                <input type="hidden" class="current_index" value="<%= index %>" />
+                <input type="hidden" name="sensor[sensor_accesses_attributes][<%= index %>][id]" value="<%= sensor_access.id %>" />
+                <input type="hidden" name="sensor[sensor_accesses_attributes][<%= index %>][user_id]" value="<%= sensor_access.user.id %>" />
+                <div class="col-sm-8"><%= sensor_access.user.email %></div>
+                <div class="col-sm-3 text-right"></div>
+                <div class="col-sm-1 text-right"><button type="button" class="remove-user close"><span>&times;</span></button></div>
               </div>
             </li>
           <%- end %>
