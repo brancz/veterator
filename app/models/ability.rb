@@ -13,7 +13,7 @@ class Ability
 
     is_owner = ->(s) { 
       access = s.sensor_accesses.where(user: user).first
-      s && access && access.owner?
+      s && access && access.read_write?
     }
     can :edit, Sensor, &is_owner
     can :update, Sensor, &is_owner

@@ -40,8 +40,8 @@
                 <input type="hidden" class="current_index" value="<%= index %>" />
                 <input type="hidden" name="sensor[sensor_accesses_attributes][<%= index %>][id]" value="<%= sensor_access.id %>" />
                 <input type="hidden" name="sensor[sensor_accesses_attributes][<%= index %>][user_id]" value="<%= sensor_access.user.id %>" />
-                <div class="col-sm-8"><%= sensor_access.user.email %></div>
-                <div class="col-sm-3 text-right"></div>
+                <div class="col-sm-7"><%= sensor_access.user.email %></div>
+                <div class="col-sm-4 text-right"><select class="access-level-select form-control" name="sensor[sensor_accesses_attributes][<%= index %>][access_level]"><%= options_for_select(SensorAccess.access_levels.collect {|s| [s[0].humanize, s[0]]}, selected: sensor_access.access_level) %></select></div>
                 <div class="col-sm-1 text-right"><button type="button" class="remove-user close"><span>&times;</span></button></div>
               </div>
             </li>

@@ -28,13 +28,15 @@ $(function() {
             });
         },
         select: function (e, selection) {
-            var new_index = parseInt($('.user').last().find('.current_index').val()) + 1;
+            var newIndex = parseInt($('.user').last().find('.current_index').val()) + 1;
+            var accessLevelSelect = $('.access-level-select').first().clone();
+            accessLevelSelect.attr('name', 'sensor[sensor_accesses_attributes][' + newIndex + '][access_level]');
             $('<li class="user">' +
             '<div class="row">' +
-            '<input type="hidden" class="current_index" value="' + new_index + '" />' +
-            '<input type="hidden" name="sensor[sensor_accesses_attributes][' + new_index + '][user_id]" value="' + selection.item.id + '" />' +
-            '<div class="col-sm-8">' + selection.item.label + '</div>' +
-            '<div class="col-sm-3 text-right"></div>' +
+            '<input type="hidden" class="current_index" value="' + newIndex + '" />' +
+            '<input type="hidden" name="sensor[sensor_accesses_attributes][' + newIndex + '][user_id]" value="' + selection.item.id + '" />' +
+            '<div class="col-sm-7">' + selection.item.label + '</div>' +
+            '<div class="col-sm-4 text-right">' + accessLevelSelect.prop('outerHTML') + '</div>' +
             '<div class="col-sm-1 text-right"><button type="button" class="remove-user close"><span>&times;</span></button></div>' +
             '</div>' +
             '</li>').insertBefore('#user-search-list-item');
