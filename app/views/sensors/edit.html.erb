@@ -79,7 +79,7 @@ response = requests.post(
               <p>Once you delete it, there is no going back.</p>
             </div>
             <div class="col-sm-3">
-              <%= link_to @sensor, class: 'btn btn-lg btn-block btn-danger', method: :delete, confirm: t('are_you_sure') do %>
+              <%= link_to @sensor, class: 'btn btn-lg btn-block btn-danger', method: :delete, data: { confirm: t('are_you_sure') } do %>
                 <i class="icon mdi-action-delete"></i> <%= t 'delete' %>
               <%- end %>
             </div>
