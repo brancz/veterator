@@ -34,6 +34,17 @@
     <div class="col-sm-6">
       <div class="row">
         <ul class="list-unstyled" id="user-access-list" style="padding: 0px 18px;">
+          <%- if @sensor.sensor_accesses.empty? %>
+            <li class="user">
+              <div class="row">
+                <input type="hidden" class="current_index" value="0" />
+                <input type="hidden" name="sensor[sensor_accesses_attributes][0][user_id]" value="<%= current_user.id %>" />
+                <div class="col-sm-7"><%= current_user.email %></div>
+                <div class="col-sm-4 text-right"><select class="access-level-select form-control" name="sensor[sensor_accesses_attributes][0][access_level]" disabled><%= options_for_select(SensorAccess.access_levels.collect {|s| [s[0].humanize, s[0]]}, selected: 0) %></select></div>
+                <div class="col-sm-1 text-right"></div>
+              </div>
+            </li>
+          <%- end %>
           <%- @sensor.sensor_accesses.each_with_index do |sensor_access, index| %>
             <li class="user">
               <div class="row">
@@ -41,8 +52,12 @@
                 <input type="hidden" name="sensor[sensor_accesses_attributes][<%= index %>][id]" value="<%= sensor_access.id %>" />
                 <input type="hidden" name="sensor[sensor_accesses_attributes][<%= index %>][user_id]" value="<%= sensor_access.user.id %>" />
                 <div class="col-sm-7"><%= sensor_access.user.email %></div>
-                <div class="col-sm-4 text-right"><select class="access-level-select form-control" name="sensor[sensor_accesses_attributes][<%= index %>][access_level]"><%= options_for_select(SensorAccess.access_levels.collect {|s| [s[0].humanize, s[0]]}, selected: sensor_access.access_level) %></select></div>
-                <div class="col-sm-1 text-right"><button type="button" class="remove-user close"><span>&times;</span></button></div>
+                <div class="col-sm-4 text-right"><select class="access-level-select form-control" name="sensor[sensor_accesses_attributes][<%= index %>][access_level]"<%= sensor_access.user.id == current_user.id ? ' disabled' : '' %>><%= options_for_select(SensorAccess.access_levels.collect {|s| [s[0].humanize, s[0]]}, selected: sensor_access.access_level) %></select></div>
+                <div class="col-sm-1 text-right">
+                  <%- if !(sensor_access.user.id == current_user.id) %>
+                    <button type="button" class="remove-user close"><span>&times;</span></button>
+                  <%- end %>
+                </div>
               </div>
             </li>
           <%- end %>
@@ -60,4 +75,4 @@
       <%= f.submit class: 'btn btn-primary btn-block' %>
     </div>
   </div>
-<% end %>
+<%- end %>
