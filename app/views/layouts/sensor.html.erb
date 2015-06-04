@@ -6,30 +6,27 @@
           <div class="panel-body">
             <ul class="nav nav-pills nav-stacked">
               <li>
-              <%= link_to @sensor do %>
-                <i class="icon mdi-editor-insert-chart"></i> <%= t 'sensor.show' %>
-              <% end %>
+                <%= link_to @sensor do %>
+                  <i class="icon mdi-editor-insert-chart"></i> <%= t 'sensor.show' %>
+                <% end %>
               </li>
               <li>
-              <%= link_to sensor_records_url(@sensor) do %>
-                <i class="icon mdi-editor-border-all"></i> <%= t 'sensor.records' %>
-              <% end %>
+                <%= link_to sensor_records_url(@sensor) do %>
+                  <i class="icon mdi-editor-border-all"></i> <%= t 'sensor.records' %>
+                <% end %>
               </li>
               <li>
-              <%= link_to edit_sensor_url(@sensor) do %>
-                <i class="icon mdi-action-settings"></i> <%= t 'sensor.settings.title' %>
-              <% end %>
+                <%= link_to export_sensor_records_url(@sensor, format: 'csv') do %>
+                  <i class="icon mdi-file-file-download"></i> <%= t 'sensor.export' %>
+                <%- end %>
               </li>
-              <li>
-              <%= link_to export_sensor_records_url(@sensor, format: 'csv') do %>
-                <i class="icon mdi-file-file-download"></i> <%= t 'sensor.export' %>
-              <% end %>
-              </li>
-              <li>
-              <%= link_to @sensor, method: :delete, confirm: t('are_you_sure') do %>
-                <i class="icon mdi-action-delete"></i> <%= t 'delete' %>
-              <% end %>
-              </li>
+                <%- if can? :update, @sensor %>
+                  <li>
+                    <%= link_to edit_sensor_url(@sensor) do %>
+                      <i class="icon mdi-action-settings"></i> <%= t 'sensor.settings.title' %>
+                    <% end %>
+                  </li>
+                <%- end %>
             </ul>
           </div>
         </div>

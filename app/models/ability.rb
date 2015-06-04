@@ -5,18 +5,19 @@ class Ability
     user ||= User.new
 
     can :index, Sensor
-    can :show, Sensor do |s|
-      s && s.users.include?(user)
-    end
     can :new, Sensor
     can :create, Sensor
 
-    is_owner = ->(s) { 
+    can :show, Sensor do |s|
+      s && s.users.include?(user)
+    end
+
+    read_write = ->(s) { 
       access = s.sensor_accesses.where(user: user).first
       s && access && access.read_write?
     }
-    can :edit, Sensor, &is_owner
-    can :update, Sensor, &is_owner
-    can :destroy, Sensor, &is_owner
+    can :edit, Sensor, &read_write
+    can :update, Sensor, &read_write
+    can :destroy, Sensor, &read_write
   end
 end
