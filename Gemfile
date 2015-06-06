@@ -11,6 +11,7 @@ gem 'grape'
 gem 'pg', group: :pg
 gem 'rails_12factor', group: :production
 gem 'puma'
+gem 'rails_admin'
 
 # Frontend ...
 gem 'sass-rails'
