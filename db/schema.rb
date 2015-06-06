@@ -49,12 +49,12 @@ ActiveRecord::Schema.define(version: 20150512160348) do
   add_index "sensors", ["user_id"], name: "index_sensors_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "email",                  default: "",    null: false
+    t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -63,12 +63,13 @@ ActiveRecord::Schema.define(version: 20150512160348) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
-    t.integer  "failed_attempts",        default: 0,  null: false
+    t.integer  "failed_attempts",        default: 0,     null: false
     t.string   "unlock_token"
     t.datetime "locked_at"
     t.string   "authentication_token"
     t.string   "user_locale"
     t.string   "time_zone"
+    t.boolean  "admin",                  default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

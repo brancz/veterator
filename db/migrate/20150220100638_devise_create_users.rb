@@ -37,6 +37,9 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string   :user_locale
       t.string   :time_zone
 
+      ## Is admin
+      t.boolean :admin, default: false, null: false
+
       t.timestamps
     end
 

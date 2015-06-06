@@ -12,6 +12,13 @@ if Rails.env.development?
       password_confirmation: 'testtest',
       confirmed_at: Time.now
   )
+  User.create(
+      email: 'admin@example.com',
+      password: 'testtest',
+      password_confirmation: 'testtest',
+      confirmed_at: Time.now,
+      admin: true
+  )
 
   puts '### Creating Test Sensor ###'
   sensor = user.sensors.create(
