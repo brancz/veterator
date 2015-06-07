@@ -14,6 +14,17 @@ application.
 
 For a production setup refer to [doc/setup.md](./doc/setup.md)
 
+Producers
+---------
+
+This webapp does not do much by itself. It requires producers adding data. Once
+the data is received by this webapp, it is aggregated and can be viewed by
+browsing to it.
+
+You can either look at examples from the
+[/doc/producer-examples](doc/producer-examples) folder or take a look at the
+`Advanced Settings` subsection of any sensor.
+
 Development
 -----------
 
