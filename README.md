@@ -8,9 +8,9 @@ veterator
 Veterator is a latin word for smartypants, since this application will be a
 smartass to you, telling you how much electricity, water, etc. you are using.
 
-Current status is only recording and analysing data directly with this rails
-app, however, the vision is to evolve to a data warehouse like application
-aggregating data in multiple dimensions.
+Current status is only recording, aggregating and visualizing data directly
+with this rails app, however, the vision is to evolve to a time series forecast
+application.
 
 For a production setup refer to [doc/setup.md](./doc/setup.md)
 
