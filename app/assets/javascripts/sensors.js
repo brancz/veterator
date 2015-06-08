@@ -35,9 +35,9 @@ $(function() {
             '<div class="row">' +
             '<input type="hidden" class="current_index" value="' + newIndex + '" />' +
             '<input type="hidden" name="sensor[sensor_accesses_attributes][' + newIndex + '][user_id]" value="' + selection.item.id + '" />' +
-            '<div class="col-sm-7">' + selection.item.label + '</div>' +
+            '<div class="col-sm-6">' + selection.item.label + '</div>' +
             '<div class="col-sm-4 text-right"><select class="access-level-select form-control" name="sensor[sensor_accesses_attributes][' + newIndex + '][access_level]">' + accessLevelSelect.html() + '</select></div>' +
-            '<div class="col-sm-1 text-right"><button type="button" class="remove-user close"><span>&times;</span></button></div>' +
+            '<div class="col-sm-2 text-right"><button type="button" class="remove-user close"><span>&times;</span></button></div>' +
             '</div>' +
             '</li>').insertBefore('#user-search-list-item');
             $('button.remove-user').click(removeUser);
