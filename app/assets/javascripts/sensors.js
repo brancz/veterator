@@ -54,6 +54,8 @@ $(function() {
 });
 
 function Chart(sensor_id, selector, interpolationType, interactive) {
+    var self = this;
+
     this.sensor_id = sensor_id;
     this.selector = selector;
     this.interpolationType = interpolationType;
@@ -77,7 +79,6 @@ function Chart(sensor_id, selector, interpolationType, interactive) {
         .scale(this.yScale)
         .orient("left");
 
-    var self = this;
     this.line = d3.svg.line()
         .x(function(d) { return self.xScale(d.created_at); })
         .y(function(d) { return self.yScale(d.value); });
@@ -97,11 +98,9 @@ function Chart(sensor_id, selector, interpolationType, interactive) {
 
     this.hoverLine.classed('hide', true);
 
-    var self = this;
     d3.select(window).on('resize', function() { self.resize(); }); 
 
     if(this.interactive) {
-        var self = this;
         $(this.selector).mouseleave(function(event) {
             self.handleMouseOutGraph(event);
         });
@@ -173,13 +172,14 @@ Chart.prototype.resize = function() {
         this.graph.select('.x.axis').style("display", "none");
         this.graph.select('.y.axis').style("display", "none");
 
-        this.graph.select(".first")
-            .attr("transform", "translate(" + this.xScale(firstRecord.created_at) + "," + this.yScale(firstRecord.value) + ")")
-            .style("display", "initial");
-
-        this.graph.select(".last")
-            .attr("transform", "translate(" + this.xScale(lastRecord.created_at) + "," + this.yScale(lastRecord.value) + ")")
-            .style("display", "initial");
+        [
+            {selector: ".first", record: firstRecord},
+            {selector: ".last", record: lastRecord}
+        ].forEach(function(e) {
+            this.graph.select(e.selector)
+                .attr("transform", "translate(" + this.xScale(e.record.created_at) + "," + this.yScale(e.record.value) + ")")
+                .style("display", "initial");
+        });
     } else {
         this.graph.select('.x.axis').style("display", "initial");
         this.graph.select('.y.axis').style("display", "initial");
