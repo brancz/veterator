@@ -20,7 +20,7 @@
         <p><span id="value"></span> </p>
       </div>
     </div>
-    <script>createLineChartFor(<%= @sensor.id %>, "#graph", true, "<%= @sensor.chart_type %>");</script>
+    <script>new Chart(<%= @sensor.id %>, "#graph", "<%= @sensor.chart_type %>", true).initialize();</script>
   <% end %>
 </div>
 

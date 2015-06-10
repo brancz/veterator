@@ -53,77 +53,83 @@ $(function() {
     });
 });
 
-function createLineChartFor(sensor_id, selector, interactive, interpolationType) {
-    var margin = 60,
-        width = parseInt(d3.select(selector).style("width")) - margin*2,
-        height = ((parseInt(d3.select(selector).style("width"))/16)*9) - margin*2;
+function Chart(sensor_id, selector, interpolationType, interactive) {
+    this.sensor_id = sensor_id;
+    this.selector = selector;
+    this.interpolationType = interpolationType;
+    this.interactive = interactive;
 
-    var xScale = d3.time.scale()
-        .range([0, width])
+    this.margin = 60;
+    this.width = parseInt(d3.select(selector).style("width")) - this.margin*2,
+    this.height = ((parseInt(d3.select(selector).style("width"))/16)*9) - this.margin*2;
+
+    this.xScale = d3.time.scale()
+        .range([0, this.width])
+        .nice();
+    this.yScale = d3.scale.linear()
+        .range([this.height, 0])
         .nice();
 
-    var yScale = d3.scale.linear()
-        .range([height, 0])
-        .nice();
-
-    var xAxis = d3.svg.axis()
-        .scale(xScale)
+    this.xAxis = d3.svg.axis()
+        .scale(this.xScale)
         .orient("bottom");
-
-    var yAxis = d3.svg.axis()
-        .scale(yScale)
+    this.yAxis = d3.svg.axis()
+        .scale(this.yScale)
         .orient("left");
 
-    var line = d3.svg.line()
-        .x(function(d) { return xScale(d.created_at); })
-        .y(function(d) { return yScale(d.value); });
+    var self = this;
+    this.line = d3.svg.line()
+        .x(function(d) { return self.xScale(d.created_at); })
+        .y(function(d) { return self.yScale(d.value); });
+    this.line.interpolate(this.interpolationType || 'linear');
 
-    line.interpolate(interpolationType || 'linear');
-
-    var graph = d3.select(selector)
-        .attr("width", width + margin*2)
-        .attr("height", height + margin + 20)
+    this.graph = d3.select(this.selector)
+        .attr("width", this.width + this.margin*2)
+        .attr("height", this.height + this.margin + 20)
         .append("g")
-        .attr("transform", "translate(" + margin + "," + 20 + ")");
+        .attr("transform", "translate(" + this.margin + "," + 20 + ")");
+}
 
-    d3.json("/sensors/" + sensor_id + "/records.json" + location.search, function(error, json) {
-        var data = json.records;
-        data.forEach(function(d) {
+Chart.prototype.initialize = function() {
+    var self = this;
+    d3.json("/sensors/" + this.sensor_id + "/records.json" + location.search, function(error, json) {
+        self.data = json.records;
+        self.data.forEach(function(d) {
             d.created_at = Date.parse(d.created_at);
             d.value = +d.value;
         });
 
-        xScale.domain(d3.extent(data, function(d) { return d.created_at; }));
-        yScale.domain(d3.extent(data, function(d) { return d.value; }));
+        self.xScale.domain(d3.extent(self.data, function(d) { return d.created_at; }));
+        self.yScale.domain(d3.extent(self.data, function(d) { return d.value; }));
 
-        graph.append("g")
+        self.graph.append("g")
             .attr("class", "x axis")
-            .attr("transform", "translate(0," + height + ")")
-            .call(xAxis);
+            .attr("transform", "translate(0," + self.height + ")")
+            .call(self.xAxis);
 
-        graph.append("g")
+        self.graph.append("g")
             .attr("class", "y axis")
-            .call(yAxis)
+            .call(self.yAxis)
             .append("text")
             .attr("transform", "rotate(-90)")
             .attr("y", 6)
             .attr("dy", ".71em")
             .style("text-anchor", "end");
 
-        var dataPerPixel = data.length/width;
-        var dataResampled = data.filter(function(d, i) {
+        var dataPerPixel = self.data.length/self.width;
+        var dataResampled = self.data.filter(function(d, i) {
             return i % Math.ceil(dataPerPixel) === 0;
         });
 
-        graph.append("path")
+        self.graph.append("path")
             .datum(dataResampled)
             .attr("class", "line")
-            .attr("d", line);
+            .attr("d", self.line);
 
-        var firstRecord = data[data.length-1], 
-            lastRecord = data[0];
+        var firstRecord = self.data[self.data.length-1], 
+            lastRecord = self.data[0];
 
-        var first = graph.append("g")
+        var first = self.graph.append("g")
             .attr("class", "first")
             .style("display", "none");
 
@@ -135,7 +141,7 @@ function createLineChartFor(sensor_id, selector, interactive, interpolationType)
         first.append("circle")
             .attr("r", 4);
 
-        var last = graph.append("g")
+        var last = self.graph.append("g")
             .attr("class", "last")
             .style("display", "none");
 
@@ -146,53 +152,53 @@ function createLineChartFor(sensor_id, selector, interactive, interpolationType)
         last.append("circle")
             .attr("r", 4);
 
-        var hoverLine = graph
+        var hoverLine = self.graph
             .append('svg:line')
             .attr('class', 'hover-line')
             .attr('x1', 10).attr('x2', 10)
-            .attr('y1', 0).attr('y2', height);
+            .attr('y1', 0).attr('y2', self.height);
 
         hoverLine.classed('hide', true);
 
         function resize() {
-            width = parseInt(d3.select(selector).style("width")) - margin*2;
-            height = ((parseInt(d3.select(selector).style("width"))/16)*9) - margin*2;
+            self.width = parseInt(d3.select(self.selector).style("width")) - self.margin*2;
+            self.height = ((parseInt(d3.select(self.selector).style("width"))/16)*9) - self.margin*2;
 
-            hoverLine.attr('y2', height);
+            hoverLine.attr('y2', self.height);
 
-            xScale.range([0, width]).nice(d3.time.day);
-            yScale.range([height, 0]).nice();
+            self.xScale.range([0, self.width]).nice(d3.time.day);
+            self.yScale.range([self.height, 0]).nice();
 
-            if (width < 300 && height < 80) {
-                graph.select('.x.axis').style("display", "none");
-                graph.select('.y.axis').style("display", "none");
+            if (self.width < 300 && self.height < 80) {
+                self.graph.select('.x.axis').style("display", "none");
+                self.graph.select('.y.axis').style("display", "none");
 
-                graph.select(".first")
-                    .attr("transform", "translate(" + xScale(firstRecord.created_at) + "," + yScale(firstRecord.value) + ")")
+                self.graph.select(".first")
+                    .attr("transform", "translate(" + self.xScale(firstRecord.created_at) + "," + self.yScale(firstRecord.value) + ")")
                     .style("display", "initial");
 
-                graph.select(".last")
-                    .attr("transform", "translate(" + xScale(lastRecord.created_at) + "," + yScale(lastRecord.value) + ")")
+                self.graph.select(".last")
+                    .attr("transform", "translate(" + self.xScale(lastRecord.created_at) + "," + self.yScale(lastRecord.value) + ")")
                     .style("display", "initial");
             } else {
-                graph.select('.x.axis').style("display", "initial");
-                graph.select('.y.axis').style("display", "initial");
-                graph.select(".last")
+                self.graph.select('.x.axis').style("display", "initial");
+                self.graph.select('.y.axis').style("display", "initial");
+                self.graph.select(".last")
                     .style("display", "none");
-                graph.select(".first")
+                self.graph.select(".first")
                     .style("display", "none");
             }
 
-            yAxis.ticks(Math.max(height/50, 2));
-            xAxis.ticks(Math.max(width/50, 2));
+            self.yAxis.ticks(Math.max(self.height/50, 2));
+            self.xAxis.ticks(Math.max(self.width/50, 2));
 
-            graph
-                .attr("width", width + margin*2)
-                .attr("height", height + margin*2);
+            self.graph
+                .attr("width", self.width + self.margin*2)
+                .attr("height", self.height + self.margin*2);
 
-            graph.select('.x.axis')
-            .attr("transform", "translate(0," + height + ")")
-            .call(xAxis)
+            self.graph.select('.x.axis')
+            .attr("transform", "translate(0," + self.height + ")")
+            .call(self.xAxis)
             .selectAll("text")  
                 .style("text-anchor", "end")
                 .attr("dx", "-.8em")
@@ -201,17 +207,17 @@ function createLineChartFor(sensor_id, selector, interactive, interpolationType)
                     return "rotate(-30)";
                 });
 
-            graph.select('.y.axis')
-                .call(yAxis);
+            self.graph.select('.y.axis')
+                .call(self.yAxis);
 
-            var dataPerPixel = data.length/width;
-            var dataResampled = data.filter(function(d, i) {
+            var dataPerPixel = self.data.length/self.width;
+            var dataResampled = self.data.filter(function(d, i) {
                 return i % Math.ceil(dataPerPixel) === 0;
             });
 
-            graph.selectAll('.line')
+            self.graph.selectAll('.line')
                 .datum(dataResampled)
-                .attr("d", line);
+                .attr("d", self.line);
         }
 
         function handleMouseOutGraph() {
@@ -228,20 +234,20 @@ function createLineChartFor(sensor_id, selector, interactive, interpolationType)
         }
 
         function valueForPosition(mouseX) {
-            var xValue = xScale.invert(mouseX);
+            var xValue = self.xScale.invert(mouseX);
             var bisectDate = d3.bisector(function(d) { return d.created_at; }).left;
-            var index = bisectDate(data, xValue);
-            var distanceA = xValue - data[index-1].created_at;
-            var distanceB = data[index].created_at - xValue;
-            return distanceA < distanceB ? data[index-1] : data[index];
+            var index = bisectDate(self.data, xValue);
+            var distanceA = xValue - self.data[index-1].created_at;
+            var distanceB = self.data[index].created_at - xValue;
+            return distanceA < distanceB ? self.data[index-1] : self.data[index];
         }
 
         function handleMouseOverGraph(event) {
-            var mouseX = event.pageX - (margin + $(selector).offset().left);
-            var mouseY = event.pageY - (margin + $(selector).offset().top);
+            var mouseX = event.pageX - (self.margin + $(self.selector).offset().left);
+            var mouseY = event.pageY - (self.margin + $(self.selector).offset().top);
             
             //debug("MouseOver graph [" + containerId + "] => x: " + mouseX + " y: " + mouseY + "  height: " + h + " event.clientY: " + event.clientY + " offsetY: " + event.offsetY + " pageY: " + event.pageY + " hoverLineYOffset: " + hoverLineYOffset)
-            if(mouseX >= 0 && mouseX <= width && mouseY >= 0 && mouseY <= height) {
+            if(mouseX >= 0 && mouseX <= self.width && mouseY >= 0 && mouseY <= self.height) {
                 // show the hover line
                 hoverLine.classed("hide", false);
 
@@ -249,7 +255,7 @@ function createLineChartFor(sensor_id, selector, interactive, interpolationType)
                 var record = valueForPosition(mouseX);
                 if(record) {
                     // set position of hoverLine
-                    hoverLine.attr("x1", xScale(record.created_at)).attr("x2", xScale(record.created_at));
+                    hoverLine.attr("x1", self.xScale(record.created_at)).attr("x2", self.xScale(record.created_at));
 
                     $('#created_at').text(d3.time.format("%Y-%m-%d %H:%M:%S")(new Date(record.created_at)));
                     $('#value').text(record.value);
@@ -265,11 +271,11 @@ function createLineChartFor(sensor_id, selector, interactive, interpolationType)
 
         d3.select(window).on('resize', resize); 
 
-        if(interactive) {
-            $(selector).mouseleave(function(event) {
+        if(self.interactive) {
+            $(self.selector).mouseleave(function(event) {
                 handleMouseOutGraph(event);
             });
-            $(selector).mousemove(function(event) {
+            $(self.selector).mousemove(function(event) {
                 handleMouseOverGraph(event);
             });
         }
