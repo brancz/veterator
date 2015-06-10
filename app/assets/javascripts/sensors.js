@@ -60,7 +60,7 @@ function Chart(sensor_id, selector, interpolationType, interactive) {
     this.interactive = interactive;
 
     this.margin = 60;
-    this.width = parseInt(d3.select(selector).style("width")) - this.margin*2,
+    this.width = parseInt(d3.select(selector).style("width")) - this.margin*2;
     this.height = ((parseInt(d3.select(selector).style("width"))/16)*9) - this.margin*2;
 
     this.xScale = d3.time.scale()
@@ -131,7 +131,7 @@ Chart.prototype.handleMouseOutGraph = function() {
     // user is no longer interacting
     userCurrentlyInteracting = false;
     currentUserPositionX = -1;
-}
+};
 
 Chart.prototype.handleMouseOverGraph = function(event) {
     var mouseX = event.pageX - (this.margin + $(this.selector).offset().left);
@@ -218,7 +218,7 @@ Chart.prototype.resize = function() {
     this.graph.selectAll('.line')
         .datum(dataResampled)
         .attr("d", this.line);
-}
+};
 
 Chart.prototype.initialize = function() {
     var self = this;
@@ -284,4 +284,4 @@ Chart.prototype.initialize = function() {
 
         self.resize();
     });
-}
+};
