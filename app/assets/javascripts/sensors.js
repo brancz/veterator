@@ -88,6 +88,136 @@ function Chart(sensor_id, selector, interpolationType, interactive) {
         .attr("height", this.height + this.margin + 20)
         .append("g")
         .attr("transform", "translate(" + this.margin + "," + 20 + ")");
+
+    this.hoverLine = this.graph
+        .append('svg:line')
+        .attr('class', 'hover-line')
+        .attr('x1', 10).attr('x2', 10)
+        .attr('y1', 0).attr('y2', self.height);
+
+    this.hoverLine.classed('hide', true);
+
+    var self = this;
+    d3.select(window).on('resize', function() { self.resize(); }); 
+
+    if(this.interactive) {
+        var self = this;
+        $(this.selector).mouseleave(function(event) {
+            self.handleMouseOutGraph(event);
+        });
+        $(this.selector).mousemove(function(event) {
+            self.handleMouseOverGraph(event);
+        });
+    }
+}
+
+Chart.prototype.valueForPosition = function(mouseX) {
+    var xValue = this.xScale.invert(mouseX);
+    var bisectDate = d3.bisector(function(d) { return d.created_at; }).left;
+    var index = bisectDate(this.data, xValue);
+    var distanceA = xValue - this.data[index-1].created_at;
+    var distanceB = this.data[index].created_at - xValue;
+    return distanceA < distanceB ? this.data[index-1] : this.data[index];
+};
+
+Chart.prototype.handleMouseOutGraph = function() {
+    // hide the hover-line
+    this.hoverLine.classed("hide", true);
+
+    // reset timestamp and value
+    $('#created_at').text('');
+    $('#value').text('');
+    
+    // user is no longer interacting
+    userCurrentlyInteracting = false;
+    currentUserPositionX = -1;
+}
+
+Chart.prototype.handleMouseOverGraph = function(event) {
+    var mouseX = event.pageX - (this.margin + $(this.selector).offset().left);
+    var mouseY = event.pageY - (this.margin + $(this.selector).offset().top);
+    
+    //debug("MouseOver graph [" + containerId + "] => x: " + mouseX + " y: " + mouseY + "  height: " + h + " event.clientY: " + event.clientY + " offsetY: " + event.offsetY + " pageY: " + event.pageY + " hoverLineYOffset: " + hoverLineYOffset)
+    if(mouseX >= 0 && mouseX <= this.width && mouseY >= 0 && mouseY <= this.height) {
+        // show the hover line
+        this.hoverLine.classed("hide", false);
+
+        // display value of current position
+        var record = this.valueForPosition(mouseX);
+        if(record) {
+            // set position of hoverLine
+            this.hoverLine.attr("x1", this.xScale(record.created_at)).attr("x2", this.xScale(record.created_at));
+
+            $('#created_at').text(d3.time.format("%Y-%m-%d %H:%M:%S")(new Date(record.created_at)));
+            $('#value').text(record.value);
+        }
+        
+        // user is interacting
+        userCurrentlyInteracting = true;
+    } else {
+        // proactively act as if we've left the area since we're out of the bounds we want
+        this.handleMouseOutGraph(event);
+    }
+};
+
+Chart.prototype.resize = function() {
+    this.width = parseInt(d3.select(this.selector).style("width")) - this.margin*2;
+    this.height = ((parseInt(d3.select(this.selector).style("width"))/16)*9) - this.margin*2;
+
+    this.hoverLine.attr('y2', this.height);
+
+    this.xScale.range([0, this.width]).nice(d3.time.day);
+    this.yScale.range([this.height, 0]).nice();
+
+    if (this.width < 300 && this.height < 80) {
+        this.graph.select('.x.axis').style("display", "none");
+        this.graph.select('.y.axis').style("display", "none");
+
+        this.graph.select(".first")
+            .attr("transform", "translate(" + this.xScale(firstRecord.created_at) + "," + this.yScale(firstRecord.value) + ")")
+            .style("display", "initial");
+
+        this.graph.select(".last")
+            .attr("transform", "translate(" + this.xScale(lastRecord.created_at) + "," + this.yScale(lastRecord.value) + ")")
+            .style("display", "initial");
+    } else {
+        this.graph.select('.x.axis').style("display", "initial");
+        this.graph.select('.y.axis').style("display", "initial");
+        this.graph.select(".last")
+            .style("display", "none");
+        this.graph.select(".first")
+            .style("display", "none");
+    }
+
+    this.yAxis.ticks(Math.max(this.height/50, 2));
+    this.xAxis.ticks(Math.max(this.width/50, 2));
+
+    this.graph
+        .attr("width", this.width + this.margin*2)
+        .attr("height", this.height + this.margin*2);
+
+    this.graph.select('.x.axis')
+    .attr("transform", "translate(0," + this.height + ")")
+    .call(this.xAxis)
+    .selectAll("text")  
+        .style("text-anchor", "end")
+        .attr("dx", "-.8em")
+        .attr("dy", ".15em")
+        .attr("transform", function() {
+            return "rotate(-30)";
+        });
+
+    this.graph.select('.y.axis')
+        .call(this.yAxis);
+
+    var dataPerPixel = this.data.length/this.width;
+    var dataResampled = this.data.filter(function(d, i) {
+        return i % Math.ceil(dataPerPixel) === 0;
+    });
+
+    this.graph.selectAll('.line')
+        .datum(dataResampled)
+        .attr("d", this.line);
 }
 
 Chart.prototype.initialize = function() {
@@ -152,134 +282,6 @@ Chart.prototype.initialize = function() {
         last.append("circle")
             .attr("r", 4);
 
-        var hoverLine = self.graph
-            .append('svg:line')
-            .attr('class', 'hover-line')
-            .attr('x1', 10).attr('x2', 10)
-            .attr('y1', 0).attr('y2', self.height);
-
-        hoverLine.classed('hide', true);
-
-        function resize() {
-            self.width = parseInt(d3.select(self.selector).style("width")) - self.margin*2;
-            self.height = ((parseInt(d3.select(self.selector).style("width"))/16)*9) - self.margin*2;
-
-            hoverLine.attr('y2', self.height);
-
-            self.xScale.range([0, self.width]).nice(d3.time.day);
-            self.yScale.range([self.height, 0]).nice();
-
-            if (self.width < 300 && self.height < 80) {
-                self.graph.select('.x.axis').style("display", "none");
-                self.graph.select('.y.axis').style("display", "none");
-
-                self.graph.select(".first")
-                    .attr("transform", "translate(" + self.xScale(firstRecord.created_at) + "," + self.yScale(firstRecord.value) + ")")
-                    .style("display", "initial");
-
-                self.graph.select(".last")
-                    .attr("transform", "translate(" + self.xScale(lastRecord.created_at) + "," + self.yScale(lastRecord.value) + ")")
-                    .style("display", "initial");
-            } else {
-                self.graph.select('.x.axis').style("display", "initial");
-                self.graph.select('.y.axis').style("display", "initial");
-                self.graph.select(".last")
-                    .style("display", "none");
-                self.graph.select(".first")
-                    .style("display", "none");
-            }
-
-            self.yAxis.ticks(Math.max(self.height/50, 2));
-            self.xAxis.ticks(Math.max(self.width/50, 2));
-
-            self.graph
-                .attr("width", self.width + self.margin*2)
-                .attr("height", self.height + self.margin*2);
-
-            self.graph.select('.x.axis')
-            .attr("transform", "translate(0," + self.height + ")")
-            .call(self.xAxis)
-            .selectAll("text")  
-                .style("text-anchor", "end")
-                .attr("dx", "-.8em")
-                .attr("dy", ".15em")
-                .attr("transform", function() {
-                    return "rotate(-30)";
-                });
-
-            self.graph.select('.y.axis')
-                .call(self.yAxis);
-
-            var dataPerPixel = self.data.length/self.width;
-            var dataResampled = self.data.filter(function(d, i) {
-                return i % Math.ceil(dataPerPixel) === 0;
-            });
-
-            self.graph.selectAll('.line')
-                .datum(dataResampled)
-                .attr("d", self.line);
-        }
-
-        function handleMouseOutGraph() {
-            // hide the hover-line
-            hoverLine.classed("hide", true);
-
-            // reset timestamp and value
-            $('#created_at').text('');
-            $('#value').text('');
-            
-            // user is no longer interacting
-            userCurrentlyInteracting = false;
-            currentUserPositionX = -1;
-        }
-
-        function valueForPosition(mouseX) {
-            var xValue = self.xScale.invert(mouseX);
-            var bisectDate = d3.bisector(function(d) { return d.created_at; }).left;
-            var index = bisectDate(self.data, xValue);
-            var distanceA = xValue - self.data[index-1].created_at;
-            var distanceB = self.data[index].created_at - xValue;
-            return distanceA < distanceB ? self.data[index-1] : self.data[index];
-        }
-
-        function handleMouseOverGraph(event) {
-            var mouseX = event.pageX - (self.margin + $(self.selector).offset().left);
-            var mouseY = event.pageY - (self.margin + $(self.selector).offset().top);
-            
-            //debug("MouseOver graph [" + containerId + "] => x: " + mouseX + " y: " + mouseY + "  height: " + h + " event.clientY: " + event.clientY + " offsetY: " + event.offsetY + " pageY: " + event.pageY + " hoverLineYOffset: " + hoverLineYOffset)
-            if(mouseX >= 0 && mouseX <= self.width && mouseY >= 0 && mouseY <= self.height) {
-                // show the hover line
-                hoverLine.classed("hide", false);
-
-                // display value of current position
-                var record = valueForPosition(mouseX);
-                if(record) {
-                    // set position of hoverLine
-                    hoverLine.attr("x1", self.xScale(record.created_at)).attr("x2", self.xScale(record.created_at));
-
-                    $('#created_at').text(d3.time.format("%Y-%m-%d %H:%M:%S")(new Date(record.created_at)));
-                    $('#value').text(record.value);
-                }
-                
-                // user is interacting
-                userCurrentlyInteracting = true;
-            } else {
-                // proactively act as if we've left the area since we're out of the bounds we want
-                handleMouseOutGraph(event);
-            }
-        }
-
-        d3.select(window).on('resize', resize); 
-
-        if(self.interactive) {
-            $(self.selector).mouseleave(function(event) {
-                handleMouseOutGraph(event);
-            });
-            $(self.selector).mousemove(function(event) {
-                handleMouseOverGraph(event);
-            });
-        }
-
-        resize();
+        self.resize();
     });
 }
