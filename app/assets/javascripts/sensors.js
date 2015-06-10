@@ -1,5 +1,5 @@
 $(function() {
-    $('#language-selector').change(function(e) {
+    $('#language-selector').change(function() {
         $('.code-snippet').hide();
         var selection = $(this).val();
         $('.code-snippet-'+selection).show();
@@ -19,7 +19,7 @@ $(function() {
     $('#user-search').autocomplete({
         source: function (request, response) {
             $.getJSON("/users/search.json?term=" + request.term, function (data) {
-                response($.map(data.search, function (value, key) {
+                response($.map(data.search, function (value) {
                     return {
                         label: value.email,
                         id: value.id
@@ -110,8 +110,8 @@ function createLineChartFor(sensor_id, selector, interactive, interpolationType)
             .attr("dy", ".71em")
             .style("text-anchor", "end");
 
-        dataPerPixel = data.length/width;
-        dataResampled = data.filter(function(d, i) {
+        var dataPerPixel = data.length/width;
+        var dataResampled = data.filter(function(d, i) {
             return i % Math.ceil(dataPerPixel) === 0;
         });
 
@@ -197,7 +197,7 @@ function createLineChartFor(sensor_id, selector, interactive, interpolationType)
                 .style("text-anchor", "end")
                 .attr("dx", "-.8em")
                 .attr("dy", ".15em")
-                .attr("transform", function(d) {
+                .attr("transform", function() {
                     return "rotate(-30)";
                 });
 
@@ -214,7 +214,7 @@ function createLineChartFor(sensor_id, selector, interactive, interpolationType)
                 .attr("d", line);
         }
 
-        function handleMouseOutGraph(event) {
+        function handleMouseOutGraph() {
             // hide the hover-line
             hoverLine.classed("hide", true);
 
