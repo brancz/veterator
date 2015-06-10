@@ -12,7 +12,7 @@ $(function() {
         listItem.hide();
         var index = row.find('.current_index').val();
         $('<input type="hidden" name="sensor[sensor_accesses_attributes]['+index+'][_destroy]" value="1" />').insertBefore(col);
-    }
+    };
 
     $('button.remove-user').click(removeUser);
 
@@ -87,7 +87,7 @@ function createLineChartFor(sensor_id, selector, interactive, interpolationType)
         .attr("transform", "translate(" + margin + "," + 20 + ")");
 
     d3.json("/sensors/" + sensor_id + "/records.json" + location.search, function(error, json) {
-        data = json.records;
+        var data = json.records;
         data.forEach(function(d) {
             d.created_at = Date.parse(d.created_at);
             d.value = +d.value;
@@ -112,7 +112,7 @@ function createLineChartFor(sensor_id, selector, interactive, interpolationType)
 
         dataPerPixel = data.length/width;
         dataResampled = data.filter(function(d, i) {
-            return i % Math.ceil(dataPerPixel) == 0;
+            return i % Math.ceil(dataPerPixel) === 0;
         });
 
         graph.append("path")
@@ -188,25 +188,25 @@ function createLineChartFor(sensor_id, selector, interactive, interpolationType)
 
             graph
                 .attr("width", width + margin*2)
-                .attr("height", height + margin*2)
+                .attr("height", height + margin*2);
 
-                graph.select('.x.axis')
-                .attr("transform", "translate(0," + height + ")")
-                .call(xAxis)
-                .selectAll("text")  
-                    .style("text-anchor", "end")
-                    .attr("dx", "-.8em")
-                    .attr("dy", ".15em")
-                    .attr("transform", function(d) {
-                        return "rotate(-30)" 
-                    });
+            graph.select('.x.axis')
+            .attr("transform", "translate(0," + height + ")")
+            .call(xAxis)
+            .selectAll("text")  
+                .style("text-anchor", "end")
+                .attr("dx", "-.8em")
+                .attr("dy", ".15em")
+                .attr("transform", function(d) {
+                    return "rotate(-30)";
+                });
 
             graph.select('.y.axis')
                 .call(yAxis);
 
-            dataPerPixel = data.length/width;
-            dataResampled = data.filter(function(d, i) {
-                return i % Math.ceil(dataPerPixel) == 0;
+            var dataPerPixel = data.length/width;
+            var dataResampled = data.filter(function(d, i) {
+                return i % Math.ceil(dataPerPixel) === 0;
             });
 
             graph.selectAll('.line')
@@ -246,7 +246,7 @@ function createLineChartFor(sensor_id, selector, interactive, interpolationType)
                 hoverLine.classed("hide", false);
 
                 // display value of current position
-                record = valueForPosition(mouseX);
+                var record = valueForPosition(mouseX);
                 if(record) {
                     // set position of hoverLine
                     hoverLine.attr("x1", xScale(record.created_at)).attr("x2", xScale(record.created_at));
