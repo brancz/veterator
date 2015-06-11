@@ -17,7 +17,7 @@
               <svg id="chart-sensor-<%= sensor.id %>" class="small-chart"></svg>
             <% end %>
           <% end %>
-          <script>createLineChartFor(<%= sensor.id %>, "#chart-sensor-<%= sensor.id %>", false, "<%= sensor.chart_type %>");</script>
+          <script>new Chart(<%= sensor.id %>, "#chart-sensor-<%= sensor.id %>", "<%= sensor.chart_type %>", false).initialize();</script>
           <small class="pull-right" style="margin-top: 15px;">
             <%= link_to sensor do %>
               <span><%= t 'sensor.more' %></span>
