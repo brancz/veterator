@@ -70,7 +70,7 @@ Chart.prototype.resize = function() {
     this.width = parseInt(d3.select(this.selector).style("width")) - this.margin*2;
     this.height = ((parseInt(d3.select(this.selector).style("width"))/16)*9) - this.margin*2;
 
-    this.hoverLine.attr('y2', this.height);
+    if (this.interactive) { this.hoverLine.attr('y2', this.height); }
 
     this.xScale.range([0, this.width]).nice(d3.time.day);
     this.yScale.range([this.height, 0]).nice();
@@ -90,10 +90,8 @@ Chart.prototype.resize = function() {
     } else {
         this.graph.select('.x.axis').style("display", "initial");
         this.graph.select('.y.axis').style("display", "initial");
-        this.graph.select(".last")
-            .style("display", "none");
-        this.graph.select(".first")
-            .style("display", "none");
+        this.graph.select(".last").style("display", "none");
+        this.graph.select(".first").style("display", "none");
     }
 
     this.yAxis.ticks(Math.max(this.height/50, 2));
