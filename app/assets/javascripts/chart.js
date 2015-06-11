@@ -9,50 +9,6 @@ function Chart(sensor_id, selector, interpolationType, interactive) {
     this.margin = 60;
     this.width = parseInt(d3.select(selector).style("width")) - this.margin*2;
     this.height = ((parseInt(d3.select(selector).style("width"))/16)*9) - this.margin*2;
-
-    this.xScale = d3.time.scale()
-        .range([0, this.width])
-        .nice();
-    this.yScale = d3.scale.linear()
-        .range([this.height, 0])
-        .nice();
-
-    this.xAxis = d3.svg.axis()
-        .scale(this.xScale)
-        .orient("bottom");
-    this.yAxis = d3.svg.axis()
-        .scale(this.yScale)
-        .orient("left");
-
-    this.line = d3.svg.line()
-        .x(function(d) { return self.xScale(d.created_at); })
-        .y(function(d) { return self.yScale(d.value); });
-    this.line.interpolate(this.interpolationType || 'linear');
-
-    this.graph = d3.select(this.selector)
-        .attr("width", this.width + this.margin*2)
-        .attr("height", this.height + this.margin + 20)
-        .append("g")
-        .attr("transform", "translate(" + this.margin + "," + 20 + ")");
-
-    this.hoverLine = this.graph
-        .append('svg:line')
-        .attr('class', 'hover-line')
-        .attr('x1', 10).attr('x2', 10)
-        .attr('y1', 0).attr('y2', self.height);
-
-    this.hoverLine.classed('hide', true);
-
-    d3.select(window).on('resize', function() { self.resize(); }); 
-
-    if(this.interactive) {
-        $(this.selector).mouseleave(function(event) {
-            self.handleMouseOutGraph(event);
-        });
-        $(this.selector).mousemove(function(event) {
-            self.handleMouseOverGraph(event);
-        });
-    }
 }
 
 Chart.prototype.valueForPosition = function(mouseX) {
@@ -150,15 +106,15 @@ Chart.prototype.resize = function() {
         .attr("height", this.height + this.margin*2);
 
     this.graph.select('.x.axis')
-    .attr("transform", "translate(0," + this.height + ")")
-    .call(this.xAxis)
-    .selectAll("text")  
-        .style("text-anchor", "end")
-        .attr("dx", "-.8em")
-        .attr("dy", ".15em")
-        .attr("transform", function() {
-            return "rotate(-30)";
-        });
+        .attr("transform", "translate(0," + this.height + ")")
+        .call(this.xAxis)
+        .selectAll("text")  
+            .style("text-anchor", "end")
+            .attr("dx", "-.8em")
+            .attr("dy", ".15em")
+            .attr("transform", function() {
+                return "rotate(-30)";
+            });
 
     this.graph.select('.y.axis')
         .call(this.yAxis);
@@ -174,6 +130,60 @@ Chart.prototype.resize = function() {
 };
 
 Chart.prototype.initialize = function() {
+    this.initializeChart();
+    this.initializeChartWithData();
+};
+
+Chart.prototype.initializeChart = function() {
+    this.xScale = d3.time.scale()
+        .range([0, this.width])
+        .nice();
+    this.yScale = d3.scale.linear()
+        .range([this.height, 0])
+        .nice();
+
+    this.xAxis = d3.svg.axis()
+        .scale(this.xScale)
+        .orient("bottom");
+    this.yAxis = d3.svg.axis()
+        .scale(this.yScale)
+        .orient("left");
+
+    this.line = d3.svg.line()
+        .x(function(d) { return self.xScale(d.created_at); })
+        .y(function(d) { return self.yScale(d.value); });
+    this.line.interpolate(this.interpolationType || 'linear');
+
+    this.graph = d3.select(this.selector)
+        .attr("width", this.width + this.margin*2)
+        .attr("height", this.height + this.margin + 20)
+        .append("g")
+        .attr("transform", "translate(" + this.margin + "," + 20 + ")");
+
+    d3.select(window).on('resize', function() { self.resize(); }); 
+
+    if(this.interactive) {
+        this.makeInteractive();
+    }
+};
+
+Chart.prototype.makeInteractive = function() {
+    this.hoverLine = this.graph
+        .append('svg:line')
+        .attr('class', 'hover-line')
+        .attr('x1', 10).attr('x2', 10)
+        .attr('y1', 0).attr('y2', self.height);
+    this.hoverLine.classed('hide', true);
+
+    $(this.selector).mouseleave(function(event) {
+        self.handleMouseOutGraph(event);
+    });
+    $(this.selector).mousemove(function(event) {
+        self.handleMouseOverGraph(event);
+    });
+}
+
+Chart.prototype.initializeChartWithData = function() {
     var self = this;
     d3.json("/sensors/" + this.sensor_id + "/records.json" + location.search, function(error, json) {
         self.data = json.records;
