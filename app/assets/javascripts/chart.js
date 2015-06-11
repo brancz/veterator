@@ -1,6 +1,4 @@
 function Chart(sensor_id, selector, interpolationType, interactive) {
-    var self = this;
-
     this.sensor_id = sensor_id;
     this.selector = selector;
     this.interpolationType = interpolationType;
@@ -53,7 +51,7 @@ Chart.prototype.handleMouseActuallyOverGraph = function(mouseX) {
     
     // user is interacting
     userCurrentlyInteracting = true;
-}
+};
 
 Chart.prototype.handleMouseOverGraph = function(event) {
     var mouseX = event.pageX - (this.margin + $(this.selector).offset().left);
@@ -135,6 +133,8 @@ Chart.prototype.initialize = function() {
 };
 
 Chart.prototype.initializeChart = function() {
+    var self = this;
+
     this.xScale = d3.time.scale()
         .range([0, this.width])
         .nice();
@@ -168,11 +168,13 @@ Chart.prototype.initializeChart = function() {
 };
 
 Chart.prototype.makeInteractive = function() {
+    var self = this;
+
     this.hoverLine = this.graph
         .append('svg:line')
         .attr('class', 'hover-line')
         .attr('x1', 10).attr('x2', 10)
-        .attr('y1', 0).attr('y2', self.height);
+        .attr('y1', 0).attr('y2', this.height);
     this.hoverLine.classed('hide', true);
 
     $(this.selector).mouseleave(function(event) {
@@ -181,7 +183,7 @@ Chart.prototype.makeInteractive = function() {
     $(this.selector).mousemove(function(event) {
         self.handleMouseOverGraph(event);
     });
-}
+};
 
 Chart.prototype.initializeChartWithData = function() {
     var self = this;
