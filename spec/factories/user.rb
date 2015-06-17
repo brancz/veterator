@@ -6,7 +6,7 @@ FactoryGirl.define do
   end
 
   factory :confirmed_user, parent: :user do
-    after(:create) { |u| u.confirm! }
+    after(:create) { |u| u.confirm }
   end
 end
 
