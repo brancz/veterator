@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.2.2'
 
-gem 'rails', '4.2.2'
+gem 'rails'
 gem 'active_model_serializers'
 gem 'devise'
 gem 'cancancan'
