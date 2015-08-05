@@ -1,11 +1,11 @@
 files:
-  image: ubuntu
+  image: postgres:9.4
+  volumes:
+    - /var/lib/postgresql/data/
 db:
   image: postgres:9.4
   volumes_from:
     - files
-  volumes:
-    - /var/lib/postgresql/data/
   ports:
     - "5432"
 web:
@@ -15,6 +15,6 @@ web:
   ports:
     - "5000:5000"
   links:
-    - db
+    - db:db
   env_file: .env
 
