@@ -1,11 +1,7 @@
-files:
+db:
   image: postgres:9.4
   volumes:
     - /var/lib/postgresql/data/
-db:
-  image: postgres:9.4
-  volumes_from:
-    - files
   ports:
     - "5432"
 web:
