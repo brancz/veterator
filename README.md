@@ -32,9 +32,8 @@ Development
 
 ###postgres
 
-Although sqlite is easier and faster to setup, it is recommended to use
-postgres as it is what is used in production. To setup the dev environment with
-postgres follow these instructions.
+It is recommended to use postgres as it is what is used in production. To setup
+the dev environment with postgres follow these instructions.
 
 To get started developing you will need to install docker, docker-compose and
 clone the repo.
@@ -60,26 +59,3 @@ Then the application can be started with
 And tests executed with
 
 	docker-compose run web rake
-
-###sqlite
-
-It is only recommended to use sqlite if you want to take a quick look at the
-project. Generally [postgres](#postgres) is preferred.
-
-To setup the application for development with sqlite follow these steps.
-
-Install the required gems
-
-	bundle install --without pg
-
-Override the `database.yml` with the sqlite config.
-
-	cp config/database.yml.sqlite config/database.yml
-
-Setup
-
-	rake db:setup RAILS_ENV=test
-
-Run tests
-
-	rake
