@@ -8,10 +8,11 @@ gem 'devise'
 gem 'cancancan'
 gem 'rack-cors', require: 'rack/cors'
 gem 'grape'
-gem 'pg', group: :pg
+gem 'pg'
 gem 'rails_12factor', group: :production
 gem 'puma'
 gem 'rails_admin'
+gem 'lograge'
 
 # Frontend ...
 gem 'sass-rails'
@@ -41,13 +42,7 @@ group :development, :test do
   # cleaning the database after test runs
   gem 'database_cleaner'
 
-  # simulate heroku env
-  gem 'foreman'
-
   # let's track line coverage!
   gem 'codeclimate-test-reporter'
-
-  # sqlite ..
-  gem 'sqlite3'
 end
 
